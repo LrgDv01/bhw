@@ -167,7 +167,6 @@ class UsersController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'address' => 'nullable|string|max:255',
             'contact' => 'nullable|string|max:255|unique:users',
-            'user_type' => 'required|in:1,2',
         ]);
         $loggedInUser = Auth::user();
         
@@ -193,44 +192,8 @@ class UsersController extends Controller
         $user->contact = $request->input('contact');
         $user->password = Hash::make($request->input('password'));
         $user->address = $request->input('address');
-        $user->user_type = $request->input('user_type');
+        $user->user_type = 1;
         $user->save();
-        
-        if ($request->has('pdlID') && $request->input('user_type') == 2) {
-            $insertVisitorData = [
-                'userID' => $user->id,
-                'pdlID' => $request->input('pdlID'),
-                'name' => $fullname,
-                'gender' => $request->input('gender'),
-                'email' => $request->input('email'),
-                'contact_number' => $request->input('contact'),
-            ];
-            
-            if($request->position != "Visitor") {
-                UserPositionModel::create([
-                    'userID' => $user->id,
-                    'position' => $request->position,
-                ]);
-            }
-            
-            AuditTrailModel::create([
-                'userID' => $loggedInUser->id,
-                'user_email' => $loggedInUser->email,
-                'action' => 'tag visitor',
-                'description' => 'Visitor tagged with pdlID: ' . $request->input('pdlID') . ' for userID: ' . $user->id,
-                'ip_address' => $request->ip(),
-            ]);
-            
-            VisitorModel::create($insertVisitorData);
-        }
-        if ($request->has('qr')) {
-            $insertVisitorData = [
-                'userID' => $user->id,
-                'code' => $request->input('qr'),
-                'is_deleted' => 0,
-            ];
-            QrModel::create($insertVisitorData);
-        }
         // Optionally, you can redirect the user to a success page
          // Add a flash session message for success
         Session::flash('success', 'Account created successfully');

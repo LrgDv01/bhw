@@ -134,16 +134,6 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-lg-4 mb-3">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Type of account</label>
-                                <select name="user_type" class="form-select rounded rounded-0" id="" required>
-                                    <option value="">Choose</option>
-                                    <option value="1">Personel</option>
-                                    <option value="2">Visitor</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     @csrf
                     @if(Session::has('success'))

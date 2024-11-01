@@ -125,10 +125,24 @@
       @endif
       @if (in_array(2001, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/qr_scanner') }}">
-            <i class="text-white bi bi-files"></i>
-            <span>Reports</span>
+          <a class="nav-link bg-transparent border border-0 text-white collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+            <i class="text-white bi bi-folder"></i><span>Reports</span>
           </a>
+          <ul id="report-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+            @if (in_array(2002, auth()->user()->module_access()) || auth()->user()->isAdmin())
+              <li>
+                <a href="{{ url('/admin/add_data') }}">
+                  <i class="text-white bi bi-plus fs-6"></i>
+                  <span class="text-white">Add Data</span>
+                </a>
+              </li>
+            @endif
+            <li>
+              <a href="{{ url('/admin/reports') }}">
+                <i class="text-white bi bi-files fs-6"></i><span class="text-white">Manage Reports</span> 
+              </a>
+            </li>
+          </ul>
         </li>
       @endif
       @if (in_array(2000, auth()->user()->module_access()) || auth()->user()->isAdmin())

@@ -80,37 +80,29 @@ Route::middleware(['auth'])->group(function () {
             Route::view('/admin/users_management', 'admin.pages.users_management')->name('users_management');
             Route::view('/admin/users_verification', 'admin.pages.users_verification')->name('users_verification');
         });
+        
+        // Reports
+        Route::middleware(['check.module.access:2001'])->group(function () {
+            Route::view('/admin/reports', 'admin.pages.reports')->name('admin.reports');
+        });
+        
+        // Reports
+        Route::middleware(['check.module.access:2002'])->group(function () {
+            Route::view('/admin/add_data', 'admin.pages.add_data')->name('admin.add_data');
+        });
+        
+        
         // Announcement
         Route::middleware(['check.module.access:1005'])->group(function () {
             Route::view('/admin/announcement', 'admin.pages.announcement')->name('announcement');
             Route::view('/admin/add_announcement', 'admin.pages.add_announcement')->name('add_announcement');
         });
-        // Jail Library
-        Route::middleware(['check.module.access:1003'])->group(function () {
-            Route::get('/admin/add_visitor/{id}', [VisitorController::class, 'show_add_visitor_page'])->name('add_visitor');
-            Route::get('/admin/update_pdl/{id}', [PdlController::class, 'showUpdatePdlData'])->name('update_pdl');
-            Route::view('/admin/library', 'admin.pages.library')->name('library');
-            Route::view('/admin/add_pdl', 'admin.pages.library.add_pdl')->name('add_pdl');
-            Route::view('/admin/add_facility', 'admin.pages.library.add_facility')->name('add_facility');
-        });
-        // Visitation Request
-        Route::middleware(['check.module.access:1001'])->group(function () {
-            Route::view('/admin/visitation/physical', 'admin.pages.request.physical')->name('physical_request');
-            Route::view('/admin/visitation/virtual', 'admin.pages.request.virtual')->name('virtual_request');
-        });
+        
         // Audit Trail
         Route::middleware(['check.module.access:1006'])->group(function () {
             Route::view('/admin/audit', 'admin.pages.audit')->name('audit');
         });
-        // Schedule Calendar
-        Route::middleware(['check.module.access:1002'])->group(function () {
-            Route::view('/admin/schedule', 'admin.pages.schedule.calendar')->name('calendar');
-            Route::view('/admin/schedule/onsite', 'admin.pages.schedule.onsite')->name('schedule.onsite');
-            Route::view('/admin/schedule/virtual', 'admin.pages.schedule.virtual')->name('schedule.virtual');
-        });
-        Route::middleware(['check.module.access:1002'])->group(function () {
-            Route::view('/videocall', 'videocall.index')->name('videocall');
-        });
+        
         Route::middleware(['check.module.access:2000'])->group(function () {
             Route::view('/admin/qr_scanner', 'admin.pages.qr_scanner')->name('admin.qr_scanner');
         });
