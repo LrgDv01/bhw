@@ -1,0 +1,30 @@
+.custombg {
+
+}
+.loginpagebg {
+    position: relative;
+    background-image: url(/img/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg {
+    position: relative;
+    background-image: url(/img/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logincardbg {
+    background-color: rgba(255, 255, 255, 0.575);
+    color: dark;
+}
+
+.banner {
+    height: 30vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
