@@ -59,7 +59,7 @@
 
   </header>
   
-  <aside id="sidebar" class="sidebar" style="background-color:#2d8bba">
+  <aside id="sidebar" class="sidebar" style="background-color:#098344">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 

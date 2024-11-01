@@ -75,7 +75,6 @@ $(document).ready(function () {
         },
         dataType: "JSON",
         success: function (response) {
-            console.log(response)
             if(response.physical > 0) {
                 $('.physical_alert').show()
                 $('.physical_alert').text(response.physical)

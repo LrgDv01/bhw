@@ -86,7 +86,7 @@
 
   </header>
   
-  <aside id="sidebar" class="sidebar" style="background-color:#2d8bba">
+  <aside id="sidebar" class="sidebar" style="background-color:#098344">
 
     <ul class="sidebar-nav" id="sidebar-nav">
       @if (in_array(1, auth()->user()->module_access()) || auth()->user()->isAdmin())
@@ -121,6 +121,14 @@
               </a>
             </li> --}}
           </ul>
+        </li>
+      @endif
+      @if (in_array(2001, auth()->user()->module_access()) || auth()->user()->isAdmin())
+        <li class="nav-item">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/qr_scanner') }}">
+            <i class="text-white bi bi-files"></i>
+            <span>Reports</span>
+          </a>
         </li>
       @endif
       @if (in_array(2000, auth()->user()->module_access()) || auth()->user()->isAdmin())

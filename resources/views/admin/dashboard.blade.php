@@ -15,7 +15,7 @@
 
     <section class="section dashboard">
         
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-8 mb-3">
                 <div class="row">
                     <div class="col-lg-8 d-flex align-items-center"><h4>Monthly Data</h4></div>
@@ -173,7 +173,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
 
 </main>

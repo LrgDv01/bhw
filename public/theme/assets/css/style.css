@@ -21,7 +21,7 @@ body {
 }
 * {
   --sb-track-color: #232e33;
-  --sb-thumb-color: #2D8BBA;
+  --sb-thumb-color: #098344;
   --sb-size: 3px;
 
   scrollbar-color: var(--sb-thumb-color) 

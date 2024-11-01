@@ -89,13 +89,13 @@
                     @endif
                     @if ($bookingDetail->link_type == "google")
                       <tr>
-                        <td colspan="2" class="fw-bold text-center text-white" style="background-color: #2D8BBA">
+                        <td colspan="2" class="fw-bold text-center text-white" style="background-color: #098344">
                           <a class="text-white" href="{{ $bookingDetail->meeting_link }}"> Click to join the meeting</a>
                         </td>
                       </tr>
                     @elseif($bookingDetail->link_type == "code")
                       <tr>
-                        <td colspan="2" class="fw-bold text-center text-white" style="background-color: #2D8BBA">
+                        <td colspan="2" class="fw-bold text-center text-white" style="background-color: #098344">
                           <a class="text-white" href="{{ url('/videocall/'.$bookingDetail->meeting_link) }}"> Click to join the meeting</a>
                         </td>
                       </tr>
@@ -105,7 +105,7 @@
             <div class="col-lg-12">
               <table class="table table-sm">
                 <tr>
-                  <td class="fw-bold text-white text-center table" style="background-color: #2D8BBA">Requirement for visitation</td>
+                  <td class="fw-bold text-white text-center table" style="background-color: #098344">Requirement for visitation</td>
                 </tr>
                 <tr>
                   <td>- {{ $bookingDetail->valid_id }}</td>
@@ -118,7 +118,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="fw-bold text-white text-center table" style="background-color: #2D8BBA">Visitor(s):</td>
+                  <td class="fw-bold text-white text-center table" style="background-color: #098344">Visitor(s):</td>
                 </tr>
                 
                 @foreach ($visitors as $visitor)

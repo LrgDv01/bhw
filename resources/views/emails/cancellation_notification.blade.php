@@ -20,7 +20,7 @@
             border-radius: 8px;
         }
         .header {
-            background-color: #2D8BBA;
+            background-color: #098344;
             color: white;
             padding: 10px 0;
             text-align: center;
@@ -30,7 +30,7 @@
             padding: 20px;
         }
         .content h1 {
-            color: #2D8BBA;
+            color: #098344;
         }
         .content p {
             line-height: 1.6;
@@ -46,7 +46,7 @@
             border-radius: 4px;
         }
         .content ul li strong {
-            color: #2D8BBA;
+            color: #098344;
         }
         .footer {
             text-align: center;

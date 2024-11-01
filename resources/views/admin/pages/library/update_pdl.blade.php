@@ -194,7 +194,7 @@
             </div>
             <div class="tab-pane py-3" id="custom-booking" role="tabpanel" aria-labelledby="custom-booking-tab">  
               <div class="card">
-                <div class="card-header text-white" style="background-color:#2D8BBA">
+                <div class="card-header text-white" style="background-color:#098344">
                   Add Custom Booking
                 </div>
                 <div class="card-body p-3">
