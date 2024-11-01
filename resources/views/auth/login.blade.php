@@ -8,13 +8,15 @@
                     <div class="col-lg-6 d-flex align-items-center justify-content-center mb-3">
                         <img src="{{ URL::asset('img/logo.png') }}" alt="" class="img-fluid d-none d-sm-block">
                     </div>
-                    <div class="col-lg-6">
-                        <div class="text-center">
-                            <h3 class="fw-bold">LOGIN</h3>
-                            <p>Sign in to continue</p>
-                        </div>
-                        <form id="loginform" class="was-validated d-flex align-items-center">
-                            <div style="width: 100%">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="w-100">
+                        
+                            <div class="text-center">
+                                <h3 class="fw-bold">LOGIN</h3>
+                                <p>Sign in to continue</p>
+                            </div>
+                            <form id="loginform" class="was-validated">
+                                
                                 <div class="form-group mb-3">
                                     <label class="form-label fw-bold" for="email">EMAIL</label>
                                     <input type="email" name="email" class="form-control py-3" id="email" placeholder="Enter your email address" required>
@@ -42,8 +44,8 @@
                                 <div class="text-center">
                                     <button class="btn btn-primary px-5 py-2 fw-100 rounded rounded-0" type="submit">LOGIN</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>        
