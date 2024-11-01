@@ -12055,3 +12055,8 @@ textarea.form-control-lg {
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
+
+.custombgcard {
+  background-color: rgba(0, 0, 0, 0.288) !important;
+  color: white !important;
+}

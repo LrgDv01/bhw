@@ -50,9 +50,9 @@ Route::get('/home', function () {
 Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
     Route::view('/login', 'auth.login')->name('login');
     Route::view('/codelogin', 'auth.codelogin')->name('codelogin');
-    Route::view('/register', 'auth.register')->name('register');
+    // Route::view('/register', 'auth.register')->name('register');
     Route::post('/loginsubmit', [AuthController::class, 'login']);
-    Route::post('/registersubmit', [AuthController::class, 'register']);
+    // Route::post('/registersubmit', [AuthController::class, 'register']);
     
     
     Route::get('/announcement', [AnnouncementController::class, 'showAnnouncement'])->name('announcement');

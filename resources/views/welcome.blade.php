@@ -30,7 +30,7 @@
             <div class="container section-title" data-aos="fade-up">
                 <h2>About Us</h2>
             </div>
-            <div class="card" style="background-color: rgba(0, 0, 0, 0.288)">
+            <div class="card custombgcard">
                 <div class="card-body" style="color:white">
                     {!! isset($appInfo->about_us) ? $appInfo->about_us : 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere expedita repellat neque amet! Id sit praesentium consequuntur harum, culpa ab tempore nisi alias dolorem hic consequatur a porro excepturi atque.' !!}
                 </div>

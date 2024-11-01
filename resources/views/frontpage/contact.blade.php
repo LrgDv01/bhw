@@ -2,10 +2,10 @@
   <main class="custombg min-vh-100 loginpagebg">
     @include('partials.__nav')
     <div class="container d-flex align-items-center py-3">
-        <div class="card logincardbg" style="width: 100%">
+        <div class="card custombgcard" style="width: 100%">
             <div class="card-body">
                 <div class="text-left">
-                    <h1 class="fw-bold">CONTACT US</h1>
+                    <h1 class="fw-bold text-white">CONTACT US</h1>
                 </div>
                 {{-- <div class="text-center">
                     <h5>{!! isset($appInfo->address) ? $appInfo->address : '' !!}</h5>
