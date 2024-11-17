@@ -5,15 +5,70 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero section min-vh-100">
+        <div class="container d-flex justify-content-end">
+                <div class="bg-dark bg-opacity-50 r-20 py-5" style="width: 70vh">
+                    <!-- <div class="card-body"> -->
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-lg-6 d-flex align-items-center justify-content-center mb-3">
+                                <img src="{{ URL::asset('img/logo.png') }}" alt="" class="img-fluid d-none d-sm-block">
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center">
+                                <div class="w-100">
+                                
+                                    <div class="text-center">
+                                        <h3 class="fw-bold">LOGIN</h3>
+                                        <p>Sign in to continue</p>
+                                    </div>
+                                    <form id="loginform" class="was-validated">
+                                        
+                                        <div class="form-group mb-3">
+                                            <label class="form-label fw-bold" for="email">EMAIL</label>
+                                            <input type="email" name="email" class="form-control py-3" id="email" placeholder="Enter your email address" required>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="form-label fw-bold" for="password">PASSWORD</label>
+                                            <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password address" required>
+                                        </div>
+                                        
+                                        {{-- <div class="row">
+                                            <div class="col-5 text-center"><hr style="width: 100%"></div>
+                                            <div class="col-2 text-center">OR</div>
+                                            <div class="col-5 text-center"><hr style="width: 100%"></div>
+                                        </div> --}}
+                                        {{-- <div class="text-center fw-bold mb-3"><h5>Login using <a href="{{ url('codelogin') }}" style="text-decoration: none">Code</a></h5></div> --}}
+                                        <div class="mb-3 text-center">
+                                            <div class="form-check d-flex justify-content-center">
+                                                <input class="form-check-input me-2" type="checkbox" value="" checked id="terms-and-condition" required />
+                                                <label class="form-check-label fs-6" for="terms-and-condition">
+                                                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @csrf
+                                        <div class="text-center">
+                                            <button class="btn btn-primary px-5 py-2 fw-100 rounded rounded-0" type="submit">LOGIN</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </div>         -->
+                </div>
+        </div>
 
+
+
+        {{-- 
         <div class="container">
             <div class="row gy-4">
+               
                 <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                     <h1>Title</h1>
                     <p>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum aperiam doloremque voluptate
                         sapiente, est commodi aspernatur nam facere alias officiis molestias labore, maiores odio,
                         tempore praesentium cupiditate nobis doloribus velit."</p>
-                    <div class="d-flex">
+                   
+                  <div>
                         <a href="{{ url('/register') }}" class="btn-get-started fw-bold" style="display: none">Request a
                             visit</a>
                         <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
@@ -23,15 +78,17 @@
                 <div class="col-lg-6 order-1 order-lg-2 hero-img d-flex justify-content-center">
                     <img src="{{ asset('img/famy-img.jpg') }}"
                         style="height:500px;border-radius:70% 30% 62% 38% / 37% 60% 40% 63%;box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);"
+                        -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+                        -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);"
                         class="img-fluid animated d-none d-sm-block" alt="">
                 </div>
+              
             </div>
         </div>
+        --}}
 
     </section><!-- /Hero Section -->
-    <section id="gallery" class="gallery section min-vh-100 bg-black bg">
+    {{-- <section id="gallery" class="gallery section min-vh-100 bg-black bg">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="container section-title" data-aos="fade-up">
                 <h2>About Us</h2>
@@ -45,7 +102,7 @@
             </div>
         </div>
     </section>
-    {{-- <section id="services" class="services section bg-dark">
+     <section id="services" class="services section bg-dark">
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
@@ -84,7 +141,7 @@
             </div>
         </div>
 
-    </section> --}}
+    </section>
     @if ($announcement->isNotEmpty())
         <section id="alt-services" class="alt-services section">
             <h2 class="text-center fw-bold">Announcement</h2>
@@ -120,5 +177,5 @@
                 width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </section>
+    </section> --}}
     @include('partials.__footer')

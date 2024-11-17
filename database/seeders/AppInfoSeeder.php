@@ -17,7 +17,7 @@ class AppInfoSeeder extends Seeder
         DB::table('app_info')->insert([
             'id' => 1,
             'logo' => NULL,
-            'app_name' => 'E-Famy',
+            'app_name' => 'Coco-Spot',
             'banner' => NULL,
             'mission_vission' => NULL,
             'guidelines' => '<div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
@@ -30,7 +30,7 @@ class AppInfoSeeder extends Seeder
             'youtube' => NULL,
             'about_us' => NULL,
             'contact' => NULL,
-            'email' => 'support@e-bisita.com',
+            'email' => 'support@coco-spot.com',
             'address' => NULL,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>{{ isset($appInfo->app_name) ? $appInfo->app_name : 'E-BISITA' }}</title>
+        <title>{{ isset($appInfo->app_name) ? $appInfo->app_name : 'COCO SPOT' }}</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
 

@@ -2,7 +2,7 @@
 
     <div class="container">
       <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ isset($appInfo->app_name) ? $appInfo->app_name : 'E-BISITA' }}</strong> <span>All Rights Reserved</span></p>
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ isset($appInfo->app_name) ? $appInfo->app_name : 'COCO SPOT' }}</strong> <span>All Rights Reserved</span></p>
       </div>
       <div class="social-links d-flex justify-content-center">
         <a href="mailto:{{ isset($appInfo->email) ? $appInfo->email : '' }}"><i class="bi bi-envelope"></i></a>

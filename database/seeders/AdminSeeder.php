@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'Admin',
             'contact' => 'contact',
             'address' => 'address',
-            'email' => 'admin@e-bisita.com',
+            'email' => 'admin@coco-spot.com',
             'password' => Hash::make('1234'),
             'user_type' => 0,
         ]);
