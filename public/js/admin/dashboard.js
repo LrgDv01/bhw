@@ -9,6 +9,8 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
+          console.log('>>>', response.count_farmers);
+          $('#count_today_farmers').text(response.count_farmers);
           $('#count_login').text(response.count_login);
           $('#count_today_book').text(response.count_today_book);
           $('#count_virtual_approved_book').text(response.count_virtual_approved_book);
