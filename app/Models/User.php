@@ -107,4 +107,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(FeedbackModel::class, 'user_id');
     }
+
+    public function farms()
+    {
+        return $this->hasMany(Farm::class);
+    }
 }

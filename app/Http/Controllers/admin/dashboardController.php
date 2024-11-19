@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AuditTrailModel;
 use App\Models\BookVisitationModel;
 use App\Models\User;
+use App\Models\Farm\FarmModel;
+use App\Models\admin\PCA;
 use App\Models\user_verification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,8 +70,13 @@ class dashboardController extends Controller
             ->whereYear('start_visit', $currentYear)
             ->count();
 
-        // count farmers
-        $count_farmers = User::where('user_type', '!=', '0')->count();
+        // count total cost
+        // $count_total_cost = PCA::all()->count();
+        $count_total_cost = PCA::sum('total_cost');
+         // count total farmers
+        $count_farmers = User::where('user_type', '=', '1')->count();
+         // count total farms
+        $count_farms = FarmModel::all()->count();
             
         // count verification request 
         $count_verification = user_verification::
@@ -90,7 +97,9 @@ class dashboardController extends Controller
             'count_physical_approved_book' => $count_physical_approved_book,
             'count_physical_rejected_book' => $count_physical_rejected_book,
             'count_physical_pending_book' => $count_physical_pending_book,
+            'count_total_cost' => $count_total_cost,
             'count_farmers' => $count_farmers,
+            'count_farms' => $count_farms,
             'user_verification_counts' => $count_verification
         ];
         return response()->json($ret);

@@ -47,7 +47,7 @@
 
         <p>We look forward to your visit. Please ensure that you bring a valid ID and arrive at least 15 minutes before the scheduled time.</p>
         
-        <p>If you have any questions or need to make changes to your booking, please contact our support team at support@e-bisita.com.</p>
+        <p>If you have any questions or need to make changes to your booking, please contact our support team at support@coco-spot.com.</p>
         
         <p>Best regards,</p>
         <p>The Visitation Team</p>

@@ -31,7 +31,7 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to E-Bisita')
+        return $this->subject('Welcome to Coco-Spot')
                     ->view('emails.welcome');
     }
 }

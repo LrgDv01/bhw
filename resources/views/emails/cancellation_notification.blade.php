@@ -77,7 +77,7 @@
             <p>We apologize for any inconvenience caused.</p>
         </div>
         <div class="footer">
-            <p>&copy; 2024 E-bisita. All rights reserved.</p>
+            <p>&copy; 2024 Coco-Spot. All rights reserved.</p>
         </div>
     </div>
 </body>
