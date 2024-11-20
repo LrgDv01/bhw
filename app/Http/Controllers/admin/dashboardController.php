@@ -8,6 +8,7 @@ use App\Models\BookVisitationModel;
 use App\Models\User;
 use App\Models\Farm\FarmModel;
 use App\Models\admin\PCA;
+use App\Models\admin\DOA;
 use App\Models\user_verification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,6 +78,7 @@ class dashboardController extends Controller
         $count_farmers = User::where('user_type', '=', '1')->count();
          // count total farms
         $count_farms = FarmModel::all()->count();
+        $count_doa = DOA::all()->count();
             
         // count verification request 
         $count_verification = user_verification::
@@ -100,6 +102,7 @@ class dashboardController extends Controller
             'count_total_cost' => $count_total_cost,
             'count_farmers' => $count_farmers,
             'count_farms' => $count_farms,
+            'count_doa' => $count_doa,
             'user_verification_counts' => $count_verification
         ];
         return response()->json($ret);

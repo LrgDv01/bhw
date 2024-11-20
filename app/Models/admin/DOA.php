@@ -9,11 +9,10 @@ class DOA extends Model
 {
     use HasFactory;
 
-    protected $table = 'pca';
+    protected $table = 'doa';
     protected $fillable = [
         'municipality',
-        'District',
-        'total_cost',
+        'district',
     ];
 
 }

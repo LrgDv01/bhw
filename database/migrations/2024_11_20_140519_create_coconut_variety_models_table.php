@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doa', function (Blueprint $table) {
+        Schema::create('coconut_variety_models', function (Blueprint $table) {
             $table->id();
-            $table->string('municipality'); 
-            $table->string('district');
             $table->timestamps();
         });
     }
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doa');
+        Schema::dropIfExists('coconut_variety_models');
     }
 };

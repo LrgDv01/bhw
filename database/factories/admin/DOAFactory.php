@@ -17,7 +17,8 @@ class DOAFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'municipality' => fake()->randomElement(['San Pablo', 'Caluan', 'Liliw', 'Nagcarlan', 'Rizal', 'Victoria']),
+            'district' => fake()->randomElement(['III', 'IV']),
         ];
     }
 }

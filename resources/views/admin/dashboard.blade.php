@@ -23,13 +23,11 @@
                 <div class="col-lg-8">
                     <div class="card info-card cardiconbg cardborderleft-blue">
                         <div class="card-body">
-                            <h5 class="card-title">Approved <span>| This Month</span></h5>
+                            <h5 class="card-title">Check <span>| for</span></h5>
 
                             <div id="checkboxList">
-                                <label><input type="checkbox" value="daily"> Daily</label><br>
-                                <label><input type="checkbox" value="weekly"> Weekly</label><br>
-                                <label><input type="checkbox" value="monthly"> Monthly</label><br>
-                                <label><input type="checkbox" value="yearly"> Yearly</label><br>
+                                <label><input type="checkbox" id="monthlyFilter"> Monthly</label><br>
+                                <label><input type="checkbox" id="yearlyFilter"> Yearly</label><br>
                             </div>
 
                             {{--    
@@ -48,7 +46,7 @@
                 <div class="col-lg-8 mb-3">
                     <div class="card info-card cardiconbg cardborderleft-red">
                         <div class="card-body">
-                            <h5 class="card-title">Disapproved <span>| This Month</span></h5>
+                            <h5 class="card-title">Check <span>| for</span></h5>
                             <div id="checkboxList">
                                 <label><input type="checkbox" value="district_3"> District lll</label><br>
                                 <label><input type="checkbox" value="district_4"> District lV </label><br>
@@ -74,14 +72,14 @@
                 <div class="col-lg-8 mb-3">
                     <div class="card info-card cardiconbg cardborderleft-yellow">
                         <div class="card-body">
-                            <h5 class="card-title">Pending <span>| This Month</span></h5>
+                            <h5 class="card-title">Municipality <span>| This Month</span></h5>
                             <div id="checkboxList">
-                                <label><input type="checkbox" value="san_pablo"> San Pablo</label><br>
-                                <label><input type="checkbox" value="weekly"> Caluan</label><br>
-                                <label><input type="checkbox" value="monthly"> Liliw</label><br>
-                                <label><input type="checkbox" value="yearly"> Nagcarlan</label><br>
-                                <label><input type="checkbox" value="yearly"> Rizal</label><br>
-                                <label><input type="checkbox" value="yearly"> Victoria</label><br>
+                                <label> San Pablo</label><br>
+                                <label> Caluan</label><br>
+                                <label> Liliw</label><br>
+                                <label> Nagcarlan</label><br>
+                                <label> Rizal</label><br>
+                                <label> Victoria</label><br>
                             </div>
                             {{-- 
                             <div class="d-flex align-items-center">
@@ -227,7 +225,7 @@
                                             <i class="bi bi-calendar-check"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6 id="count_today_book">0</h6>
+                                            <h6 id="count_doa">0</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -240,22 +238,27 @@
                 <div class="row">
                     <div class="col-lg-8 mb-3">
                         <div class="row">
-                            <div class="col-lg-8 d-flex align-items-center"><h4>Monthly Data</h4></div>
-                            <div class="col-lg-4 text-end mb-3">
-                                <select id="yearSelect" class="form-select"></select>
+                            <div class="col-lg-8 d-flex align-items-center"><h4>Diseases</h4></div>
+                            <div class="col-lg-4 text-start mb-3">
+                                <!-- Dropdown for selecting a specific year -->
+                                <select id="yearSelect" class="form-select">
+                                    <option value="all" place-holder="">Select Year</option> <!-- Option for all years -->
+                                    <!-- Years will be added dynamically in JS -->
+                                </select>
+
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body p-3">
                                 <div style="width: 100%; margin: auto;">
-                                    <canvas id="monthlyChart"></canvas>
+                                    <canvas id="diseases_chart"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-8 mb-3">
                         <div class="row">
-                            <div class="col-lg-8 d-flex align-items-center"><h4>Monthly Data</h4></div>
+                            <div class="col-lg-8 d-flex align-items-center"><h4>Coconut Variety</h4></div>
                             <div class="col-lg-4 text-end mb-3">
                                 <select id="yearSelect" class="form-select"></select>
                             </div>
@@ -263,7 +266,7 @@
                         <div class="card">
                             <div class="card-body p-3">
                                 <div style="width: 100%; margin: auto;">
-                                    <canvas id="monthlyChart1"></canvas>
+                                    <canvas id="coconut_chart"></canvas>
                                 </div>
                             </div>
                         </div>
