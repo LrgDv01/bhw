@@ -46,7 +46,9 @@
   <script src="{{ URL::asset('js/qrcode.js')}}"></script>
   <script src="{{ URL::asset('js/qrcode.min.js')}}"></script>
   <script src="{{ URL::asset('js/admin/app.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/graph.js')}}"></script>
+  <script src="{{ URL::asset('js/admin/diseasechart.js')}}"></script>
+  <script src="{{ URL::asset('js/admin/cocovarietychart.js')}}"></script>
+
   <script src="{{ URL::asset('js/admin/feedback.js')}}"></script>
   @if(Request::routeIs('videocall'))
     <script src="https://sdk.videosdk.live/js-sdk/0.0.82/videosdk.js"></script>

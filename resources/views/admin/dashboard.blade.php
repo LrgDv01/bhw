@@ -48,8 +48,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Check <span>| for</span></h5>
                             <div id="checkboxList">
-                                <label><input type="checkbox" value="district_3"> District lll</label><br>
-                                <label><input type="checkbox" value="district_4"> District lV </label><br>
+                                <label><input type="checkbox" id="district3Filter"> District lll</label><br>
+                                <label><input type="checkbox" id="district4Filter"> District lV </label><br>
                             
                             </div>
                             
@@ -72,7 +72,7 @@
                 <div class="col-lg-8 mb-3">
                     <div class="card info-card cardiconbg cardborderleft-yellow">
                         <div class="card-body">
-                            <h5 class="card-title">Municipality <span>| This Month</span></h5>
+                            <h5 class="card-title">Municipality <span>| list</span></h5>
                             <div id="checkboxList">
                                 <label> San Pablo</label><br>
                                 <label> Caluan</label><br>
@@ -241,7 +241,7 @@
                             <div class="col-lg-8 d-flex align-items-center"><h4>Diseases</h4></div>
                             <div class="col-lg-4 text-start mb-3">
                                 <!-- Dropdown for selecting a specific year -->
-                                <select id="yearSelect" class="form-select">
+                                <select id="diseaseYearSelect" class="form-select">
                                     <option value="all" place-holder="">Select Year</option> <!-- Option for all years -->
                                     <!-- Years will be added dynamically in JS -->
                                 </select>
@@ -260,7 +260,11 @@
                         <div class="row">
                             <div class="col-lg-8 d-flex align-items-center"><h4>Coconut Variety</h4></div>
                             <div class="col-lg-4 text-end mb-3">
-                                <select id="yearSelect" class="form-select"></select>
+                                <!-- <select id="yearSelect" class="form-select"></select> -->
+                                <select id="cocoYearSelect" class="form-select">
+                                    <option value="all" place-holder="">Select Year</option> <!-- Option for all years -->
+                                    <!-- Years will be added dynamically in JS -->
+                                </select>
                             </div>
                         </div>
                         <div class="card">

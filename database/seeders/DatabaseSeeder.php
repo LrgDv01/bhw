@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Farm\FarmModel;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 

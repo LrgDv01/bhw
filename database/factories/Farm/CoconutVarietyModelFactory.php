@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Factories\Farm;
-
+use App\Models\User;
+use App\Models\Farm\CoconutVarietyModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CoconutVarietyModelFactory extends Factory
 {
+    protected $model = CoconutVarietyModel::class;
     /**
      * Define the model's default state.
      *
@@ -18,6 +20,10 @@ class CoconutVarietyModelFactory extends Factory
     {
         return [
             //
+            'user_id' => User::factory(),
+            'laguna_tall' => fake()->numberBetween(1, 10),
+            'dwarf_coconut' => fake()->numberBetween(1, 10),
+            'hybrid' => fake()->numberBetween(1, 10),
         ];
     }
 }

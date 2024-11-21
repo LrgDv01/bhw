@@ -12,9 +12,9 @@ class CoconutVarietyModel extends Model
 
     public $table = 'coconut_variety';
     protected $fillable = [
-        'user_id',
-        'name',
-        'location',
+        'laguna_tall',
+        'dwarf_coconut',
+        'hybrid',
     ];
 
     public function user()

@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diseases_models', function (Blueprint $table) {
+        Schema::create('diseases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('yellowing');
+            $table->integer('bud_rot');
+            $table->integer('leaf_spot');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diseases_models');
+        Schema::dropIfExists('diseases');
     }
 };

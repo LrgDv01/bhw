@@ -23,6 +23,7 @@ class FarmModelFactory extends Factory
             'user_id' => User::factory(),
             'name' => fake()->company(),
             'location' => fake()->address(),
+
         ];
     }
 }

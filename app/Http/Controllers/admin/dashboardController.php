@@ -80,7 +80,7 @@ class dashboardController extends Controller
         $count_farms = FarmModel::all()->count();
         $count_doa = DOA::all()->count();
             
-        // count verification request 
+        // count verification request  
         $count_verification = user_verification::
             select(
                 DB::raw('COUNT(CASE WHEN userStatus = "0" THEN 1 END) as pending'),

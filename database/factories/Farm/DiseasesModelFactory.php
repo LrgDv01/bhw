@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Factories\Farm;
-
+use App\Models\User;
+use App\Models\Farm\DiseasesModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class DiseasesModelFactory extends Factory
 {
+    protected $model = DiseasesModel::class;
     /**
      * Define the model's default state.
      *
@@ -18,6 +20,10 @@ class DiseasesModelFactory extends Factory
     {
         return [
             //
+            'user_id' => User::factory(),
+            'yellowing' => fake()->numberBetween(1, 10),
+            'bud_rot' => fake()->numberBetween(1, 10),
+            'leaf_spot' => fake()->numberBetween(1, 10),
         ];
     }
 }
