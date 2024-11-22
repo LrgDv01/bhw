@@ -20,11 +20,28 @@ $(document).ready(function() {
 //   }
 
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear + 4; // Change this value to adjust the range
-    const $diseaseYearSelect = $('#diseaseYearSelect');
-    for (let year = currentYear; year >= startYear; year--) {
-        $diseaseYearSelect.prepend(new Option(year, year));
+    // const startYear = currentYear + 4; // Change this value to adjust the range
+    // const $diseaseYearSelect = $('#diseaseYearSelect');
+    // for (let year = currentYear; year >= startYear; year--) {
+    //     $diseaseYearSelect.prepend(new Option(year, year));
+    // }
+
+    const diseaseYearSelect = document.getElementById('diseaseYearSelect');
+    // for (let year = 2020; year <= 2024; year++) {
+    for (let year = 2020; year <= currentYear; year++) {
+
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        diseaseYearSelect.appendChild(option);
     }
+    // Reverse the order of options
+    const options = Array.from(diseaseYearSelect.options).slice(1);
+    diseaseYearSelect.innerHTML = ""; 
+    options.reverse().forEach((option) => diseaseYearSelect.appendChild(option)); // Append in reverse order
+
+
+
     displayGraph(currentYear)
 
 });
@@ -152,70 +169,46 @@ function displayGraph(year = null) {
     
 
         // Sample Data
-        const districtData = [
-            { year: 2020, district: "District 3", yellowing: 12, bud_rot: 3, leaf_spot_disease: 5 },
-            { year: 2020, district: "District 4", yellowing: 8, bud_rot: 5, leaf_spot_disease: 7 },
-            { year: 2021, district: "District 3", yellowing: 10, bud_rot: 4, leaf_spot_disease: 6 },
-            { year: 2021, district: "District 4", yellowing: 15, bud_rot: 7, leaf_spot_disease: 9 },
-            { year: 2022, district: "District 3", yellowing: 18, bud_rot: 6, leaf_spot_disease: 7 },
-            { year: 2022, district: "District 4", yellowing: 20, bud_rot: 8, leaf_spot_disease: 10 },
-        ];
-
-
-        // Function to filter and update data based on districts
-        function filterDistrictData() {
-            // Filter data based on selected checkboxes
-            const filteredData = districtData.filter((item) => {
-                if (district3Checkbox.checked && item.district === "District 3") {
-                    return true;
+        
+        // const districtData = [
+        //     { year: 2020, district: "District 3", yellowing: 12, bud_rot: 3, leaf_spot_disease: 5 },
+        //     { year: 2020, district: "District 4", yellowing: 8, bud_rot: 5, leaf_spot_disease: 7 },
+        //     { year: 2021, district: "District 3", yellowing: 10, bud_rot: 4, leaf_spot_disease: 6 },
+        //     { year: 2021, district: "District 4", yellowing: 15, bud_rot: 7, leaf_spot_disease: 9 },
+        //     { year: 2022, district: "District 3", yellowing: 18, bud_rot: 6, leaf_spot_disease: 7 },
+        //     { year: 2022, district: "District 4", yellowing: 20, bud_rot: 8, leaf_spot_disease: 10 },
+        // ];
+        const generateFullDistrictData = (startYear, endYear) => {
+            // const years = [2020, 2021, 2022];
+            const districts = ["District 3", "District 4"];
+            const fullDistrictData = [];
+        
+            // years.forEach((year) => {
+            for (let year = startYear; year <= endYear; year++) {
+                for (let month = 1; month <= 12; month++) {
+                    districts.forEach((district) => {
+                        fullDistrictData.push({
+                            year: year,
+                            month: month,
+                            district: district,
+                            yellowing: Math.floor(Math.random() * 21), // Random value between 0–20
+                            bud_rot: Math.floor(Math.random() * 11),    // Random value between 0–10
+                            leaf_spot_disease: Math.floor(Math.random() * 16), // Random value between 0–15
+                        });
+                    });
                 }
-                if (district4Checkbox.checked && item.district === "District 4") {
-                    return true;
-                }
-                return false;
-            });
+            }
+            // });
+        
+            return fullDistrictData;
+        };
+        
+        const districtData = generateFullDistrictData(2020, currentYear);
+        console.log("districtData >>>", districtData);
 
-            // Aggregate data by year
-            const years = [...new Set(filteredData.map((item) => item.year))];
-            const yellowingData = years.map((year) =>
-                filteredData
-                    .filter((item) => item.year === year)
-                    .reduce((sum, item) => sum + item.yellowing, 0)
-            );
-            const budRotData = years.map((year) =>
-                filteredData
-                    .filter((item) => item.year === year)
-                    .reduce((sum, item) => sum + item.bud_rot, 0)
-            );
-            const leafSpotData = years.map((year) =>
-                filteredData
-                    .filter((item) => item.year === year)
-                    .reduce((sum, item) => sum + item.leaf_spot_disease, 0)
-            );
-
-            // Update the chart
-            rslt(years, yellowingData, budRotData, leafSpotData);
-            // console.log('change');
-            // return [years, yellowingData, budRotData, leafSpotData];
-            // console.log('>>>', years, yellowingData, budRotData, leafSpotData);
-        }
-
-        // For Districts Filter
-        // Add event listeners to checkboxes
         const district3Checkbox = document.getElementById("district3Filter");
         const district4Checkbox = document.getElementById("district4Filter");
-        district3Checkbox.addEventListener("change", filterDistrictData);
-        district4Checkbox.addEventListener("change", filterDistrictData);
-  
 
-        function rslt(years, yellowingData, budRotData, leafSpotData){
-            console.log('>>>', years, yellowingData, budRotData, leafSpotData);
-        }
-
-     
-
-
- 
 
         // Generate for Monthly and Yearly data
         function generateDiseaseData(startYear, endYear) {
@@ -234,7 +227,8 @@ function displayGraph(year = null) {
             return data;
         }
         
-        const sample_data = generateDiseaseData(2020, 2024);
+        const sample_data = generateDiseaseData(2020, currentYear);
+        console.log("sample_data >>>", sample_data);
         // console.log(sample_data);
 
         function getYearlyData(data) {
@@ -277,88 +271,110 @@ function displayGraph(year = null) {
         // const leafSpotData = selectedData.map((item) => item.leaf_spot_disease);
 
         // Populate the dropdown with years (2010 to 2024)
-        const diseaseYearSelect = document.getElementById('diseaseYearSelect');
-        for (let year = 2020; year <= 2024; year++) {
-            const option = document.createElement("option");
-            option.value = year;
-            option.textContent = year;
-            diseaseYearSelect.appendChild(option);
-        }
-        // Reverse the order of options
-        const options = Array.from(diseaseYearSelect.options).slice(1);
-        diseaseYearSelect.innerHTML = ""; 
-        options.reverse().forEach((option) => diseaseYearSelect.appendChild(option)); // Append in reverse order
+
         
 
         function updateChart(displayYearly, displayMonthly, selectedYear) {
 
-            // Filter data based on the selected options
-            const labels = [];
-            const yellowingData = [];
-            const budRotData = [];
-            const leafSpotData = [];
-             // Filter data based on the selected year
-            const filteredData = selectedYear === "all" 
+            let labels = [];
+            let yellowingData = [];
+            let budRotData = [];
+            let leafSpotData = [];
+            
+
+            const filteredAll = selectedYear === "all" 
             ? sample_data 
             : sample_data.filter(item => item.year === parseInt(selectedYear));
+           
+            let fildis = selectedYear === "all"
+                ? districtData
+                : districtData.filter((item) => item.year === parseInt(selectedYear)); // Use the integer value for comparison
+            
+            const filteredDistrict = fildis.filter((item) => {
+                const isDistrict3Checked = district3Checkbox.checked && item.district === "District 3";
+                const isDistrict4Checked = district4Checkbox.checked && item.district === "District 4";
+            
+                return isDistrict3Checked || isDistrict4Checked;
+            });
+            
 
             if (displayYearly) {
-                const yearlyData = getYearlyData(filteredData);
+                const yearlyData = getYearlyData(filteredAll);
                 yearlyData.forEach((item) => {
                     labels.push(item.year.toString());
                     yellowingData.push(item.yellowing);
                     budRotData.push(item.bud_rot);
                     leafSpotData.push(item.leaf_spot_disease);
                 });
+               if ($("#district3Filter").is(":checked") || $("#district4Filter").is(":checked") ) {
+
+            
+                    const yrs = [...new Set(filteredDistrict.map((item) => item.year))];
+                    labels = [...yrs];
+                    yellowingData = yrs.map((year) =>
+                        filteredDistrict 
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.yellowing, 0)
+                    );
+                    budRotData = yrs.map((year) =>
+                        filteredDistrict
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.bud_rot, 0)
+                    );
+                    leafSpotData = yrs.map((year) =>
+                        filteredDistrict
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.leaf_spot_disease, 0)
+                    );
+
+               }
+               
             }
 
-            // WORKING
-            // if (displayYearly) 
-            // {
-
-            //     const filteredData = districtData.filter((item) => {
-            //         if (district3Checkbox.checked && item.district === "District 3") {
-            //             return true;
-            //         }
-            //         if (district4Checkbox.checked && item.district === "District 4") {
-            //             return true;
-            //         }
-            //         return false;
-            //     });
-    
-                // Aggregate data by year
-                // const years = [...new Set(districtData.map((item) => item.year))];
-                // const yellowingData = years.map((year) =>
-                //     districtData
-                //         .filter((item) => item.year === year)
-                //         .reduce((sum, item) => sum + item.yellowing, 0)
-                // );
-                // const budRotData = years.map((year) =>
-                //     districtData
-                //         .filter((item) => item.year === year)
-                //         .reduce((sum, item) => sum + item.bud_rot, 0)
-                // );
-                // const leafSpotData = years.map((year) =>
-                //     districtData
-                //         .filter((item) => item.year === year)
-                //         .reduce((sum, item) => sum + item.leaf_spot_disease, 0)
-                // );
-                // labels.push(years);
-                // yellowingData.push(yellowingData);
-                // budRotData.push(budRotData);
-                // leafSpotData.push(leafSpotData);
-                // Update the chart
-                // rslt(years, yellowingData, budRotData, leafSpotData);
-
-            // }
-
             if (displayMonthly) {
-                filteredData.slice(0, 12).forEach((item) => {
+                filteredAll.slice(0, 12).forEach((item) => {
                     labels.push(`${item.year}-${String(item.month).padStart(2, "0")}`);
                     yellowingData.push(item.yellowing);
                     budRotData.push(item.bud_rot);
                     leafSpotData.push(item.leaf_spot_disease);
                 });
+
+                if ($("#district3Filter").is(":checked") || $("#district4Filter").is(":checked") ) { 
+                 
+                    const uniqueMonths = [...new Set(filteredDistrict.map((item) => `${item.year}-${String(item.month).padStart(2, "0")}`))].slice(0, 12);
+                    labels = [...uniqueMonths];
+            
+                    yellowingData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.yellowing, 0);
+                    });
+            
+                    budRotData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.bud_rot, 0);
+                    });
+            
+                    leafSpotData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.leaf_spot_disease, 0);
+                    });
+                }
+
+
+                filteredDistrict.forEach((item) => {
+                    if (item.district == "District 3") {
+                        return filteredDistrict;
+                    }
+                });
+                console.log("filteredDistrict >> ", filteredDistrict);
+               
+
             }
 
             if (diseases_chart) {
@@ -416,14 +432,17 @@ function displayGraph(year = null) {
 
 
         // Initial chart render with all data
+    
         updateChart(true, true, 'all');
+
+     
 
         // For Monthly and Yearly Filter
         // Event Listener for Year Selection
         document.getElementById("diseaseYearSelect").addEventListener("change", (event) => {
             const selectedYear = event.target.value; // Get the selected year from dropdown
             if ($("#monthlyFilter").prop("checked", true)) {
-                $("#yearlyFilter").prop("checked", false)
+                $("#yearlyFilter").prop("checked", false);
                 updateChart(false, true, selectedYear);
             }  
         });
@@ -434,7 +453,10 @@ function displayGraph(year = null) {
             if (event.target.checked) {
                $("#yearlyFilter").prop("checked", false);   
                updateChart(false, true, $("#diseaseYearSelect").val());
-            } else {
+            } 
+            else {
+                $("#district3Filter").prop("checked", false);
+                $("#district4Filter").prop("checked", false);
                 updateChart(true, true, 'all'); 
             }
         });
@@ -445,10 +467,53 @@ function displayGraph(year = null) {
                 updateChart(true, false, 'all'); 
             } 
             else {
+                $("#district3Filter").prop("checked", false);
+                $("#district4Filter").prop("checked", false);
                 updateChart(true, true, 'all'); 
             }
         });
 
+        
+        // For Districts Filter
+        // Add event listeners to checkboxes
+        district3Checkbox.addEventListener("change", (event) => {
+            $("#district4Filter").prop("checked", false); 
+            if (event.target.checked && $("#yearlyFilter").is(":checked")) {  
+                updateChart(true, false, 'all'); 
+            }
+            if (event.target.checked &&  $("#monthlyFilter").is(":checked")) {
+                updateChart(false, true, $("#diseaseYearSelect").val()); 
+            }else {
+                if ($("#yearlyFilter").is(":checked")) {
+                    updateChart(true, false, 'all'); 
+                }
+                else if ($("#monthlyFilter").is(":checked")) {
+                    updateChart(false, true, $("#diseaseYearSelect").val()); 
+                }
+              
+            }
+
+        });
+
+        district4Checkbox.addEventListener("change", (event) => {
+            $("#district3Filter").prop("checked", false); 
+            if (event.target.checked && $("#yearlyFilter").is(":checked")) {  
+                updateChart(true, false, 'all'); 
+            }
+            if (event.target.checked &&  $("#monthlyFilter").is(":checked")) {
+                updateChart(false, true, $("#diseaseYearSelect").val()); 
+            }else {
+                if ($("#yearlyFilter").is(":checked")) {
+                    updateChart(true, false, 'all'); 
+                }
+                else if ($("#monthlyFilter").is(":checked")) {
+                    updateChart(false, true, $("#diseaseYearSelect").val()); 
+                }
+              
+            }
+            
+        });
+  
 
 
         // Initialize the chart with all data
