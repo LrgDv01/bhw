@@ -19,19 +19,35 @@ $(document).ready(function() {
     //     displayMonthlyGraph(currentYear)
     //   }
     
-        const currentYear = new Date().getFullYear();
-        const startYear = currentYear + 4; // Change this value to adjust the range
-        const $cocoYearSelect = $('#cocoYearSelect');
-        for (let year = currentYear; year >= startYear; year--) {
-            $cocoYearSelect.prepend(new Option(year, year));
-        }
-        displayCocoGraph(currentYear)
+    const currentYear = new Date().getFullYear();
+
+    // const startYear = currentYear + 4; // Change this value to adjust the range
+    // const $cocoYearSelect = $('#cocoYearSelect');
+    // for (let year = currentYear; year >= startYear; year--) {
+    //     $cocoYearSelect.prepend(new Option(year, year));
+    // }
+
+    const cocoYearSelect = document.getElementById('cocoYearSelect');
+    // for (let year = 2020; year <= 2024; year++) {
+    for (let year = 2020; year <= currentYear; year++) {
+
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        cocoYearSelect.appendChild(option);
+    }
+    // Reverse the order of options
+    const options = Array.from(cocoYearSelect.options).slice(1);
+    cocoYearSelect.innerHTML = ""; 
+    options.reverse().forEach((option) => cocoYearSelect.appendChild(option)); // Append in reverse order
+
+    displayCocoChart(currentYear)
     
 });
 
 let coconut_chart; 
     // let monthlyChart; // Declare a variable to store the chart instance
-function displayCocoGraph(year = null) { 
+function displayCocoChart(year = null) { 
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year ;
     $.ajax({
@@ -108,25 +124,56 @@ function displayCocoGraph(year = null) {
             //     },
             // });
     
-        function generateDiseaseData(startYear, endYear) {
+        
+        const generateFullDistrictData = (startYear, endYear) => {
+            // const years = [2020, 2021, 2022];
+            const districts = ["District 3", "District 4"];
+            const fullDistrictData = [];
+        
+            // years.forEach((year) => {
+            for (let year = startYear; year <= endYear; year++) {
+                for (let month = 1; month <= 12; month++) {
+                    districts.forEach((district) => {
+                        fullDistrictData.push({
+                            year: year,
+                            month: month,
+                            district: district,
+                            laguna_tall: Math.floor(Math.random() * 21), // Random value between 0–20
+                            dwarf_coconut: Math.floor(Math.random() * 11),    // Random value between 0–10
+                            hybrid: Math.floor(Math.random() * 16), // Random value between 0–15
+                        });
+                    });
+                }
+            }
+            // });
+        
+            return fullDistrictData;
+        };
+
+        const districtData = generateFullDistrictData(2020, currentYear);
+        // console.log("districtData >>>", districtData);
+        const district3Checkbox = document.getElementById("district3Filter");
+        const district4Checkbox = document.getElementById("district4Filter");
+              
+        function generateCocoData(startYear, endYear) {
             const data = [];
             for (let year = startYear; year <= endYear; year++) {
                 for (let month = 1; month <= 12; month++) {
                     data.push({
                         year: year,
                         month: month,
-                        yellowing: Math.floor(Math.random() * 50) + 1, // Random value between 1-50
-                        bud_rot: Math.floor(Math.random() * 30) + 1, // Random value between 1-30
-                        leaf_spot_disease: Math.floor(Math.random() * 40) + 1, // Random value between 1-40
+                        laguna_tall: Math.floor(Math.random() * 50) + 1, // Random value between 1-50
+                        dwarf_coconut: Math.floor(Math.random() * 30) + 1, // Random value between 1-30
+                        hybrid: Math.floor(Math.random() * 40) + 1, // Random value between 1-40
                     });
                 }
             }
             return data;
         }
             
-        const sample_data = generateDiseaseData(2020, 2024);
+        const sample_data = generateCocoData(2020, currentYear);
         // console.log(sample_data);
-    
+
         function getYearlyData(data) {
             const yearlyData = [];
             const yearlyTotals = {};
@@ -134,116 +181,139 @@ function displayCocoGraph(year = null) {
             // Sum all monthly values for each year
             data.forEach((item) => {
                 if (!yearlyTotals[item.year]) {
-                    yearlyTotals[item.year] = { yellowing: 0, bud_rot: 0, leaf_spot_disease: 0 };
+                    yearlyTotals[item.year] = { laguna_tall: 0, dwarf_coconut: 0, hybrid: 0 };
                 }
-                yearlyTotals[item.year].yellowing += item.yellowing;
-                yearlyTotals[item.year].bud_rot += item.bud_rot;
-                yearlyTotals[item.year].leaf_spot_disease += item.leaf_spot_disease;
+                yearlyTotals[item.year].laguna_tall += item.laguna_tall;
+                yearlyTotals[item.year].dwarf_coconut += item.dwarf_coconut;
+                yearlyTotals[item.year].hybrid += item.hybrid;
             });
     
             for (const year in yearlyTotals) {
                 yearlyData.push({
                     year: parseInt(year),
-                    yellowing: yearlyTotals[year].yellowing,
-                    bud_rot: yearlyTotals[year].bud_rot,
-                    leaf_spot_disease: yearlyTotals[year].leaf_spot_disease,
+                    laguna_tall: yearlyTotals[year].laguna_tall,
+                    dwarf_coconut: yearlyTotals[year].dwarf_coconut,
+                    hybrid: yearlyTotals[year].hybrid,
                 });
             }
     
             return yearlyData;
-        }
-    
-        // Populate the dropdown with years (2010 to 2024)
-        const cocoYearSelect = document.getElementById('cocoYearSelect');
-        for (let year = 2020; year <= 2024; year++) {
-            const option = document.createElement("option");
-            option.value = year;
-            option.textContent = year;
-            cocoYearSelect.appendChild(option);
-        }
-        // Reverse the order of options
-        const options = Array.from(cocoYearSelect.options).slice(1);
-        cocoYearSelect.innerHTML = ""; 
-        options.reverse().forEach((option) => cocoYearSelect.appendChild(option)); // Append in reverse order
+        } 
+
+        // // Populate the dropdown with years (2010 to 2024)
+        // const cocoYearSelect = document.getElementById('cocoYearSelect');
+        // for (let year = 2020; year <= 2024; year++) {
+        //     const option = document.createElement("option");
+        //     option.value = year;
+        //     option.textContent = year;
+        //     cocoYearSelect.appendChild(option);
+        // }
+
+
+        // // Reverse the order of options
+        // const options = Array.from(cocoYearSelect.options).slice(1);
+        // cocoYearSelect.innerHTML = ""; 
+        // options.reverse().forEach((option) => cocoYearSelect.appendChild(option)); // Append in reverse order
+
     
         function updateChart(displayYearly, displayMonthly, selectedYear) {
-            const labels = [];
-            const lagunaTallData = [];
-            const dwarfCoconutData = [];
-            const hybridData = [];
-            const filteredData = selectedYear === "all" 
+
+            let labels = [];
+            let lagunaTallData = [];
+            let dwarfCoconutData = [];
+            let hybridData = [];
+
+ 
+
+            const filteredAll = selectedYear === "all" 
             ? sample_data 
             : sample_data.filter(item => item.year === parseInt(selectedYear));
+           
+            let fildis = selectedYear === "all"
+                ? districtData
+                : districtData.filter((item) => item.year === parseInt(selectedYear)); // Use the integer value for comparison
+            
+            const filteredDistrict = fildis.filter((item) => {
+                const isDistrict3Checked = district3Checkbox.checked && item.district === "District 3";
+                const isDistrict4Checked = district4Checkbox.checked && item.district === "District 4";
+            
+                return isDistrict3Checked || isDistrict4Checked;
+            });
+
 
             if (displayYearly) {
-                const yearlyData = getYearlyData(filteredData);
+                const yearlyData = getYearlyData(filteredAll);
                 yearlyData.forEach((item) => {
-                    labels.push(item.year.toString());
-                    lagunaTallData.push(item.yellowing);
-                    dwarfCoconutData.push(item.bud_rot);
-                    hybridData.push(item.leaf_spot_disease);
+                    labels.push(item.year.toString()); 
+                    lagunaTallData.push(item.laguna_tall);
+                    dwarfCoconutData.push(item.dwarf_coconut);
+                    hybridData.push(item.hybrid);
                 });
+
+                if ($("#district3Filter").is(":checked") || $("#district4Filter").is(":checked") ) {
+
+                    const yrs = [...new Set(filteredDistrict.map((item) => item.year))];
+                    labels = [...yrs];
+                    lagunaTallData = yrs.map((year) =>
+                        filteredDistrict 
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.laguna_tall, 0)
+                    );
+                    dwarfCoconutData = yrs.map((year) =>
+                        filteredDistrict
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.dwarf_coconut, 0)
+                    );
+                    hybridData = yrs.map((year) =>
+                        filteredDistrict
+                            .filter((item) => item.year === year)
+                            .reduce((sum, item) => sum + item.hybrid, 0)
+                    );
+
+               }
             }
+
             if (displayMonthly) {
-                filteredData.slice(0, 12).forEach((item) => {
+                filteredAll.slice(0, 12).forEach((item) => {
                     labels.push(`${item.year}-${String(item.month).padStart(2, "0")}`);
-                    lagunaTallData.push(item.yellowing);
-                    dwarfCoconutData.push(item.bud_rot);
-                    hybridData.push(item.leaf_spot_disease);
+                    lagunaTallData.push(item.laguna_tall);
+                    dwarfCoconutData.push(item.dwarf_coconut);
+                    hybridData.push(item.hybrid);
                 });
+
+                if ($("#district3Filter").is(":checked") || $("#district4Filter").is(":checked") ) { 
+                 
+                    const uniqueMonths = [...new Set(filteredDistrict.map((item) => `${item.year}-${String(item.month).padStart(2, "0")}`))].slice(0, 12);
+                    labels = [...uniqueMonths];
+            
+                    lagunaTallData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.laguna_tall, 0);
+                    });
+            
+                    dwarfCoconutData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.dwarf_coconut, 0);
+                    });
+            
+                    hybridData = uniqueMonths.map((label) => {
+                        const [year, month] = label.split("-");
+                        return filteredDistrict
+                            .filter((item) => item.year == year && item.month == month)
+                            .reduce((sum, item) => sum + item.hybrid, 0);
+                    });
+                }
+
+
             }
             if (coconut_chart) {
                 coconut_chart.destroy();
             }
             const ctx = $("#coconut_chart")[0].getContext("2d");
-
-            // diseases_chart = new Chart(ctx, {
-            //     type: "bar",
-            //     data: {
-            //         labels: labels, // X-axis labels
-            //         datasets: [
-            //             {
-            //                 label: "Yellowing",
-            //                 data: yellowingData,
-            //                 backgroundColor: "rgba(255, 206, 86, 0.6)",
-            //                 borderColor: "rgba(255, 206, 86, 1)",
-            //                 borderWidth: 1,
-            //             },
-            //             {
-            //                 label: "Bud Rot",
-            //                 data: budRotData,
-            //                 backgroundColor: "rgba(75, 192, 192, 0.6)",
-            //                 borderColor: "rgba(75, 192, 192, 1)",
-            //                 borderWidth: 1,
-            //             },
-            //             {
-            //                 label: "Leaf Spot Disease",
-            //                 data: leafSpotData,
-            //                 backgroundColor: "rgba(153, 102, 255, 0.6)",
-            //                 borderColor: "rgba(153, 102, 255, 1)",
-            //                 borderWidth: 1,
-            //             },
-            //         ],
-            //     },
-            //     options: {
-            //         indexAxis: "y", // Horizontal bar chart
-            //         responsive: true,
-            //         plugins: {
-            //             legend: {
-            //                 position: "top",
-            //             },
-            //             tooltip: {
-            //                 enabled: true,
-            //             },
-            //         },
-            //         scales: {
-            //             x: {
-            //                 beginAtZero: true, // Start x-axis at 0
-            //             },
-            //         },
-            //     },
-            // });
-
             coconut_chart = new Chart(ctx, {
                 type: "line",
                 data: {
@@ -252,35 +322,29 @@ function displayCocoGraph(year = null) {
                         {
                             label: "Laguna Tall",
                             data: lagunaTallData,
-                            // backgroundColor: "rgba(75, 192, 192, 0.2)", // Area under the line
-                            // borderColor: "rgba(75, 192, 192, 1)", // Line color
                             backgroundColor: "rgba(255, 206, 86, 0.6)",
                             borderColor: "rgba(255, 206, 86, 1)",
                             borderWidth: 2,
                             tension: 0.3, // Smoothing of the line
-                            // fill: true, // Fill the area under the line
+                            fill: false, // Fill the area under the line
                         },
                         {
                             label: "Dwarf Coconut",
                             data: dwarfCoconutData,
-                            // backgroundColor: "rgba(255, 99, 132, 0.2)", // Area under the line
-                            // borderColor: "rgba(255, 99, 132, 1)", // Line color
                             backgroundColor: "rgba(75, 192, 192, 0.6)",
                             borderColor: "rgba(75, 192, 192, 1)",
                             borderWidth: 2,
                             tension: 0.3, // Smoothing of the line
-                            // fill: true, // Fill the area under the line
+                            fill: false, // Fill the area under the line
                         },
                         {
                             label: "Hybrid",
                             data: hybridData,
-                            // backgroundColor: "rgba(255, 99, 132, 0.2)", // Area under the line
-                            // borderColor: "rgba(255, 99, 132, 1)", // Line color
                             backgroundColor: "rgba(153, 102, 255, 0.6)",
                             borderColor: "rgba(153, 102, 255, 1)",
                             borderWidth: 2,
                             tension: 0.3, // Smoothing of the line
-                            // fill: true, // Fill the area under the line
+                            fill: false, // Fill the area under the line
                         },
                     ],
                 },
@@ -327,7 +391,10 @@ function displayCocoGraph(year = null) {
             if (event.target.checked) {
                 $("#yearlyFilter").prop("checked", false);   
                 updateChart(false, true, $("#cocoYearSelect").val());
-            } else {
+            } 
+            else {
+                $("#district3Filter").prop("checked", false);
+                $("#district4Filter").prop("checked", false);
                 updateChart(true, true, 'all'); 
             }
         });
@@ -338,9 +405,52 @@ function displayCocoGraph(year = null) {
                 updateChart(true, false, 'all'); 
             } 
             else {
+                $("#district3Filter").prop("checked", false);
+                $("#district4Filter").prop("checked", false);
                 updateChart(true, true, 'all'); 
             }
         });
+
+             // For Districts Filter
+        // Add event listeners to checkboxes
+        district3Checkbox.addEventListener("change", (event) => {
+            $("#district4Filter").prop("checked", false); 
+            if (event.target.checked && $("#yearlyFilter").is(":checked")) {  
+                updateChart(true, false, 'all'); 
+            }
+            if (event.target.checked &&  $("#monthlyFilter").is(":checked")) {
+                updateChart(false, true, $("#cocoYearSelect").val()); 
+            }else {
+                if ($("#yearlyFilter").is(":checked")) {
+                    updateChart(true, false, 'all'); 
+                }
+                else if ($("#monthlyFilter").is(":checked")) {
+                    updateChart(false, true, $("#cocoYearSelect").val()); 
+                }
+              
+            }
+
+        });
+
+        district4Checkbox.addEventListener("change", (event) => {
+            $("#district3Filter").prop("checked", false); 
+            if (event.target.checked && $("#yearlyFilter").is(":checked")) {  
+                updateChart(true, false, 'all'); 
+            }
+            if (event.target.checked &&  $("#monthlyFilter").is(":checked")) {
+                updateChart(false, true, $("#cocoYearSelect").val()); 
+            }else {
+                if ($("#yearlyFilter").is(":checked")) {
+                    updateChart(true, false, 'all'); 
+                }
+                else if ($("#monthlyFilter").is(":checked")) {
+                    updateChart(false, true, $("#cocoYearSelect").val()); 
+                }
+              
+            }
+            
+        });
+  
 
 
     },});

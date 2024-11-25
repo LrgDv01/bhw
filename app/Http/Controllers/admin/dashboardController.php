@@ -23,7 +23,7 @@ class dashboardController extends Controller
         return view('admin.dashboard');
     }
     public function get_dashboard_info()
-    {
+    { 
         // Count Logins 
         $count_login = AuditTrailModel::where("action", "login")->whereDate("created_at", today())
         ->count();

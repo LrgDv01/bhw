@@ -40,14 +40,12 @@ $(document).ready(function() {
     diseaseYearSelect.innerHTML = ""; 
     options.reverse().forEach((option) => diseaseYearSelect.appendChild(option)); // Append in reverse order
 
-
-
-    displayGraph(currentYear)
+    displayDiseaseChart(currentYear)
 
 });
 let diseases_chart; 
 // let monthlyChart; // Declare a variable to store the chart instance
-function displayGraph(year = null) { 
+function displayDiseaseChart(year = null) { 
   const currentYear = new Date().getFullYear();
   let sendYear = year == null ? currentYear : year ;
   $.ajax({
@@ -178,6 +176,7 @@ function displayGraph(year = null) {
         //     { year: 2022, district: "District 3", yellowing: 18, bud_rot: 6, leaf_spot_disease: 7 },
         //     { year: 2022, district: "District 4", yellowing: 20, bud_rot: 8, leaf_spot_disease: 10 },
         // ];
+        
         const generateFullDistrictData = (startYear, endYear) => {
             // const years = [2020, 2021, 2022];
             const districts = ["District 3", "District 4"];
@@ -204,8 +203,7 @@ function displayGraph(year = null) {
         };
         
         const districtData = generateFullDistrictData(2020, currentYear);
-        console.log("districtData >>>", districtData);
-
+        // console.log("districtData >>>", districtData);
         const district3Checkbox = document.getElementById("district3Filter");
         const district4Checkbox = document.getElementById("district4Filter");
 
@@ -257,6 +255,8 @@ function displayGraph(year = null) {
             return yearlyData;
         }
 
+
+
         // const yearlyData = getYearlyData(sample_data);
 
         // Reduce the dataset for display purposes (optional)
@@ -296,7 +296,6 @@ function displayGraph(year = null) {
             
                 return isDistrict3Checked || isDistrict4Checked;
             });
-            
 
             if (displayYearly) {
                 const yearlyData = getYearlyData(filteredAll);
@@ -306,6 +305,7 @@ function displayGraph(year = null) {
                     budRotData.push(item.bud_rot);
                     leafSpotData.push(item.leaf_spot_disease);
                 });
+
                if ($("#district3Filter").is(":checked") || $("#district4Filter").is(":checked") ) {
 
             
@@ -367,12 +367,12 @@ function displayGraph(year = null) {
                 }
 
 
-                filteredDistrict.forEach((item) => {
-                    if (item.district == "District 3") {
-                        return filteredDistrict;
-                    }
-                });
-                console.log("filteredDistrict >> ", filteredDistrict);
+                // filteredDistrict.forEach((item) => {
+                //     if (item.district == "District 3") {
+                //         return filteredDistrict;
+                //     }
+                // });
+                // console.log("filteredDistrict >> ", filteredDistrict);
                
 
             }
@@ -432,10 +432,8 @@ function displayGraph(year = null) {
 
 
         // Initial chart render with all data
-    
         updateChart(true, true, 'all');
 
-     
 
         // For Monthly and Yearly Filter
         // Event Listener for Year Selection

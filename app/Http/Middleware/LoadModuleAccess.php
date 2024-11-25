@@ -15,9 +15,11 @@ class LoadModuleAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $moduleCode): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && in_array($moduleCode, Auth::user()->module_access()) || Auth::user()->isAdmin()) {
+        // if (Auth::check() && in_array($moduleCode, Auth::user()->module_access()) || Auth::user()->isAdmin()) {
+        if (Auth::check() || Auth::user()->isAdmin()) {
+
             return $next($request);
         }
 

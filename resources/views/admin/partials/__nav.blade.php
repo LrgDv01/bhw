@@ -86,13 +86,14 @@
 
   </header>
   
-  <aside id="sidebar" class="sidebar" style="background-color:#098344">
+  <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#134125">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+
+    <ul class="sidebar-nav flex-column" id="sidebar-nav">
       @if (in_array(1, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-            <i class="text-white bi bi-grid"></i>
+            <i class="text-white bi bi-grid-fill"></i>
             <span>Dashboard</span>
           </a>
         </li>
@@ -104,7 +105,30 @@
         </a>
       </li>
       @endif
-      @if (in_array(1000, auth()->user()->module_access()) || auth()->user()->isAdmin())
+
+      @if (auth()->user()->isAdmin())
+        <li class="nav-item">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_locations') }}">
+            <i class="text-white bi bi-map-fill"></i>
+            <span>Map</span>
+          </a>
+        </li>
+      @endif
+
+      @if (auth()->user()->isAdmin())
+        <li class="nav-item">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_simulation') }}">
+            <!-- <i class="text-white bi-geo-fill"></i>  -->
+            <i class="text-white bi-geo-fill"></i> 
+
+            <span>Simulation</span>
+          </a>
+        </li>
+      @endif
+
+{{-- 
+  
+        @if (in_array(1000, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white collapsed" data-bs-target="#visitation-nav" data-bs-toggle="collapse" href="#">
             <i class="text-white bi bi-people"></i><span>User Management</span>
@@ -115,11 +139,11 @@
                 <i class="text-white bi bi-circle"></i><span class="text-white">Management</span> 
               </a>
             </li>
-            {{-- <li>
+             <li>
               <a href="{{ url('/admin/users_verification') }}">
                 <i class="text-white bi bi-circle"></i><span class="text-white">Verification</span> <span class="ms-2 badge bg-warning user_verification_request" style="display: none">0</span>
               </a>
-            </li> --}}
+            </li> 
           </ul>
         </li>
       @endif
@@ -154,7 +178,7 @@
         </li>
       @endif
       @if (in_array(1001, auth()->user()->module_access()) || auth()->user()->isAdmin())
-        {{-- <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white collapsed" data-bs-target="#visitation-nav" data-bs-toggle="collapse" href="#">
             <i class="text-white bi bi-file-earmark"></i><span>Visitation Request</span><i class="text-white bi bi-chevron-down ms-auto"></i>
           </a>
@@ -170,10 +194,10 @@
               </a>
             </li>
           </ul>
-        </li> --}}
+        </li> 
       @endif
       @if (in_array(1002, auth()->user()->module_access()) || auth()->user()->isAdmin())
-        {{-- <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white collapsed" data-bs-target="#schedule-nav" data-bs-toggle="collapse" href="#">
             <i class="text-white bi bi-calendar"></i><span>Schedule</span><i class="text-white bi bi-chevron-down ms-auto"></i>
           </a>
@@ -194,15 +218,15 @@
               </a>
             </li>
           </ul>
-        </li> --}}
+        </li> 
       @endif
       @if (in_array(1003, auth()->user()->module_access()) || auth()->user()->isAdmin())
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/library') }}">
             <i class="text-white bi bi-journal-bookmark-fill"></i>
             <span>Jail Library</span>
           </a>
-        </li> --}}
+        </li> 
       @endif
       @if (in_array(1005, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">
@@ -214,12 +238,12 @@
       @endif
       <li class="nav-heading text-white fw-bold">Others</li>
       @if (in_array(1008, auth()->user()->module_access()) || auth()->user()->isAdmin())
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/feedback') }}">
             <i class="text-white bi bi-card-list"></i>
             <span>Feedback</span>
           </a>
-        </li> --}}
+        </li> 
       @endif
       @if (in_array(1006, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">
@@ -237,13 +261,18 @@
           </a>
         </li>
       @endif
+      --}}
+   
+
+ 
       {{-- <li class="nav-item">
         <a class="nav-link bg-transparent border border-0 text-white collapsed" href="{{ url('/admin/help') }}">
           <i class="text-white bi bi-info-circle"></i>
           <span>Help & Support</span>
         </a>
       </li> --}}
-      <li class="nav-item">
+      {{-- 
+        <li class="nav-item ">
         <form action="{{ route('logout') }}" id="logoutform" method="POST">
           @csrf
         </form>
@@ -252,7 +281,19 @@
           <span>Logout</span>
         </button>
       </li>
+         --}}
+    
     </ul>
+
+    <div class="sidebar-nav">
+        <form action="{{ route('logout') }}" id="logoutform" method="POST">
+          @csrf
+        </form>
+        <button form="logoutform" type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
+          <i class="text-white bi bi-arrow-bar-left"></i>
+          <span>Logout</span>
+        </button>
+      </div>
   </aside>
   <div
     class="modal fade"

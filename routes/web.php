@@ -17,6 +17,7 @@ use App\Http\Controllers\ShareController;
 use App\Http\Controllers\user\BookingController;
 use App\Http\Controllers\admin\AdminBookingController;
 use App\Http\Controllers\admin\dashboardController;
+use App\Http\Controllers\admin\MapController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ModuleAccessController;
 use App\Http\Controllers\NotificationController;
@@ -50,9 +51,9 @@ Route::get('/home', function () {
 Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
     Route::view('/login', 'auth.login')->name('login');
     Route::view('/codelogin', 'auth.codelogin')->name('codelogin');
-    // Route::view('/register', 'auth.register')->name('register');
+    Route::view('/register', 'auth.register')->name('register');
     Route::post('/loginsubmit', [AuthController::class, 'login']);
-    // Route::post('/registersubmit', [AuthController::class, 'register']);
+    Route::post('/registersubmit', [AuthController::class, 'register']);
     
     
     Route::get('/announcement', [AnnouncementController::class, 'showAnnouncement'])->name('announcement');
@@ -70,9 +71,13 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         // View Route
         Route::get('/admin', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
+
+        Route::view('/admin/map_locations', 'admin.pages.map_locations')->name('admin.map_locations');
+        Route::view('/admin/map_simulation', 'admin.pages.map_simulation')->name('admin.map_simulation');
+
         // Settings
-        Route::middleware(['check.module.access:1007'])->group(function () {
-            Route::view('/admin/settings', 'admin.pages.settings')->name('settings');
+        Route::middleware(['check.module.access'])->group(function () {
+            Route::view('/admin/settings', 'admin.pages.settings')->name('settings'); 
         });
         // User Management
         Route::middleware(['check.module.access:1000'])->group(function () {
