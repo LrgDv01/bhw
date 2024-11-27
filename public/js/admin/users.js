@@ -12,7 +12,6 @@ function farmers() {
             "X-CSRF-TOKEN": csrfToken, // Add CSRF token to the request headers
         },
         success: function (response) {
-            // console.log('>>>', response);
 
             $("#users_table").DataTable().destroy();
             var table = $("#users_table").DataTable({

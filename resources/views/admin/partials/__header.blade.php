@@ -25,6 +25,8 @@
   <link href="{{ URL::asset('theme/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{ URL::asset('theme/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{ URL::asset('css/lightbox.css')}}" rel="stylesheet">
+  <link href="{{ URL::asset('css/style.css')}}" rel="stylesheet">
+
 
   <!-- Template Main CSS File -->
   <link href="{{ URL::asset('theme/assets/css/style.css')}}" rel="stylesheet">
@@ -41,14 +43,15 @@
   {{-- Chart js --}}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  
-     <!-- Map Styles
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+ 
+@if(Request::routeIs('admin.map') || Request::routeIs('admin.map_simulation'))
+  <!-- Map Styles -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
     crossorigin="anonymous">  -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css" 
     rel="stylesheet">
-
+@endif
 
   <!-- =======================================================
   * Template Name: NiceAdmin

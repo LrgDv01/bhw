@@ -71,9 +71,13 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         // View Route
         Route::get('/admin', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
-
-        Route::view('/admin/map_locations', 'admin.pages.map_locations')->name('admin.map_locations');
-        Route::view('/admin/map_simulation', 'admin.pages.map_simulation')->name('admin.map_simulation');
+        // Route::get('/admin/map', [MapController::class, 'view_map'])->name('admin.map'); 
+        Route::view('/admin/map', 'admin.pages.map_locations')->name('admin.map'); 
+        Route::view('/admin/map_simulation', 'admin.pages.map_simulation')->name('admin.map_simulation'); 
+        Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
+        // Route::get('/admin/get_map_simulation', [MapController::class, 'get_map_simulation'])->name('admin.map_simulation');
+      
+    
 
         // Settings
         Route::middleware(['check.module.access'])->group(function () {

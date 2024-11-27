@@ -31,12 +31,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+  @if(Request::routeIs('admin.map') || Request::routeIs('admin.map_simulation'))
   <!-- Map Scripts -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
-    crossorigin="anonymous"></script> -->
+    crossorigin="anonymous"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js"></script>
-
+  @endif
 
 
   <!-- Template Main JS File -->
@@ -57,7 +58,7 @@
   <script src="{{ URL::asset('js/admin/app.js')}}"></script>
   <script src="{{ URL::asset('js/admin/diseasechart.js')}}"></script>
   <script src="{{ URL::asset('js/admin/cocovarietychart.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/mapsimulation.js')}}"></script> 
+  <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
 
   <script src="{{ URL::asset('js/admin/feedback.js')}}"></script>
   @if(Request::routeIs('videocall'))

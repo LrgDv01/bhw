@@ -16,7 +16,7 @@
     <section class="section user_management">
 
         <div class="container" >
-            <div id="map" style="width: 100%; height: 700px;"></div>
+            <div id="map_simulation" style="width: 100%; height: 700px;"></div>
         </div>
 
 

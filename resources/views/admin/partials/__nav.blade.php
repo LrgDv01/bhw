@@ -108,7 +108,7 @@
 
       @if (auth()->user()->isAdmin())
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_locations') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map') }}">
             <i class="text-white bi bi-map-fill"></i>
             <span>Map</span>
           </a>
@@ -126,7 +126,7 @@
         </li>
       @endif
 
-{{-- 
+  {{-- 
   
         @if (in_array(1000, auth()->user()->module_access()) || auth()->user()->isAdmin())
         <li class="nav-item">

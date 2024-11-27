@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
       $this->call([
             AdminSeeder::class,
             UserSeeder::class,
+            MapModelSeeder::class,
             FarmSeeder::class,
             AppInfoSeeder::class,
             module_access::class,

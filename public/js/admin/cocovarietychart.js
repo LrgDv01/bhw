@@ -28,20 +28,20 @@ $(document).ready(function() {
     // }
 
     const cocoYearSelect = document.getElementById('cocoYearSelect');
-    // for (let year = 2020; year <= 2024; year++) {
-    for (let year = 2020; year <= currentYear; year++) {
+    if (cocoYearSelect) {
+        for (let year = 2020; year <= currentYear; year++) {
 
-        const option = document.createElement("option");
-        option.value = year;
-        option.textContent = year;
-        cocoYearSelect.appendChild(option);
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            cocoYearSelect.appendChild(option);
+        }
+        // Reverse the order of options
+        const options = Array.from(cocoYearSelect.options).slice(1);
+        cocoYearSelect.innerHTML = ""; 
+        options.reverse().forEach((option) => cocoYearSelect.appendChild(option)); // Append in reverse order
+        displayCocoChart(currentYear)
     }
-    // Reverse the order of options
-    const options = Array.from(cocoYearSelect.options).slice(1);
-    cocoYearSelect.innerHTML = ""; 
-    options.reverse().forEach((option) => cocoYearSelect.appendChild(option)); // Append in reverse order
-
-    displayCocoChart(currentYear)
     
 });
 
@@ -151,7 +151,6 @@ function displayCocoChart(year = null) {
         };
 
         const districtData = generateFullDistrictData(2020, currentYear);
-        // console.log("districtData >>>", districtData);
         const district3Checkbox = document.getElementById("district3Filter");
         const district4Checkbox = document.getElementById("district4Filter");
               
