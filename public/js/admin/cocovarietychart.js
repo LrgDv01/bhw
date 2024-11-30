@@ -51,7 +51,7 @@ function displayCocoChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year ;
     $.ajax({
-        url: "/admin/dashboard/get_monthly_counts",
+        // url: "/admin/dashboard/get_monthly_counts",
         method: "GET",
         data: { year: sendYear },
         success: function (data) {
@@ -221,8 +221,6 @@ function displayCocoChart(year = null) {
             let lagunaTallData = [];
             let dwarfCoconutData = [];
             let hybridData = [];
-
- 
 
             const filteredAll = selectedYear === "all" 
             ? sample_data 

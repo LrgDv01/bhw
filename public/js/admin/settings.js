@@ -33,30 +33,30 @@ $(document).on('submit', '.settingsform', function (e) {
     // Show loading indicator
     showLoading();
     
-    $.ajax({
-        type: "POST",
-        url: "/admin/update_app_info",
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (response) {  
-            hideLoading();
-            global_showalert(response.message, 'Update Success', 'green');
-        },
-        error: function (xhr) {
-            hideLoading();
-            let response = JSON.parse(xhr.responseText);
-            let errorMessage = 'An error occurred';
-            if (response.errors) {
-                errorMessage = '';
-                for (let errorKey in response.errors) {
-                    errorMessage += response.errors[errorKey][0] + '\n';
-                }
-            }
-            global_showalert(errorMessage, 'Alert!', 'red');
-        }
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/admin/update_app_info",
+    //     data: formData,
+    //     processData: false,
+    //     contentType: false,
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     success: function (response) {  
+    //         hideLoading();
+    //         global_showalert(response.message, 'Update Success', 'green');
+    //     },
+    //     error: function (xhr) {
+    //         hideLoading();
+    //         let response = JSON.parse(xhr.responseText);
+    //         let errorMessage = 'An error occurred';
+    //         if (response.errors) {
+    //             errorMessage = '';
+    //             for (let errorKey in response.errors) {
+    //                 errorMessage += response.errors[errorKey][0] + '\n';
+    //             }
+    //         }
+    //         global_showalert(errorMessage, 'Alert!', 'red');
+    //     }
+    // });
 });

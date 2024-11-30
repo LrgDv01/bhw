@@ -4,12 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
-use App\Models\admin\QrModel;
-use App\Models\admin\VisitorModel;
 use App\Models\AuditTrailModel;
 use App\Models\User;
 use App\Models\user_verification;
-use App\Models\UserPositionModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,14 +25,17 @@ class UsersController extends Controller
     public function updateProfile(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'gender' => 'required|string',
+            'user_name' => 'required|string|max:255',
+            'full_name' => 'nullable|string|max:255',
+            // 'first_name' => 'required|string|max:255',
+            // 'last_name' => 'required|string|max:255',
+            // 'gender' => 'required|string',
             'contact' => 'required|string|max:15',
-            'address' => 'required|string|max:255',
+            // 'address' => 'required|string|max:255',
             'password' => 'nullable|min:8|confirmed',
+            'user_type' => 'required|integer|in:1,2',
             'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'validID' => 'required|string',
+            // 'validID' => 'required|string',
             'verification_docs' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
         $loggedInUser = Auth::user();
@@ -53,12 +53,14 @@ class UsersController extends Controller
         }
         $user = Auth::user();
         $user->email = $request->email;
-        $user->first_name = $request->first_name;
-        $user->middle_name = $request->middle_name;
-        $user->last_name = $request->last_name;
-        $user->gender = $request->gender;
+        $user->user_name = $request->user_name;
+        $user->full_name = $request->full_name;
         $user->contact = $request->contact;
-        $user->address = $request->address;
+        // $user->first_name = $request->first_name;
+        // $user->middle_name = $request->middle_name;
+        // $user->last_name = $request->last_name;
+        // $user->gender = $request->gender;
+        // $user->address = $request->address;
         $user->first_open = 1;
     
         if ($request->hasFile('profile_img')) {
@@ -66,25 +68,25 @@ class UsersController extends Controller
             $user->profile_img = $profilePath;
         }
         
-        $filePath = null;
-        if ($request->hasFile('verification_docs')) {
-            $filePath = $request->file('verification_docs')->store('verification_docs', 'public');
-            $user->valid_id = $filePath;
-        }
+        // $filePath = null;
+        // if ($request->hasFile('verification_docs')) {
+        //     $filePath = $request->file('verification_docs')->store('verification_docs', 'public');
+        //     $user->valid_id = $filePath;
+        // }
         
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
         
-        $build_verification_data = [
-            'userID' => $user->id,
-            'id_type' => $request->validID,
-            'id_file_url' => $filePath,
-            'userStatus' => 0
-        ];
+        // $build_verification_data = [
+        //     'userID' => $user->id,
+        //     'id_type' => $request->validID,
+        //     'id_file_url' => $filePath,
+        //     'userStatus' => 0
+        // ];
         
-        user_verification::insert($build_verification_data);
+        // user_verification::insert($build_verification_data);
         
         // Log the successful update
         AuditTrailModel::create([
@@ -96,26 +98,28 @@ class UsersController extends Controller
         ]);
         return response()->json(['message' => 'Profile updated successfully.'], 200);
     }
-    public function get_users(Request $request) {
-        $type = $request->type == "personel"? 1 : 2;
-        $get_users = User::where('user_type', '!=', '0')
-        ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
-        ->leftJoin('unique_qr', 'unique_qr.userID', '=', 'users.id')
-        ->leftJoin('user_verification', 'user_verification.userID', '=', 'users.id')
-        ->select(   
-            'users.*', 
-            DB::raw('MD5(users.id) as encrypt_id'),
-            DB::raw('CASE WHEN blocked_account.userID IS NULL THEN "Active" ELSE "blocked" END as status'), 
-            'unique_qr.code as code', 
-            'user_verification.userStatus', 
-            'user_verification.id_type',
-            'user_verification.id_file_url',
-            DB::raw('COALESCE(user_verification.userStatus, "3") as userStatus')
-        )
-        ->where('user_type', $type)
-        ->get();
-        return response()->json($get_users);
-    }
+
+    // public function get_users(Request $request) {
+    //     $type = $request->type == "personel"? 1 : 2;
+    //     $get_users = User::where('user_type', '!=', '0')
+    //     ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
+    //     ->leftJoin('unique_qr', 'unique_qr.userID', '=', 'users.id')
+    //     ->leftJoin('user_verification', 'user_verification.userID', '=', 'users.id')
+    //     ->select(   
+    //         'users.*', 
+    //         DB::raw('MD5(users.id) as encrypt_id'),
+    //         DB::raw('CASE WHEN blocked_account.userID IS NULL THEN "Active" ELSE "blocked" END as status'), 
+    //         'unique_qr.code as code', 
+    //         'user_verification.userStatus', 
+    //         'user_verification.id_type',
+    //         'user_verification.id_file_url',
+    //         DB::raw('COALESCE(user_verification.userStatus, "3") as userStatus')
+    //     )
+    //     ->where('user_type', $type)
+    //     ->get();
+    //     return response()->json($get_users);
+    // }
+
     public function verifyUser(Request $request)
     {
         $user_verification = user_verification::where(DB::raw('MD5(userID)'), $request->id)->first();
@@ -137,26 +141,28 @@ class UsersController extends Controller
 
         return response()->json(['success' => false, 'message' => 'User not found.']);
     }
-    public function get_specific_user(Request $request) {
-        $qrcode = $request->qrcode;
-        $get_users = User::where('user_type', '!=', '0')
-        ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
-        ->leftJoin('unique_qr', 'unique_qr.userID', '=', 'users.id')
-        ->select('users.*', DB::raw('CASE WHEN blocked_account.userID IS NULL THEN "Active" ELSE "blocked" END as status'), 'unique_qr.code as code')
-        ->where('unique_qr.code', $qrcode)
-        ->get();
-        return response()->json($get_users);
-    }
-    public function get_users_as_visitor(Request $request) {
-        $get_users = User::where('user_type', 2)
-        ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
-        ->leftJoin('visitor_pdl', 'users.id', '=', 'visitor_pdl.userID')
-        ->whereNull('blocked_account.userID') // Only get active users
-        ->whereNull('visitor_pdl.userID') // Only get active users
-        ->select('users.*', DB::raw('"Active" as status'))
-        ->get();
-        return response()->json($get_users);
-    }
+    // public function get_specific_user(Request $request) {
+    //     $qrcode = $request->qrcode;
+    //     $get_users = User::where('user_type', '!=', '0')
+    //     ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
+    //     ->leftJoin('unique_qr', 'unique_qr.userID', '=', 'users.id')
+    //     ->select('users.*', DB::raw('CASE WHEN blocked_account.userID IS NULL THEN "Active" ELSE "blocked" END as status'), 'unique_qr.code as code')
+    //     ->where('unique_qr.code', $qrcode)
+    //     ->get();
+    //     return response()->json($get_users);
+    // }
+
+    // public function get_users_as_visitor(Request $request) {
+    //     $get_users = User::where('user_type', 2)
+    //     ->leftJoin('blocked_account', 'users.id', '=', 'blocked_account.userID')
+    //     ->leftJoin('visitor_pdl', 'users.id', '=', 'visitor_pdl.userID')
+    //     ->whereNull('blocked_account.userID') // Only get active users
+    //     ->whereNull('visitor_pdl.userID') // Only get active users
+    //     ->select('users.*', DB::raw('"Active" as status'))
+    //     ->get();
+    //     return response()->json($get_users);
+    // }
+
     public function add_account_submit(Request $request) {
          // Validate the request data
         $validator = Validator::make($request->all(), [

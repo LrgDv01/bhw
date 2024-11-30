@@ -17,11 +17,11 @@ class Kernel extends HttpKernel
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        // \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\LoadAppInfo::class,
+        // \App\Http\Middleware\LoadAppInfo::class,
     ];
 
     /**
@@ -63,11 +63,12 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'visitor' => \App\Http\Middleware\VisitorMiddleware::class,
+        // 'visitor' => \App\Http\Middleware\VisitorMiddleware::class,
+        'farmer' => \App\Http\Middleware\FarmerMiddlerware::class,
         'redirect.nonadmin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
         'redirect.nonlogin' => \App\Http\Middleware\RedirectIfNotLogin::class,
-        'check.module.access' => \App\Http\Middleware\LoadModuleAccess::class,
+        // 'check.module.access' => \App\Http\Middleware\LoadModuleAccess::class,
     ];
 }

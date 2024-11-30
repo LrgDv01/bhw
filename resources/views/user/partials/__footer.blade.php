@@ -34,7 +34,7 @@
   <!-- Template Main JS File -->
   <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>
   <script src="{{ URL::asset('js/global.js') }}"></script>
-  <script src="{{ URL::asset('js/summernote.js')}}"></script>
+  <!-- <script src="{{ URL::asset('js/summernote.js')}}"></script> -->
   <script src="{{ URL::asset('js/user/visitform.js')}}"></script>
   <script src="{{ URL::asset('js/user/booking.js')}}"></script>
   <script src="{{ URL::asset('js/user/user.js')}}"></script>

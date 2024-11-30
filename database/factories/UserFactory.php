@@ -18,19 +18,21 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'first_name' => fake()->firstName(),
-            'middle_name' => fake()->lastName(),
-            'last_name' => fake()->lastName(),
-            'gender' => fake()->randomElement(['Male', 'Female']),
-            'address' => fake()->address(),
-            'contact' => fake()->phoneNumber(),
-            'user_type' => fake()->randomElement(['1', '2']),
-            'valid_id' => 'valid_ids/id_example.jpg',
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'), // password
-            'remember_token' => Str::random(10),
+            // 'name' => fake()->name(),
+            // 'last_name' => fake()->lastName(),
+            // 'gender' => fake()->randomElement(['Male', 'Female']),
+            // 'address' => fake()->address(),
+            // 'contact' => fake()->phoneNumber(),
+            // 'valid_id' => 'valid_ids/id_example.jpg',
+
+            'user_name' => $this->faker->unique()->userName(), // Ensures unique usernames
+            'full_name' => $this->faker->name(), // Generates full names (first + last)
+            'contact' => $this->faker->unique()->e164PhoneNumber(), // Generates valid phone numbers
+            'email' => $this->faker->unique()->safeEmail(), // Unique email addresses
+            'email_verified_at' => now(), // Current timestamp for email verification
+            'password' => bcrypt('password'), // Default password for generated users
+            'user_type' => $this->faker->randomElement([1, 2]), // Randomly selects 1 or 2 as integer
+            'remember_token' => Str::random(10), // Generates a random remember token
         ];
     }
 

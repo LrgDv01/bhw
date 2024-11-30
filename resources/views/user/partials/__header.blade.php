@@ -47,4 +47,4 @@
   ======================================================== -->
 </head>
 <body>
-  @include('user.pages.frontform')
+{{--  @include('user.pages.frontform') --}}

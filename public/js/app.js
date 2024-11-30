@@ -13,7 +13,8 @@ $(document).on('submit', '#registerform', function (e) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function (response) {  
+        success: function (response) { 
+            console.log("response >>>", response); 
             hideLoading();
             $('#registerform')[0].reset();
             global_showalert(response.message, 'Congrats', 'blue', '/login');
@@ -29,7 +30,7 @@ $(document).on('submit', '#registerform', function (e) {
                     errorMessage += response.errors[errorKey][0] + '\n';
                 }
             }
-            global_showalert(errorMessage, 'Alert!', 'red');
+            global_showalert(errorMessage, 'Alert!!', 'red');
         }
     });
 });

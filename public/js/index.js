@@ -485,18 +485,18 @@ async function startMeeting(token, meetingId, name) {
 
   // });
 
-  meeting.on("meeting-left", () => {
-    startfeedback();
-    let is_visitor = $('#is_visitor');
-    if(is_visitor.length == 0) {
-      showLoading();
-      setTimeout(() => {
-        hideLoading();
-        window.location.reload();
-      }, 2000);
-    }
-    document.getElementById("join-page").style.display = "flex";
-  });
+  // meeting.on("meeting-left", () => {
+  //   startfeedback();
+  //   let is_visitor = $('#is_visitor');
+  //   if(is_visitor.length == 0) {
+  //     showLoading();
+  //     setTimeout(() => {
+  //       hideLoading();
+  //       window.location.reload();
+  //     }, 2000);
+  //   }
+  //   document.getElementById("join-page").style.display = "flex";
+  // });
 
   // Other participants
   meeting.on("participant-joined", (participant) => {
@@ -613,73 +613,73 @@ function startfeedback() {
       </form>
     </div>
   `;
-  let is_visitor = $('#is_visitor');
-  if(is_visitor.length > 0) {
-    $.confirm({
-      title: 'Meeting Ended',
-      content: formContent,
-      onContentReady: function () {
-          // Handle emoji selection
-          $('.emoji-option').on('click', function () {
-              $('.emoji-option').css('opacity', '0.5'); // Reduce opacity for unselected emojis
-              $(this).css('opacity', '1'); // Highlight selected emoji
-              $('#selectedEmoji').val($(this).data('emoji')); // Set selected emoji in hidden input
-          });
-      },
-      buttons: {
-          submitFeedback: {
-              text: 'Submit Feedback',
-              btnClass: 'btn-blue',
-              action: function () {
-                  var comment = this.$content.find('textarea[name="comment"]').val();
+  // let is_visitor = $('#is_visitor');
+  // if(is_visitor.length > 0) {
+  //   $.confirm({
+  //     title: 'Meeting Ended',
+  //     content: formContent,
+  //     onContentReady: function () {
+  //         // Handle emoji selection
+  //         $('.emoji-option').on('click', function () {
+  //             $('.emoji-option').css('opacity', '0.5'); // Reduce opacity for unselected emojis
+  //             $(this).css('opacity', '1'); // Highlight selected emoji
+  //             $('#selectedEmoji').val($(this).data('emoji')); // Set selected emoji in hidden input
+  //         });
+  //     },
+  //     buttons: {
+  //         submitFeedback: {
+  //             text: 'Submit Feedback',
+  //             btnClass: 'btn-blue',
+  //             action: function () {
+  //                 var comment = this.$content.find('textarea[name="comment"]').val();
                   
-                  if (!comment) {
-                      $.alert('Please enter a comment.');
-                      return false;
-                  }
-                  var emoji = this.$content.find('input[name="emoji"]').val();
+  //                 if (!comment) {
+  //                     $.alert('Please enter a comment.');
+  //                     return false;
+  //                 }
+  //                 var emoji = this.$content.find('input[name="emoji"]').val();
                   
-                  if (!comment) {
-                      $.alert('Please enter a comment.');
-                      return false;
-                  }
+  //                 if (!comment) {
+  //                     $.alert('Please enter a comment.');
+  //                     return false;
+  //                 }
   
-                  if (!emoji) {
-                      $.alert('Please select an emoji.');
-                      return false;
-                  }
-                  // AJAX call to submit feedback
-                  $.ajax({
-                      url: '/submit-feedback',
-                      method: 'POST',
-                      data: {
-                          _token: $('meta[name="csrf-token"]').attr('content'), // Fetch CSRF token from meta tag
-                          comment: comment,
-                          emoji: emoji, // Add selected emoji to the data sent
-                      },
-                      success: function (response) {
-                          $.alert('Thank you for your feedback!');
-                          setTimeout(() => {
-                            window.location.reload();
-                          }, 2000); // Add a slight delay before reloading
-                      },
-                      error: function () {
-                          $.alert('Something went wrong, please try again.');
-                      }
-                  });
+  //                 if (!emoji) {
+  //                     $.alert('Please select an emoji.');
+  //                     return false;
+  //                 }
+  //                 // AJAX call to submit feedback
+  //                 $.ajax({
+  //                     url: '/submit-feedback',
+  //                     method: 'POST',
+  //                     data: {
+  //                         _token: $('meta[name="csrf-token"]').attr('content'), // Fetch CSRF token from meta tag
+  //                         comment: comment,
+  //                         emoji: emoji, // Add selected emoji to the data sent
+  //                     },
+  //                     success: function (response) {
+  //                         $.alert('Thank you for your feedback!');
+  //                         setTimeout(() => {
+  //                           window.location.reload();
+  //                         }, 2000); // Add a slight delay before reloading
+  //                     },
+  //                     error: function () {
+  //                         $.alert('Something went wrong, please try again.');
+  //                     }
+  //                 });
   
-                  return false; // Prevent dialog from closing before feedback is submitted
-              }
-          },
-          cancel: function () {
-              $.alert('Feedback skipped.');
-              setTimeout(() => {
-                window.location.reload();
-              }, 2000); // Add a slight delay before reloading
-          }
-      }
-    });
-  }
+  //                 return false; // Prevent dialog from closing before feedback is submitted
+  //             }
+  //         },
+  //         cancel: function () {
+  //             $.alert('Feedback skipped.');
+  //             setTimeout(() => {
+  //               window.location.reload();
+  //             }, 2000); // Add a slight delay before reloading
+  //         }
+  //     }
+  //   });
+  // }
 }
 
 // joinMeeting();

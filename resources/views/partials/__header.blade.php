@@ -40,8 +40,23 @@
       * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
       * Updated: Jun 06 2024 with Bootstrap v5.3.3
       * Author: BootstrapMade.com
-      * License: https://bootstrapmade.com/license/
+      * License: https://bootstrapmade.com/license/ 
       ======================================================== -->
     </head>
 
-    <body class="index-page">
+    <body class="index-page" style="margin: 0; position: relative;">
+    <div style="
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{{ URL::asset('img/login-bg.png') }}');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* z-index: -1; */
+        filter: brightness(75%);
+    "></div>
+    <!-- Your content here -->
+    </body>
+
+     

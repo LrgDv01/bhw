@@ -1,9 +1,9 @@
+
 .custombgcard {
     background-color: rgba(0, 0, 0, 0.288);
 }
 .loginpagebg {
     position: relative;
-    background-image: url(/img/bg.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

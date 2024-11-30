@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\admin\QrModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,18 +19,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        // 'valid_id',
+        // 'middle_name',
+        // 'last_name',
+        // 'gender',
+        // 'address',
         'profile_img',
-        'valid_id',
-        'name',
-        'email',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'gender',
-        'address',
+        'user_name',
+        'full_name',
         'contact',
-        'user_type',
+        'email',
         'password',
+        'user_type',
     ];
 
     /**
@@ -60,7 +59,7 @@ class User extends Authenticatable
         // you can check if the role is 'admin' like this:
         return $this->user_type == 0;
     }
-    public function isSubAdmin()
+    public function isFarmer()
     {
         // Define your logic here to check if the user is an administrator
         // For example, if you have an 'role' column in your users table
@@ -68,7 +67,9 @@ class User extends Authenticatable
         // you can check if the role is 'admin' like this:
         return $this->user_type == 1;
     }
-    public function isVisitor()
+
+    
+    public function isTechnician()
     {
         // Define your logic here to check if the user is an administrator
         // For example, if you have an 'role' column in your users table
@@ -76,32 +77,32 @@ class User extends Authenticatable
         // you can check if the role is 'admin' like this:
         return $this->user_type == 2;
     }
-    public function module_access() {
-        $get_module_access = ModuleAccessModel::select('module_code')->where('userID', $this->id)->get();
-        $get_module_access = $get_module_access->toArray();
-        $ret = [];
-        foreach($get_module_access as $code) {
-            $ret[] = $code['module_code'];
-        }
-        return $ret;
-    }   
-    public function get_qr(){
-        $get_qr = QrModel::where('userID', $this->id)->first();
-        return $get_qr['code'];
-    }
+    // public function module_access() {
+    //     $get_module_access = ModuleAccessModel::select('module_code')->where('userID', $this->id)->get();
+    //     $get_module_access = $get_module_access->toArray();
+    //     $ret = [];
+    //     foreach($get_module_access as $code) {
+    //         $ret[] = $code['module_code'];
+    //     }
+    //     return $ret;
+    // }   
+    // public function get_qr(){
+    //     $get_qr = QrModel::where('userID', $this->id)->first();
+    //     return $get_qr['code'];
+    // }
     
-    public function isBlocked() {
-        return BlockedAccountModel::where('userID', $this->id)->exists();
-    }
+    // public function isBlocked() {
+    //     return BlockedAccountModel::where('userID', $this->id)->exists();
+    // }
     
-    public function qrs()
-    {
-        return $this->hasMany(QrModel::class, 'userID');
-    }
-    public function notifications()
-    {
-        return $this->hasMany(NotificationModel::class, 'user_id');
-    }
+    // public function qrs()
+    // {
+    //     return $this->hasMany(QrModel::class, 'userID');
+    // }
+    // public function notifications()
+    // {
+    //     return $this->hasMany(NotificationModel::class, 'user_id');
+    // }
     
     public function feedback()
     {

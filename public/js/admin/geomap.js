@@ -64,8 +64,8 @@ async function displayMap(locate, mapboxgl) {
         center: [121.37575102352582,
             14.27976852821142], // Coordinates for Sta. Cruz, Laguna
         zoom: 3, // Set zoom level suitable for the area
-        minZoom: 9, // Minimum zoom level
-        maxZoom: 100, // Maximum zoom level
+        minZoom: 3, // Minimum zoom level
+        maxZoom: 16, // Maximum zoom level
         maxBounds: [
             [121.0, 13.8],  // Southwest corner (lower latitude for the southern part of Laguna)
             [122.0, 14.8]   // Northeast corner (higher latitude for the northern part of Laguna)
@@ -220,9 +220,9 @@ async function mapSimulation(simulate, mapboxgl) {
             type: 'circle',
             source: 'municipal',
             paint: {
-                'circle-radius': 5, // Initial radius
+                'circle-radius': 1, // Initial radius
                 'circle-color': 'red',
-                'circle-opacity': 0.8,
+                'circle-opacity': 0.9,
                 'circle-blur': 0.5
             },
             filter: ['==', ['geometry-type'], 'Point']
@@ -241,19 +241,27 @@ async function mapSimulation(simulate, mapboxgl) {
         });
 
         // Animation variables
-        let radius = 5;
-        let growing = true;
+        // let radius = 3;
+        // let growing = true;
+        let time = 0;
         // Animation loop for wave effect
         function animateWave() {
-            if (growing) {
-                radius += 0.1;
-                if (radius >= 15) growing = false; // Max size
-            } else {
-                radius -= 0.1;
-                if (radius <= 5) growing = true; // Min size
-            }
+            // if (growing) {
+            //     radius += 0.05;
+            //     if (radius >= 10) growing = false; // Max size
+            // } else {
+            //     radius -= 0.05;
+            //     if (radius <= 7) growing = true; // Min size
+            // }
 
-            // Dynamically update the paint property
+            // // Dynamically update the paint property
+            // map_simulation.setPaintProperty('glowing-points', 'circle-radius', radius);
+
+            time += 0.03; // Smaller value slows down the animation
+
+            // Use a sine wave for smoother animation
+            radius = 10 + Math.sin(time) * 3; // Oscillates between 5 and 15
+        
             map_simulation.setPaintProperty('glowing-points', 'circle-radius', radius);
 
             // Request next frame

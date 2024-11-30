@@ -16,7 +16,8 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->isAdmin() ||  Auth::user()->isSubAdmin())) {
+        // if (Auth::check() && (Auth::user()->isAdmin() ||  Auth::user()->isFarmer())) {
+        if (Auth::check() && (Auth::user()->isAdmin())) {
             return $next($request);
         }
 

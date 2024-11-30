@@ -52,7 +52,7 @@ function displayDiseaseChart(year = null) {
 
   let sendYear = year == null ? currentYear : year ;
   $.ajax({
-    url: "/admin/dashboard/get_monthly_counts",
+    // url: "/admin/dashboard/get_monthly_counts",
     method: "GET",
     data: { year: sendYear },
     success: function (data) {

@@ -18,13 +18,8 @@
             <a href="#notification"
               data-bs-toggle="modal"
               data-bs-target="#notificationmodal" id="notification-bell" class="me-4 fs-2 position-relative">
-              <i class="text-dark bi bi-bell"></i>
-              <span class="notification-bell position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                <span class="visually-hidden">New alerts</span>
-              </span>
             </a>
-              
-              
+
             <a class="nav-link bg-transparent border border-0 text-dark nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <img src="{{ Auth::user()->profile_img != '' ? asset('storage/'.Auth::user()->profile_img) : URL::asset('img/admin-profile.png') }}" alt="Profile" class="rounded-circle">
               <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->first_name }}</span>
@@ -37,12 +32,6 @@
               </li>
               <li>
                 <hr class="dropdown-divider mb-2">
-              </li>
-              <li class="text-center">
-                <img id="myQR" src='data:image/png;base64,{{base64_encode(QrCode::format('png')->size(150)->generate(Auth::user()->get_qr()))}}'/>
-              </li>
-              <li class="text-center">
-                <button onclick="downloadQR()" class="mt-2 btn btn-sm btn-primary rounded-0 w-100">Download QR Code</button>
               </li>
               <li class="">
                 <button form="logoutform" type="submit" class="dropdown-item d-flex align-items-center justify-content-center">

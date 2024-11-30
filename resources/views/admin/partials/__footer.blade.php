@@ -44,23 +44,15 @@
   <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>
   <script src="{{ URL::asset('js/global.js') }}"></script>
   <script src="{{ URL::asset('js/lightbox.js') }}"></script>
-  <script src="{{ URL::asset('js/summernote.js')}}"></script>
   <script src="{{ URL::asset('js/admin/settings.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/calendar.js')}}"></script>
   <script src="{{ URL::asset('js/admin/users.js')}}"></script> 
-  <script src="{{ URL::asset('js/admin/announcement.js')}}"></script>
   <script src="{{ URL::asset('js/admin/audit.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/library.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/visitor.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/booking.js')}}"></script>
-  <script src="{{ URL::asset('js/qrcode.js')}}"></script>
-  <script src="{{ URL::asset('js/qrcode.min.js')}}"></script>
+  <!-- <script src="{{ URL::asset('js/qrcode.min.js')}}"></script> -->
   <script src="{{ URL::asset('js/admin/app.js')}}"></script>
   <script src="{{ URL::asset('js/admin/diseasechart.js')}}"></script>
   <script src="{{ URL::asset('js/admin/cocovarietychart.js')}}"></script>
   <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
 
-  <script src="{{ URL::asset('js/admin/feedback.js')}}"></script>
   @if(Request::routeIs('videocall'))
     <script src="https://sdk.videosdk.live/js-sdk/0.0.82/videosdk.js"></script>
     <script src="{{ asset('js/index.js') }}"></script>

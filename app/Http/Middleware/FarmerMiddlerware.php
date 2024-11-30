@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class VisitorMiddleware
+class FarmerMiddlerware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,9 @@ class VisitorMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->isVisitor()) {
+        // if (Auth::check() && Auth::user()->isTechnician()) {
+        if (Auth::check() && Auth::user()->isFarmer()) {
+
             return $next($request);
         }
 

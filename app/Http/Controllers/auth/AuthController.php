@@ -4,8 +4,6 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
-use App\Models\admin\QrModel;
-use App\Models\AuditTrailModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,44 +39,28 @@ class AuthController extends Controller
         return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
       }
 
-      $code = $request->input('code');
-      $user = User::join('unique_qr as b', 'users.id', '=', 'b.userID')
-        ->where('b.code', $code)
-        ->select('users.*') // Select only user columns
-        ->first();
+      // $code = $request->input('code');
+      // $user = User::join('unique_qr as b', 'users.id', '=', 'b.userID')
+      //   ->where('b.code', $code)
+      //   ->select('users.*') // Select only user columns
+      //   ->first();
 
-      if ($user) {
-        // Check if the user account is blocked
-        if ($user->isBlocked()) {
-          // Blocked account, log the attempt and return an error response
-          AuditTrailModel::create([
-            'userID' => $user->id,
-            'user_email' => $user->email,
-            'action' => 'login',
-            'description' => 'Failed login attempt - account blocked',
-            'ip_address' => $request->ip(),
-          ]);
-          return response()->json(['errors' => 'Account blocked'], 403);
-        } else {
-          Auth::login($user);
-          AuditTrailModel::create([
-            'userID' => $user->id,
-            'user_email' => $user->email,
-            'action' => 'login',
-            'description' => 'User successfully logged in using code',
-            'ip_address' => $request->ip(), // Fetch the IP address
-          ]);
-          $redirectRoute = $user->isAdmin() || $user->isSubAdmin() ? route('admin.dashboard') : route('user.home');
-          return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
-        }
-      } else {
-        AuditTrailModel::create([
-          'action' => 'login',
-          'description' => 'Failed login attempt with code: ' . $code,
-          'ip_address' => $request->ip(), // Fetch the IP address
-        ]);
-        return response()->json(['errors' => 'Invalid code'], 401);
-      }
+      // if ($user) {
+      //   // Check if the user account is blocked
+      //   // if ($user) {
+      //   //   // Blocked account, log the attempt and return an error response
+     
+      //   //   return response()->json(['errors' => 'Account blocked'], 403);
+      //   // } else {
+      //   //   Auth::login($user);
+        
+      //   //   $redirectRoute = $user->isAdmin() || $user->is() ? route('admin.dashboard') : route('user.home');
+      //   //   return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
+      //   // }
+      // } else {
+   
+      //   return response()->json(['errors' => 'Invalid code'], 401);
+      // }
     } else {
       // Validate request data
       $validator = Validator::make($request->all(), [
@@ -87,55 +69,37 @@ class AuthController extends Controller
       ]);
       if ($validator->fails()) {
         $email = $request->input('email');
-        AuditTrailModel::create([
-          'user_email' => $email,
-          'action' => 'login',
-          'description' => 'Failed login attempt for email: ' . $email,
-          'ip_address' => $request->ip(), // Fetch the IP address
-
-        ]);
+  
         return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
       }
       // Attempt to log in the user
       $credentials = $request->only('email', 'password');
       $checkData = User::where('email', $request->email)->first();
       if($checkData) {
-        if ($checkData->isBlocked()) {
-          // Blocked account, log the attempt and return an error response
-          AuditTrailModel::create([
-            'userID' => $checkData->id,
-            'user_email' => $checkData->email,
-            'action' => 'login',
-            'description' => 'Failed login attempt - account blocked',
-            'ip_address' => $request->ip(),
-          ]);
-          return response()->json(['errors' => 'Account blocked'], 403);
-        } else {
+        // if ($checkData) {
+        //   // Blocked account, log the attempt and return an error response
+   
+        //   return response()->json(['errors' => 'Account blocked'], 403);
+        // } else {
           if (Auth::attempt($credentials)) {
+           
             // Authentication successful
             $user = Auth::user();
-            AuditTrailModel::create([
-              'userID' => $user->id,
-              'user_email' => $user->email,
-              'action' => 'login',
-              'description' => 'User successfully logged in',
-              'ip_address' => $request->ip(), // Fetch the IP address
-    
-            ]);
-            $redirectRoute = $user->isAdmin() || $user->isSubAdmin() ? route('admin.dashboard') : route('user.home');
+          
+            
+            $redirectRoute = $user->isAdmin() ? route('admin.dashboard') : route('user.home');
+            // $redirectRoute = $user->isAdmin()
+            // ? route('admin.dashboard')
+            // : ($user->isFarmer() ? route('farmer.home') : route('techncian.home'));
+        
             return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
           } else {
             // Authentication failed
             $email = $request->input('email');
-            AuditTrailModel::create([
-              'user_email' => $email,
-              'action' => 'login',
-              'description' => 'Failed login attempt for email: ' . $email,
-              'ip_address' => $request->ip(), // Fetch the IP address
-            ]);
-            return response()->json(['errors' => 'Invalid credentials'], 401);
+          
+            return response()->json(['errors' => 'Invalid credentials 1'], 401);
           }
-        }
+        // }
       } else {
         return response()->json(['errors' => 'Invalid credentials'], 401);
       }
@@ -148,67 +112,66 @@ class AuthController extends Controller
       return $csrfValidation;
     }
 
-    // Validate the request data
-    $validator = Validator::make($request->all(), [
-      'first_name' => 'required|string|max:255',
-      'middle_name' => 'nullable|string|max:255',
-      'last_name' => 'required|string|max:255',
-      'email' => 'required|string|email|max:255|unique:users',
-      'address' => 'nullable|string|max:255',
-      'gender' => 'required|string|max:255',
-      'contact' => 'nullable|string|max:255|unique:users',
-    ]);
+    // // Validate the request data
+    // $validator = Validator::make($request->all(), [
+    //   // 'last_name' => 'required|string|max:255',
+    //   // 'address' => 'nullable|string|max:255',
+    //   // 'gender' => 'required|string|max:255',
+    //   'user_name' => 'required|string|max:255',
+    //   'full_name' => 'nullable|string|max:255',
+    //   'contact' => 'nullable|string|max:255|unique:users',
+    //   'email' => 'required|string|email|max:255|unique:users',
+    // ]);
 
-    if ($validator->fails()) {
-      AuditTrailModel::create([
-        'user_email' => $request->input('email'),
-        'action' => 'pre-registration',
-        'description' => 'Pre registration failed: ' . $request->input('email'),
-        'ip_address' => $request->ip(), // Fetch the IP address
+    // $validator = Validator::make($request->all(), [
+    //   'user_name' => 'required|string|max:255',
+    //   'full_name' => 'nullable|string|max:255',
+    //   'contact' => 'nullable|string|max:255|unique:users',
+    //   'email' => 'required|string|email|max:255|unique:users',
+    //   'password' => 'required|string|min:8|confirmed', // Password validation
+    //   'user_type' => 'required|integer|in:1,2', // User type validation: only 1 or 2 allowed
+    // ]);
+  
 
-      ]);
-      return response()->json(['errors' => $validator->errors()], 422);
-    }
+    // if ($validator->fails()) {
+   
+    //   return response()->json(['errors' => $validator->errors()], 422);
+    // }
     
-    if ($request->hasFile('valid_id')) {
-      // Store new logo
-      $logoPath = $request->file('valid_id')->store('valid_ids', 'public');
-      $valid_id = $logoPath;
-    }
+    // if ($request->hasFile('valid_id')) {
+    //   // Store new logo
+    //   $logoPath = $request->file('valid_id')->store('valid_ids', 'public');
+    //   $valid_id = $logoPath;
+    // }
     
     // Autogenerate a password
     $password = Str::random(12); // Generates a random 12-character password
     // Create a new user
-    $fullname = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
+    // $fullname = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
     $user = User::create([
-      'name' => $fullname,
-      'first_name' => $request->first_name,
-      'middle_name' => $request->middle_name,
-      'last_name' => $request->last_name,
-      'email' => $request->email,
-      'address' => $request->address,
+      'user_name' => $request->user_name,
+      'full_name' => $request->full_name,
       'contact' => $request->contact,
-      'password' => Hash::make($password),
-      'gender' => $request->gender,
-      'user_type' => 2,
-      'valid_id' => $valid_id
+      // 'middle_name' => $request->middle_name,
+      // 'last_name' => $request->last_name,
+      'email' => $request->email,
+      // 'address' => $request->address,
+      'password' => Hash::make($request->password),
+      // 'gender' => $request->gender,
+      'user_type' => $request->user_type,
+      // 'valid_id' => $valid_id
     ]);
-    $randomCode = uniqid();
-    $insertVisitorData = [
-      'userID' => $user->id,
-      'code' => $randomCode,
-      'is_deleted' => 0,
-    ];
-    QrModel::create($insertVisitorData);
-    AuditTrailModel::create([
-      'user_email' => $request->email,
-      'action' => 'pre-registration',
-      'description' => 'Account created successfully for ' . $fullname,
-      'ip_address' => $request->ip(), // Fetch the IP address
-
-    ]);
+    
+    // $randomCode = uniqid();
+    // $insertVisitorData = [
+    //   'userID' => $user->id,
+    //   'code' => $randomCode,
+    //   'is_deleted' => 0,
+    // ];
+    // QrModel::create($insertVisitorData);
+   
     // Send email with the autogenerated password
-    Mail::to($request->email)->send(new WelcomeMail($fullname, $request->email, $password, $randomCode));
+    // Mail::to($request->email)->send(new WelcomeMail($request->first_name, $request->email, $password, $randomCode));
 
     // Return a success response
     return response()->json(['message' => 'User registered successfully'], 200);
