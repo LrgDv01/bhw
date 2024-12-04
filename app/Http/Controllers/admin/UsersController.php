@@ -31,7 +31,7 @@ class UsersController extends Controller
             // 'last_name' => 'required|string|max:255',
             // 'gender' => 'required|string',
             'contact' => 'required|string|max:15',
-            // 'address' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'password' => 'nullable|min:8|confirmed',
             'user_type' => 'required|integer|in:1,2',
             'profile_img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -55,12 +55,13 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->user_name = $request->user_name;
         $user->full_name = $request->full_name;
+        $user->address = $request->address;
         $user->contact = $request->contact;
         // $user->first_name = $request->first_name;
         // $user->middle_name = $request->middle_name;
         // $user->last_name = $request->last_name;
         // $user->gender = $request->gender;
-        // $user->address = $request->address;
+      
         $user->first_open = 1;
     
         if ($request->hasFile('profile_img')) {

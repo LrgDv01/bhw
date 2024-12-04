@@ -12,16 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            // $table->string('middle_name')->nullable();
-            // $table->string('last_name');
-            // $table->string('gender')->nullable();
-            // $table->string('address')->nullable();
-            // $table->string('valid_id')->nullable();
-
             $table->id();
             $table->string('profile_img')->nullable();
             $table->string('user_name');
             $table->string('full_name');
+            $table->string('address');
             $table->string('contact');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -29,6 +24,15 @@ return new class extends Migration
             $table->string('user_type');
             $table->integer('first_open')->default(0);
             $table->rememberToken();
+            $table->timestamps();
+        });
+
+
+        Schema::create('technicians', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('years_in_service')->nullable();
+            $table->string('services');
             $table->timestamps();
         });
     }
@@ -39,5 +43,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('technicians');
     }
 };

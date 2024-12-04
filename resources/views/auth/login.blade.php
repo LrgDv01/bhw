@@ -2,17 +2,17 @@
   <main class="custombg min-vh-100 loginpagebg">
     @include('partials.__nav')
     <div class="container d-flex justify-content-center align-items-center py-3" style="height: 80vh">
-        <div class="card shadow-lg logincardbg" style="width: 100vh">
+        <div class="card shadow-lg logincardbg bg-transparent" style="width: 100vh">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6 d-flex align-items-center justify-content-center mb-3">
                         <img src="{{ URL::asset('img/logo.png') }}" alt="" class="img-fluid d-none d-sm-block">
                     </div>
-                    <div class="col-lg-6 d-flex align-items-center">
+                    <div class="col-lg-6 d-flex align-items-center text-white">
                         <div class="w-100">
                         
                             <div class="text-center">
-                                <h3 class="fw-bold">LOGIN</h3>
+                                <h3 class="fw-bold text-white">LOGIN</h3>
                                 <p>Sign in to continue</p>
                             </div>
                             <form id="loginform" class="was-validated">
@@ -25,24 +25,21 @@
                                     <label class="form-label fw-bold" for="password">PASSWORD</label>
                                     <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password address" required>
                                 </div>
-                                
-                                {{-- <div class="row">
-                                    <div class="col-5 text-center"><hr style="width: 100%"></div>
-                                    <div class="col-2 text-center">OR</div>
-                                    <div class="col-5 text-center"><hr style="width: 100%"></div>
-                                </div> --}}
-                                {{-- <div class="text-center fw-bold mb-3"><h5>Login using <a href="{{ url('codelogin') }}" style="text-decoration: none">Code</a></h5></div> --}}
-                                <div class="mb-3 text-center">
-                                    <div class="form-check d-flex justify-content-center">
-                                        <input class="form-check-input me-2" type="checkbox" value="" checked id="terms-and-condition" required />
-                                        <label class="form-check-label fs-6" for="terms-and-condition">
-                                            I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
-                                        </label>
+                                <div class="form-group d-flex justify-content-between align-items-center mb-4">
+                                    <!-- Remember Me -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <label class="form-check-label text-white" for="remember">Remember Me</label>
+                                    </div>
+
+                                    <!-- Forgot Password -->
+                                    <div>
+                                        <a href="{{ url('/forgot-password') }}" class="text-white text-decoration-none"><u>Forgot Password?</u></a>
                                     </div>
                                 </div>
                                 @csrf
                                 <div class="text-center">
-                                    <button class="btn btn-primary px-5 py-2 fw-100 rounded rounded-0" type="submit">LOGIN</button>
+                                    <button class="btn btn-success px-5 py-2 fw-100 rounded rounded-3" type="submit">LOGIN</button>
                                 </div>
                             </form>
                         </div>

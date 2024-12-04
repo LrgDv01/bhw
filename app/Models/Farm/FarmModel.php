@@ -15,6 +15,13 @@ class FarmModel extends Model
         'user_id',
         'name',
         'location',
+        'variety',
+        'hectares',
+        'tree_age',
+        'planted_coconut',
+        'soil_type',
+
+        
     ];
 
     public function user()

@@ -54,6 +54,9 @@ function displayCocoChart(year = null) {
         // url: "/admin/dashboard/get_monthly_counts",
         method: "GET",
         data: { year: sendYear },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
         success: function (data) {
             // const labels = [];
             // const approvedCounts = [];

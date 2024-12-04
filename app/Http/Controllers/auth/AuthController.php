@@ -76,30 +76,19 @@ class AuthController extends Controller
       $credentials = $request->only('email', 'password');
       $checkData = User::where('email', $request->email)->first();
       if($checkData) {
-        // if ($checkData) {
-        //   // Blocked account, log the attempt and return an error response
-   
-        //   return response()->json(['errors' => 'Account blocked'], 403);
-        // } else {
           if (Auth::attempt($credentials)) {
-           
             // Authentication successful
             $user = Auth::user();
-          
-            
-            $redirectRoute = $user->isAdmin() ? route('admin.dashboard') : route('user.home');
-            // $redirectRoute = $user->isAdmin()
-            // ? route('admin.dashboard')
-            // : ($user->isFarmer() ? route('farmer.home') : route('techncian.home'));
-        
+            $redirectRoute = $user->isAdmin()
+              ? route('admin.dashboard'): ($user->isFarmer() 
+              ? route('user.farm')
+              : route('user.notifications'));
             return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
           } else {
             // Authentication failed
             $email = $request->input('email');
-          
             return response()->json(['errors' => 'Invalid credentials 1'], 401);
           }
-        // }
       } else {
         return response()->json(['errors' => 'Invalid credentials'], 401);
       }

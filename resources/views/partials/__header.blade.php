@@ -7,6 +7,7 @@
         <title>{{ isset($appInfo->app_name) ? $appInfo->app_name : 'COCO SPOT' }}</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
+        
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com" rel="preconnect">

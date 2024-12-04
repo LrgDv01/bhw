@@ -36,6 +36,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
+    
               @if (auth()->user()->isAdmin())
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="{{ url('/admin/settings') }}">
@@ -82,27 +83,7 @@
   </header>
   
   <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#134125">
-
-
     <ul class="sidebar-nav flex-column" id="sidebar-nav">
-   {{--   @if (in_array(1, auth()->user()->module_access()) || auth()->user()->isAdmin())
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-            <i class="text-white bi bi-grid-fill"></i>
-            <span>Dashboard</span>
-          </a>
-        </li> 
-      @else 
-      <li class="nav-item">
-        <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-          <i class="text-white bi bi-house"></i>
-          <span>Home</span>
-        </a>
-      </li>
-      @endif --}}
-
-
-
       @if (auth()->user()->isAdmin())
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
@@ -123,28 +104,6 @@
           </a>
         </li>
       @endif
-
-      @if (auth()->user()->isFarmer())
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_simulation') }}">
-            <i class="bi bi-house text-white"></i>  
-            <span>My Farm</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_simulation') }}">
-            <i class="bi bi-briefcase text-white"></i>  
-            <span>Services</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_simulation') }}">
-            <i class="bi bi-gear text-white"></i>  
-            <span>Settings</span>
-          </a>
-        </li>
-      @endif
-    
     </ul>
 
     <div class="sidebar-nav">
@@ -155,7 +114,7 @@
           <i class="text-white bi bi-arrow-bar-left"></i>
           <span>Logout</span>
         </button>
-      </div>
+    </div>
   </aside>
 
   

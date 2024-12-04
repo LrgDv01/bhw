@@ -19,11 +19,15 @@ class FarmModelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             'user_id' => User::factory(),
             'name' => fake()->company(),
             'location' => fake()->address(),
-
+            'variety' => fake()->randomElement(['Laguna Tall', 'Dwarf Coconut', 'Hybrid']),
+            'hectares' => fake()->numberBetween(1, 100), // Random number for hectares
+            'tree_age' => fake()->numberBetween(1, 50), // Random age between 1 to 50 years
+            'planted_coconut' => fake()->numberBetween(10, 1000), // Number of trees planted
+            'soil_type' => fake()->randomElement(['Sandy', 'Clay', 'Loamy', 'Silty']), // Random soil types
         ];
     }
+
 }

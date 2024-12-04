@@ -23,8 +23,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MapModelSeeder::class,
             FarmSeeder::class,
-            // AppInfoSeeder::class,
-            // module_access::class,
         ]);
 
     }

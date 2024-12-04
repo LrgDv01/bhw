@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         // 'visitor' => \App\Http\Middleware\VisitorMiddleware::class,
         'farmer' => \App\Http\Middleware\FarmerMiddlerware::class,
+        'technician' => \App\Http\Middleware\TechnicianMiddleware::class,
         'redirect.nonadmin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
         'redirect.nonlogin' => \App\Http\Middleware\RedirectIfNotLogin::class,
         // 'check.module.access' => \App\Http\Middleware\LoadModuleAccess::class,

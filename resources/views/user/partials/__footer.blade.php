@@ -30,19 +30,14 @@
   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Template Main JS File -->
   <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>
   <script src="{{ URL::asset('js/global.js') }}"></script>
-  <!-- <script src="{{ URL::asset('js/summernote.js')}}"></script> -->
-  <script src="{{ URL::asset('js/user/visitform.js')}}"></script>
-  <script src="{{ URL::asset('js/user/booking.js')}}"></script>
   <script src="{{ URL::asset('js/user/user.js')}}"></script>
-  @if(Request::routeIs('videocall'))
-    <script src="https://sdk.videosdk.live/js-sdk/0.0.82/videosdk.js"></script>
-    <script src="{{ asset('js/index.js') }}"></script>
-    <script src="{{ asset('js/config.js') }}"></script>
-  @endif
+  <script src="{{ URL::asset('js/user/services.js')}}"></script>
+  <script src="{{ URL::asset('js/user/settings.js')}}"></script>
 
 </body>
 

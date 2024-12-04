@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class FarmerMiddlerware
+class TechnicianMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,7 @@ class FarmerMiddlerware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if (Auth::check() && Auth::user()->isTechnician()) {
-        if (Auth::check() && Auth::user()->isFarmer()) {
+       if (Auth::check() && Auth::user()->isTechnician()) {
 
             return $next($request);
         }
