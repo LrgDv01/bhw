@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class ServicesModel extends Model
 {
     use HasFactory;
-    public $table = "services";
     
+    public $table = "services";
     protected $fillable = [
         'user_id',
         'technician_id',
@@ -20,16 +20,16 @@ class ServicesModel extends Model
         'status',
     ];
 
-     // Define relationships if needed
-     public function user()
-     {
-         return $this->belongsTo(User::class, 'user_id');
-     }
+    // Define relationships if needed
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
-     public function farm()
-     {
-         return $this->belongsTo(FarmModel::class, 'user_id', 'user_id');
-     }
+    public function farms()
+    {
+        return $this->belongsTo(FarmModel::class, 'user_id', 'user_id');
+    }
 
     const STATUS_PENDING = 'pending';
     const STATUS_ACCEPTED = 'accepted';
@@ -50,5 +50,8 @@ class ServicesModel extends Model
         }
     }
 
+    public function userFarms() {
+        return $this->hasMany(FarmModel::class, 'user_id', 'user_id');
+    }
 
 }

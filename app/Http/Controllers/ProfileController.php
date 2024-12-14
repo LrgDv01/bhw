@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+
 
 class ProfileController extends Controller
 {
@@ -30,29 +34,41 @@ class ProfileController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+
     public function updateProfile(Request $request)
     {
-        // Validate the input data
-        $validatedData = $request->validate([
+
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
-            // 'age' => 'nullable|integer|min:1|max:120',
-            // 'gender' => 'nullable|string|max:50',
-            'contact' => 'nullable|string|max:15',
-            'email' => 'required|email|max:255',
-            // 'district' => 'nullable|string|max:255',
-            // 'municipality' => 'nullable|string|max:255',
+            'contact' => 'required|string|max:15',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
         ]);
-
-        // Get the currently authenticated user
-        $user = auth()->user();
-        try {
-            // Update the user's profile with the validated data
-            $user->update($validatedData);
-
-            return response()->json(['success' => true, 'message' => 'Profile updated successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update profile', 'error' => $e->getMessage()], 500);
+    
+        // Handle validation failures
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
         }
+    
+        $user = Auth::user();
+        // Update user details
+        $user->full_name = $request->input('full_name');
+        $user->contact = $request->input('contact');
+        $user->email = $request->input('email');
+        // Save changes and respond
+        if ($user->save()) {
+            return response()->json(['success' => true, 'message' => 'Profile updated successfully.'], 200);
+        }
+    
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to update profile. Please try again later.'
+        ], 500);
     }
-
+    
+    
 }

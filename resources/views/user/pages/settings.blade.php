@@ -21,7 +21,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-calendar me-2"></i>
-                        <strong>{{ $user->age }}</strong>
+                        <strong id="age">{{ $user->age }}</strong>
                         <div class="text-muted">Age</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('age', '{{ $user->age }}')">
@@ -33,7 +33,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-gender-female me-2"></i>
-                        <strong id>{{ $user->gender }}</strong>
+                        <strong id="gender">{{ $user->gender }}</strong>
                         <div class="text-muted">Gender</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('gender', '{{ $user->gender }}')">
@@ -45,7 +45,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-telephone me-2"></i>
-                        <strong>{{ $user->contact }}</strong>
+                        <strong id="contact">{{ $user->contact }}</strong>
                         <div class="text-muted">Contact No.</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('contact', '{{ $user->contact}}')">
@@ -57,7 +57,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-envelope me-2"></i>
-                        <strong>{{ $user->email }}</strong>
+                        <strong id="email">{{ $user->email }}</strong>
                         <div class="text-muted">E-mail</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('email', '{{ $user->email }}')">
@@ -69,7 +69,7 @@
              {{--   <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-building me-2"></i>
-                        <strong>{{ $user->municipality }}</strong>
+                        <strong id="municipality">{{ $user->municipality }}</strong>
                         <div class="text-muted">Municipality</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('municipality', '{{ $user->municipality }}')">
@@ -81,7 +81,7 @@
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-geo-alt me-2"></i>
-                        <strong>{{ $user->district }}</strong>
+                        <strong id="district">{{ $user->district }}</strong>
                         <div class="text-muted">District</div>
                     </div>
                     <button class="btn btn-outline-success btn-sm" onclick="editField('district', '{{ $user->district }}')">
@@ -97,13 +97,14 @@
 
         <!-- Modal for Editing -->
         <div class="modal fade" id="editFieldModal" tabindex="-1" aria-labelledby="editFieldModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editFieldModalLabel">Edit Field</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="editFieldForm">
+                        @csrf
                         <div class="modal-body">
                             <input type="hidden" id="fieldName">
                             <div class="mb-3">
@@ -124,7 +125,6 @@
         @include('user.others.update_profile')
     </section>
 </main>
-
 @include('user.partials.__footer')
 
 

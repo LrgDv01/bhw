@@ -51,11 +51,10 @@
                     @endforeach
                 </ul>
             </div>
-
-
         </div>
+        @include('user.others.hire_technician')
+        @include('user.others.user_info')
     </section>
 </main>
-@include('user.others.hire_technician')
-@include('user.others.user_info')
+
 @include('user.partials.__footer')

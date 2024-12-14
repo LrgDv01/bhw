@@ -8,28 +8,19 @@ use Illuminate\Support\Facades\Auth;
 
 class FarmController extends Controller
 {
-    //
 
-    // public function reload() {
-    //     $farms_details = new FarmController();
-    //     $farms = $farms_details->index();
-    //     return view('user.home', compact('farms'));
-    // }
     public function index() {
-        $userId = Auth::id(); // This gets the authenticated user's ID
-        // dd($userId);
+        $userId = Auth::id(); 
         $farms = FarmModel::where('user_id', $userId)
         // ->orderBy('created_at', 'desc')->limit(4) // Order by created_at, newest first
         ->orderBy('created_at', 'desc') // Order by created_at, newest first
         ->get();
-        // return $farms;
         return view('user.home', compact('farms'));
     }
 
     public function store(Request $request)
     {
         // Validate the incoming request
-        // 'user_id' => 'required|exists:users,id', // Ensure user exists in the database
         $request->merge(['user_id' => auth()->id()]);
         try {
             $validated = $request->validate([

@@ -3,6 +3,7 @@
 namespace App\Models\Farm;
 
 use App\Models\User;
+use App\Models\ServicesModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,13 +21,15 @@ class FarmModel extends Model
         'tree_age',
         'planted_coconut',
         'soil_type',
-
-        
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function  services() {
+        return $this->belongsTo(ServicesModel::class, 'user_id', 'user_id');
     }
 
 }

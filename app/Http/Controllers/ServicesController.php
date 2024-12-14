@@ -11,9 +11,15 @@ class ServicesController extends Controller
 {
     public function index()
     {   
-        $technicians = User::where('user_type', 2)->select('id', 'full_name', 'address', 'contact')->get();
+        $technicians = User::where('user_type', 2)
+            ->select('id', 'full_name', 'address', 'contact')
+            ->get();
+
         $user = auth()->id();
-        $hiredTechnicians = ServicesModel::where('user_id', $user)->pluck('technician_id')->toArray();
+        $hiredTechnicians = ServicesModel::where('user_id', $user)
+            ->pluck('technician_id')
+            ->toArray();
+            
         return view('user.pages.services', [
             'technicians' => $technicians,
             'hiredTechnicians' => $hiredTechnicians,
@@ -38,7 +44,7 @@ class ServicesController extends Controller
         $confirmation->save();
 
          // Add a flash session message for success
-        Session::flash('success', 'Account created successfully');
+        Session::flash('success', 'Technician hired successfully.');
         return response()->json(['success' => true,  'message' => 'Technician hired successfully!']);
     }
 
@@ -59,31 +65,34 @@ class ServicesController extends Controller
             ], 404);
         }
     }
-
-    public function status($id, $status) {
-        $requestDetails = ServicesModel::findOrFail($id);
-        // dd($status);
-        // Update the status to 'accepted'
-        $requestDetails->status =  $status;
-        $requestDetails->save();
-
-        if($status === 'accepted') {
-            // Redirect back with a success message
-            return redirect()->route('user.notifications')->with($status, 'Request has been accepted successfully.');
-        }else if($status === 'declined') {
-            // Redirect back with a success message
-            return redirect()->route('user.notifications')->with($status, 'Request has been declined successfully.');
-        }else {
-            return redirect()->route('user.notifications')->with('error', 'Action Unsuccessful !.');
+    
+    public function updateStatus(Request $request, $id, $status)
+    {
+        try {
+            // Process the status update logic
+            $requestDetails = ServicesModel::findOrFail($id);
+            $requestDetails->status = $status;
+            $requestDetails->save();
+    
+            return response()->json([
+                'success' => true,
+                'message' => "Request has been successfully {$status}."
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while processing your request.'
+            ], 500);
         }
     }
-
+    
+    
     public function show($id) {
 
         $technician = User::join('technicians', 'users.id', '=', 'technicians.user_id')
-        ->where('users.id', $id)
-        ->select('users.*', 'technicians.*')
-        ->first();
+            ->where('users.id', $id)
+            ->select('users.*', 'technicians.*')
+            ->first();
 
         if ($technician) {
             return response()->json([

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
+use App\Models\Farm\FarmModel;
+use App\Models\ServicesModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -70,14 +71,18 @@ class User extends Authenticatable
         return $this->user_type == 2;
     }
   
-    
     public function feedback()
     {
         return $this->hasMany(FeedbackModel::class, 'user_id');
     }
-
+    public function services()
+    {
+        return $this->hasMany(ServicesModel::class, 'user_id', 'id');
+    }
     public function farms()
     {
-        return $this->hasMany(Farm::class);
+        return $this->hasMany(FarmModel::class, 'user_id', 'id');
     }
+
+   
 }

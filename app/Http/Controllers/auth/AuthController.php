@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -29,71 +30,44 @@ class AuthController extends Controller
     if ($csrfValidation) {
       return $csrfValidation;
     }
-    // Check if code is provided for login
-    if ($request->has('code')) {
-      $validator = Validator::make($request->all(), [
-        'code' => 'required|string',
-      ]);
 
-      if ($validator->fails()) {
-        return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
-      }
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|email',
+      'password' => 'required|string',
+      'remember' => 'nullable|boolean', // Optional "Remember Me"
+    ]);
 
-      // $code = $request->input('code');
-      // $user = User::join('unique_qr as b', 'users.id', '=', 'b.userID')
-      //   ->where('b.code', $code)
-      //   ->select('users.*') // Select only user columns
-      //   ->first();
-
-      // if ($user) {
-      //   // Check if the user account is blocked
-      //   // if ($user) {
-      //   //   // Blocked account, log the attempt and return an error response
-     
-      //   //   return response()->json(['errors' => 'Account blocked'], 403);
-      //   // } else {
-      //   //   Auth::login($user);
-        
-      //   //   $redirectRoute = $user->isAdmin() || $user->is() ? route('admin.dashboard') : route('user.home');
-      //   //   return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
-      //   // }
-      // } else {
-   
-      //   return response()->json(['errors' => 'Invalid code'], 401);
-      // }
-    } else {
-      // Validate request data
-      $validator = Validator::make($request->all(), [
-        'email' => 'required|email',
-        'password' => 'required',
-      ]);
-      if ($validator->fails()) {
-        $email = $request->input('email');
-  
-        return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
-      }
-      // Attempt to log in the user
-      $credentials = $request->only('email', 'password');
-      $checkData = User::where('email', $request->email)->first();
-      if($checkData) {
-          if (Auth::attempt($credentials)) {
-            // Authentication successful
-            $user = Auth::user();
-            $redirectRoute = $user->isAdmin()
-              ? route('admin.dashboard'): ($user->isFarmer() 
-              ? route('user.farm')
-              : route('user.notifications'));
-            return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
-          } else {
-            // Authentication failed
-            $email = $request->input('email');
-            return response()->json(['errors' => 'Invalid credentials 1'], 401);
-          }
-      } else {
-        return response()->json(['errors' => 'Invalid credentials'], 401);
-      }
+    if ($validator->fails()) {
+      $email = $request->input('email');
+      return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
     }
+    // Attempt to log in the user
+    $credentials = $request->only('email', 'password');
+    $remember = $request->boolean('remember'); // Retrieve "Remember Me" value
+
+    $checkData = User::where('email', $request->email)->first();
+    if($checkData) {
+        if (Auth::attempt($credentials, $remember)) {
+          // Store "Remember Me" preference in session
+          $request->session()->put('remember_me', $remember); // Save in session
+          // Authentication successful
+          $user = Auth::user();
+          $redirectRoute = $user->isAdmin()
+            ? route('admin.dashboard'): ($user->isFarmer() 
+            ? route('user.farm')
+            : route('user.notifications'));
+          return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
+        } else {
+          // Authentication failed
+          $email = $request->input('email');
+          return response()->json(['errors' => 'Invalid credentials'], 401);
+        }
+    } else {
+      return response()->json(['errors' => 'Invalid credentials'], 401);
+    }
+    
   }
+
   public function register(Request $request)
   {
     $csrfValidation = $this->validateCsrfToken($request);
@@ -165,14 +139,76 @@ class AuthController extends Controller
     // Return a success response
     return response()->json(['message' => 'User registered successfully'], 200);
   }
+
+  public function showRequestForm() {
+    return view('auth.request_link_verification');
+  }
+
+  public function requestResetLink(Request $request)
+  {
+    $request->validate([
+      'email' => 'required|email|exists:users,email',
+    ]);
+
+    $status = Password::sendResetLink(
+      $request->only('email')
+    );
+
+    if ($status == Password::RESET_LINK_SENT) {
+      return response()->json(['success' => true, 'message' => 'We have e-mailed your password reset link!']);
+    } else {
+      return response()->json(['success' => false, 'message' => 'Failed to send reset link, please try again.'], 422);
+    }
+  }
+
+  public function showResetForm($token) {
+    $email = request('email');
+    return view('auth.reset_password', ['token' => $token, 'email' => $email]);
+  }
+
+  public function resetPassword(Request $request) {
+
+    $request->validate([
+      'token' => 'required',
+      'email' => 'required|email|exists:users,email',
+      'password' => 'required|confirmed|min:3',
+    ]);
+
+    $status = Password::reset(
+      $request->only('email', 'password', 'password_confirmation', 'token'),
+      function ($user, $password) {
+        $user->forceFill([
+          'password' => Hash::make($password),
+        ])->save();
+        // Automatically log the user in
+        Auth::login($user);
+      }
+    );
+
+    if ($status === Password::PASSWORD_RESET) {
+      $user = Auth::user();
+      $redirectRoute = $user->isAdmin() 
+        ? route('admin.dashboard'): ($user->isFarmer() 
+        ? route('user.farm')
+        : route('user.notifications'));
+      return response()->json([
+        'success' => true, 
+        'message' => 'Password has been reset and you are now logged in.', 
+        'user' => $user, 'redirect' => $redirectRoute], 200);
+    } 
+        // If reset fails, redirect back with an error
+        return back()->withErrors(['success' => false, 'email' => __($status)]);
+    // return response()->json([
+    //   'success' => false,
+    //   'message' => __($status),
+    // ], 400);
+  }
+
   public function logout(Request $request)
   {
     Auth::logout();
-
     $request->session()->invalidate();
-
     $request->session()->regenerateToken();
-
-    return redirect('/');
+    return redirect()->route('logout');
   }
 }

@@ -1,6 +1,5 @@
 $(document).on('submit', '#editFieldForm', function(event) {
     event.preventDefault();  // Prevent form submission
-
     const fieldName = $('#fieldName').val();
     const fieldValue = $('#fieldValue').val();
 
@@ -16,7 +15,7 @@ $(document).on('submit', '#editFieldForm', function(event) {
         },
         success: function (response) {
             if (response.success) {
-                $('#user_name').text(fieldValue);
+                $('#' + fieldName).text(fieldValue);
                 $('#editFieldModal').modal('hide');  
             }
         },
@@ -27,44 +26,43 @@ $(document).on('submit', '#editFieldForm', function(event) {
 });
 
 
-$(document).on('submit', '#updateProfileForm', function() {
-    const full_name = $('#full_name').val();
-    const age = $('#age').val();
-    const gender = $('#gender').val();
-    const contact = $('#contactNo').val();
-    const email = $('#email').val();
-    const district = $('#district').val();
-    const municipality = $('#municipality').val();
-  
-    // Send data via AJAX to update the profile
-    $.ajax({
-      url: '/user/update-profile',  // Adjust the URL to your update endpoint
+$(document).on('submit', '#updateProfileForm', function(event) {
+  event.preventDefault();  // Prevent form submission
+
+  const formData = {
+      full_name: $('#new_name').val(),
+      contact: $('#new_contact').val(),
+      email: $('#new_email').val(),
+  };
+
+  $.ajax({
+      url: '/user/update-profile',
       method: 'POST',
-      data: {
-        full_name: full_name,
-        // age: age,
-        // gender: gender,
-        contact: contact,
-        email: email,
-        // district: district,
-        // municipality: municipality
-      },
+      data: formData,
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  // CSRF token for security
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function(response) {
-        if (response.success) {
-          // Optionally, update UI with new values
-        //   $('#userName').text(name);  // Assuming you display the name elsewhere on the page
-        //   $('#userAge').text(age);    // Same for other fields
-          
-          // Close the modal after successful update
-          $('#updateProfileModal').modal('hide');
-        }
+      success: function (data) {
+          if (data.success) {
+              $('#updateProfileModal').modal('hide');
+              location.reload(); // Optionally reload the page to reflect changes
+          } else {
+              alert('Error updating profile: ' + data.message);
+          }
       },
-      error: function(xhr) {
-        console.error(xhr.responseText);  // Handle error
+      error: function (xhr) {
+          if (xhr.status === 422) {
+              // Show validation errors
+              const errors = xhr.responseJSON.errors;
+              let errorMessage = "Validation Errors:\n";
+              for (let key in errors) {
+                  errorMessage += `- ${errors[key]}\n`;
+              }
+              alert(errorMessage);
+          } else {
+              console.error('Error:', xhr);
+              alert('An error occurred while updating the profile.');
+          }
       }
-    });
   });
-  
+});

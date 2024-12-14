@@ -86,7 +86,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/services') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/reports') }}">
             <i class="bi bi-clipboard-data text-white"></i>  
             <span>Reports</span>
           </a>
@@ -100,13 +100,22 @@
       @endif
     </ul>
     <div class="sidebar-nav">
+   {{--   <form action="{{ route('logout') }}" id="logoutform" method="POST">
+        @csrf
+      </form>
+      <button form="logoutform" type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
+        <i class="text-white bi bi-arrow-bar-left"></i>
+        <span>Logout</span>
+      </button>--}}
+        {{-- <form action="{{ route('logout') }}" id="logoutform" method="POST">  --}}
+       
         <form action="{{ route('logout') }}" id="logoutform" method="POST">
           @csrf
+          <button type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
+            <i class="text-white bi bi-arrow-bar-left"></i>
+            <span>Logout</span>
+          </button>
         </form>
-        <button form="logoutform" type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
-          <i class="text-white bi bi-arrow-bar-left"></i>
-          <span>Logout</span>
-        </button>
     </div>
   </aside>
 
@@ -167,49 +176,3 @@
     </div>
   </div>
   
- {{--
-<script>
-
-    checkUnreadNotifications();
-    
-    function checkUnreadNotifications() {
-        $.ajax({
-            type: 'GET',
-            url: '/notifications/unread', // Update this to the correct route
-            // url: '{{ route("notifications.unread") }}', correct route
-
-
-            success: function (response) {
-                if (response.unread_count > 0) {
-                    // Show the notification icon with the alert badge
-                    $('.notification-bell').removeClass('d-none');
-                } else {
-                    // Hide the notification icon
-                    $('.notification-bell').addClass('d-none');
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching notifications: " + error);
-            }
-        });
-    }
-    $(document).on('click', '#notification-bell', function () {
-        $.ajax({
-            type: 'POST',
-            url: '/notifications/mark-read',
-            // url: '{{ route("notifications.markRead") }}', correct route
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token
-            },
-            success: function (response) {
-                if (response.success) {
-                    // Optionally hide the notification alert after marking as read
-                    checkUnreadNotifications(); // Refresh the notification state
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error marking notifications as read: " + error);
-            }
-        });
-    });
-</script> --}}

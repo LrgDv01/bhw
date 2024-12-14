@@ -28,3 +28,4 @@ $(document).on('click', '#confirmHireButton', function () {
     });
 });
 
+

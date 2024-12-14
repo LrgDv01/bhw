@@ -1,36 +1,9 @@
 $(document).ready(function() {
-//   const currentYear = new Date().getFullYear();
-//   const startYear = currentYear - 10; // Change this value to adjust the range
-//   const $yearSelect = $('#yearSelect');
-
-//   for (let year = currentYear; year >= startYear; year--) {
-//       $yearSelect.append(new Option(year, year));
-//   }
-//   // Check element 
-// //   let graph = $("#monthlyChart1");
-
-//   if(graph.length > 0) {
-//     // Optionally, you can add an event listener to handle the year selection
-//     $yearSelect.on('change', function() {
-//         const selectedYear = $(this).val();
-//         displayMonthlyGraph(selectedYear);
-//         // Fetch and update the chart data based on the selected year
-//     });
-//     displayMonthlyGraph(currentYear)
-//   }
-
     const currentYear = new Date().getFullYear();
-    // const startYear = currentYear + 4; // Change this value to adjust the range
-    // const $diseaseYearSelect = $('#diseaseYearSelect');
-    // for (let year = currentYear; year >= startYear; year--) {
-    //     $diseaseYearSelect.prepend(new Option(year, year));
-    // }
-
     const diseaseYearSelect = document.getElementById('diseaseYearSelect');
     // for (let year = 2020; year <= 2024; year++) {
     if (diseaseYearSelect) {
         for (let year = 2020; year <= currentYear; year++) {
-
             const option = document.createElement("option");
             option.value = year;
             option.textContent = year;
@@ -43,7 +16,6 @@ $(document).ready(function() {
         displayDiseaseChart(currentYear)
     }
    
-
 });
 let diseases_chart; 
 // let monthlyChart; // Declare a variable to store the chart instance

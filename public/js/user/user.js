@@ -26,7 +26,6 @@ $(document).on('submit', '#update_profile', function(e) {
   });
 });
 
-
 $(document).on('click', '.directtologout', function (e) { 
   $('#logoutform').trigger('submit');
 });
@@ -51,7 +50,7 @@ $(document).ready(function() {
                   $('#add-farm-form')[0].reset(); 
                   $('.modal-backdrop').remove(); 
                   $('body').removeClass('modal-open'); 
-                  location.reload()
+                  location.reload();
                 }     
         },
         error: function(xhr, status, error) {

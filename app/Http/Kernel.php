@@ -63,13 +63,11 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        // 'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        // 'visitor' => \App\Http\Middleware\VisitorMiddleware::class,
         'farmer' => \App\Http\Middleware\FarmerMiddlerware::class,
         'technician' => \App\Http\Middleware\TechnicianMiddleware::class,
         'redirect.nonadmin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
         'redirect.nonlogin' => \App\Http\Middleware\RedirectIfNotLogin::class,
-        // 'check.module.access' => \App\Http\Middleware\LoadModuleAccess::class,
+        'device.ismobile' => \App\Http\Middleware\DeviceMiddleware::class,
     ];
 }

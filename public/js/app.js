@@ -17,7 +17,7 @@ $(document).on('submit', '#registerform', function (e) {
             console.log("response >>>", response); 
             hideLoading();
             $('#registerform')[0].reset();
-            global_showalert(response.message, 'Congrats', 'blue', '/login');
+            global_showalert(response.message, 'Congrats', 'green', '/login');
             // Redirect to login page after displaying the message
         },
         error: function (xhr) {
@@ -30,7 +30,7 @@ $(document).on('submit', '#registerform', function (e) {
                     errorMessage += response.errors[errorKey][0] + '\n';
                 }
             }
-            global_showalert(errorMessage, 'Alert!!', 'red');
+            global_showalert(errorMessage, 'Failed !', 'red');
         }
     });
 });
@@ -52,7 +52,7 @@ $(document).on('submit', '#loginform', function (e) {
         },
         success: function (response) {  
             hideLoading();
-            global_showalert(response.message, 'Login Success', 'blue', response.redirect);
+            global_showalert('', 'Login Success', 'green', response.redirect);
         },
         error: function (xhr) {
             hideLoading();
@@ -65,7 +65,7 @@ $(document).on('submit', '#loginform', function (e) {
                     errorMessage += response.errors[errorKey][0] + '\n';
                 }
             }
-            global_showalert(errorMessage, 'Alert!', 'red');
+            global_showalert(response.errors, 'Failed !', 'red');
         }
     });
 });

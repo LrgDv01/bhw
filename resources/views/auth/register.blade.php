@@ -5,8 +5,8 @@
         <div class="card logincardbg bg-transparent">
             <div class="card-body">
                 <div class="text-center">
-                    <h3 class="fw-bold text-white">REGISTRATION</h3>
-                    <p class="text-white">Already Registered ? <a href="{{ url('/') }}" style="text-decoration:none;color:#188754">Login now</a></p>
+                    <h3 class="fw-bold text-white">Sign up</h3>
+                    <p class="text-white">Already Have an Account ? <a href="{{ url('/') }}" style="text-decoration:none;color:#188754">Login now</a></p>
                 </div>
                 <form id="registerform" class="container py-3 was-validated">
                   <div class="row text-white">

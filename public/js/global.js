@@ -1,18 +1,40 @@
 var csrfToken = $('meta[name="csrf-token"]').attr("content");
 let loadingIndicator;
-let status_arr = ['pending','approved','canceled','declined']
+let status_arr = ['pending','accepted','canceled','declined']
 function showLoading() {
     loadingIndicator = $.alert({
-        title: 'Loading...',
-        content: 'Please wait...',
-        theme: "modern",
-        type: 'blue',
+        title: `
+            <i class="fa fa-circle-notch fa-spin" style="color: green; margin-right: 10px;"></i>
+            <span style="color: green;">Loading...</span>`,
+        content: '<div style="text-align: center; font-size: 17px; color: #666;">Processing, please wait ...</div>',
+        theme: "modern", 
         closeIcon: false,
+        backgroundDismiss: true,
+        boxWidth: '500px', 
+        useBootstrap: false,
+        buttons: false, 
+        onOpenBefore: function () {
+            $('head').append('<style type="text/css"> \
+                .jconfirm-box { \
+                    border-radius: 20px !important; /* Adjust the border radius here */ \
+                } \
+                @media (max-width: 768px) { \
+                    .jconfirm-box { width: 90% !important; } \
+                    .jconfirm-content { font-size: 14px !important; } \
+                } \
+                @media (max-width: 480px) { \
+                    .jconfirm-box { width: 95% !important; } \
+                    .jconfirm-content { font-size: 12px !important; } \
+                } \
+            </style>');
+        }
     });
+    
 }
 function hideLoading() {
     loadingIndicator.close();
 }
+
 function global_showalert(msg, title, type, redirectURL = null) {
     if (redirectURL != null) {
         $.alert({
@@ -20,6 +42,15 @@ function global_showalert(msg, title, type, redirectURL = null) {
             content: msg,
             type: type,
             theme: "modern",
+            buttons: {
+                ok: {
+                    text: 'Proceed', 
+                    btnClass: 'btn-green', 
+                    action: function () {
+                        this.close(); 
+                    }
+                }
+            },
             onClose: function () {
                 window.location.href = redirectURL; // Redirect after the alert is closed
             }
@@ -45,8 +76,5 @@ function escapeHtml(unsafe) {
 
 
 $(document).on('click', '[data-dismiss="modal"]', function (e) {
-    $('#bookdetailmodal').modal('hide');
-    $('#declineBookingModal').modal('hide');
-    $('#moduleAccessModal').modal('hide');
     $('#userProfileModal').modal('hide');
 });

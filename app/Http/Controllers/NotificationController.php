@@ -17,7 +17,7 @@ class NotificationController extends Controller
 
     public function viewDetails($id)
     {
-        $requestDetails = ServicesModel::with('farm')->findOrFail($id);
+        $requestDetails = ServicesModel::with('farms')->findOrFail($id);
         // dd($requestDetails->farm->name);
         return view('user.technician.pages.request_details', compact('requestDetails'));
     }

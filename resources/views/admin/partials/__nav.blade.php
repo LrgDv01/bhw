@@ -107,13 +107,15 @@
     </ul>
 
     <div class="sidebar-nav">
-        <form action="{{ route('logout') }}" id="logoutform" method="POST">
+      {{--  <form action="{{ route('logout') }}" id="logoutform" method="POST"> --}}
+        
+        <form action="{{ route('logout') }}" method="POST">
           @csrf
+          <button type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
+            <i class="text-white bi bi-arrow-bar-left"></i>
+            <span>Logout</span>
+          </button>
         </form>
-        <button form="logoutform" type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
-          <i class="text-white bi bi-arrow-bar-left"></i>
-          <span>Logout</span>
-        </button>
     </div>
   </aside>
 

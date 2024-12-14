@@ -10,10 +10,8 @@ class deviceIdentifierController extends Controller
     public function index()
     {
         $detect = new MobileDetect;
-
         $isMobile = $detect->isMobile();
         $isTablet = $detect->isTablet();
-
         return $isMobile;
     }
 }

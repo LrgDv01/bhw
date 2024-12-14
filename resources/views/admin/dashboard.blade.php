@@ -1,76 +1,64 @@
 @include('admin.partials.__header')
 @include('admin.partials.__nav')
 
+
+<style>
+    .card.green-card {
+        background-color: #134125;
+        border-radius: 15px;    
+        color: white;
+    }
+    .card h5 {
+        color:white;
+    }
+    .card #count_today_total_cost,
+          #count_today_farmers,
+          #count_today_farms,
+          #count_doa {
+            color:white;
+    }
+    .card i {
+        color:green;
+    }
+    .card.disease-chart, .variety-chart {
+        background-color:lightyellow;
+        border-radius: 15px; 
+    }
+
+</style>
+
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h1>Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-
-
-    <h4>Accomplishment Report (Virtual visit)</h4>
+    </div>
+    <section class="section dashboard mt-4">
         <div class="row">
             <div class="col-lg-3 mb-1">
-            
                 <div class="col-lg-8">
-                    <div class="card info-card cardiconbg cardborderleft-blue">
+                    <div class="card info-card cardiconbg green-card">
                         <div class="card-body">
                             <h5 class="card-title">Check <span>| for</span></h5>
-
                             <div id="checkboxList">
                                 <label><input type="checkbox" id="monthlyFilter"> Monthly</label><br>
                                 <label><input type="checkbox" id="yearlyFilter"> Yearly</label><br>
                             </div>
-
-                            {{--    
-                            <div class="d-flex align-items-center">
-                                <div
-                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-hand-thumbs-up"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6 id="count_virtual_approved_book">0</h6>
-                                </div>
-                            </div>  --}}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 mb-3">
-                    <div class="card info-card cardiconbg cardborderleft-red">
+                    <div class="card info-card cardiconbg green-card">
                         <div class="card-body">
                             <h5 class="card-title">Check <span>| for</span></h5>
                             <div id="checkboxList">
                                 <label><input type="checkbox" id="district3Filter"> District lll</label><br>
                                 <label><input type="checkbox" id="district4Filter"> District lV </label><br>
-                            
                             </div>
-                            
-                            {{-- 
-                                <div class="d-flex align-items-center">
-                                <div
-                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-hand-thumbs-down"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6 id="count_virtual_rejected_book">0</h6>
-                                </div>
-                            </div>
-                                --}}
-                            
-
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 mb-3">
-                    <div class="card info-card cardiconbg cardborderleft-yellow">
+                    <div class="card info-card cardiconbg green-card">
                         <div class="card-body">
                             <h5 class="card-title">Municipality <span>| list</span></h5>
                             <div id="checkboxList">
@@ -81,79 +69,9 @@
                                 <label> Rizal</label><br>
                                 <label> Victoria</label><br>
                             </div>
-                            {{-- 
-                            <div class="d-flex align-items-center">
-                                <div
-                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-app-indicator"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6 id="count_virtual_pending_book">0</h6>
-                                </div>
-                            </div>
-                                
-                            --}}
-                        
                         </div>
                     </div>
                 </div>
-            
-                {{--     <h4>Accomplishment Report (Onsite visit)</h4>
-                <div class="row">
-                    <div class="col-lg-8 mb-3">
-                        <div class="row">
-                            <div class="col-lg-4 mb-3">
-                                <div class="card info-card cardiconbg cardborderleft-blue">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Approved <span>| This Month</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-hand-thumbs-up"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6 id="count_physical_approved_book">0</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <div class="card info-card cardiconbg cardborderleft-red">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Disapproved <span>| This Month</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-hand-thumbs-down"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6 id="count_physical_rejected_book">0</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <div class="card info-card cardiconbg cardborderleft-yellow">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pending <span>| This Month</span></h5>
-                                        <div class="d-flex align-items-center">
-                                            <div
-                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                <i class="bi bi-app-indicator"></i>
-                                            </div>
-                                            <div class="ps-3">
-                                                <h6 id="count_physical_pending_book">0</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  --}}
-            
             </div>
         
             <div class="col">
@@ -161,16 +79,16 @@
                     <div class="col-lg-3 mb-3">
                         <!-- <div class="row">  -->
                             <!-- <h4>Login and Appointment</h4> -->
-                            <div class="card info-card cardiconbg cardborderleft-blue">
+                            <div class="card info-card cardiconbg green-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Cost <span>| Today</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
+                                            <i class="fa-solid fa-peso-sign text-success"></i>
                                         </div>
-                                        <div class="ps-6 d-flex flex-row">
-                                            <h3 class="px-1">&#8369;</h3> <h6 id="count_today_total_cost">0</h6>
+                                        <div class="ps-3 d-flex flex-row">
+                                            <h6 id="count_today_total_cost">0</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -179,13 +97,13 @@
                     </div>
                     <div class="col-lg-3 mb-3">
                         <!-- <div class="row">  -->
-                            <div class="card info-card cardiconbg cardborderleft-blue">
+                            <div class="card info-card cardiconbg green-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Farmers <span>| Today</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-calendar-check"></i>
+                                            <i class="bi bi-people"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6 id="count_today_farmers">0</h6>
@@ -198,13 +116,13 @@
 
                     <div class="col-lg-3 mb-3">
                         <!-- <div class="row">  -->
-                            <div class="card info-card cardiconbg cardborderleft-blue">
+                            <div class="card info-card cardiconbg green-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Farms <span>| Today</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-calendar-check"></i>
+                                            <i class="bi-tree"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6 id="count_today_farms">0</h6>
@@ -216,13 +134,13 @@
                     </div>
                     <div class="col-lg-3 mb-3">
                         <!-- <div class="row">  -->
-                            <div class="card info-card cardiconbg cardborderleft-blue">
+                            <div class="card info-card cardiconbg green-card">
                                 <div class="card-body">
                                     <h5 class="card-title">DA <span>| Today</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-calendar-check"></i>
+                                            <i class="bi bi-building"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6 id="count_doa">0</h6>
@@ -248,7 +166,7 @@
 
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card disease-chart">
                             <div class="card-body p-3">
                                 <div style="width: 100%; margin: auto;">
                                     <canvas id="diseases_chart"></canvas>
@@ -267,7 +185,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card variety-chart">
                             <div class="card-body p-3">
                                 <div style="width: 100%; margin: auto;">
                                     <canvas id="coconut_chart"></canvas>
