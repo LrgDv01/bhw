@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-      // Call multiple seeders here
       $this->call([
             AdminSeeder::class,
             UserSeeder::class,

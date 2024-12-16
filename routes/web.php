@@ -45,8 +45,6 @@ Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
     Route::post('/request/reset-link', [AuthController::class, 'requestResetLink'])->name('request.reset-link');
     Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
-    Route::view('/guidelines', 'frontpage.guide')->name('guidelines');
-    Route::view('/about', 'frontpage.about')->name('about');
     Route::view('/contact', 'frontpage.contact')->name('contact');
 
 });
@@ -79,20 +77,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/services/hired', [ServicesController::class, 'hired'])->name('user.services.hired');
         Route::get('/technician/{id}', [ServicesController::class, 'show'])->name('technician.info');
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
-        Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
+        Route::get('/user/farmer/settings', [ProfileController::class, 'index'])->name('user.settings');
         
         Route::middleware(['web'])->group(function () {
             Route::post('/user/add_farm', [FarmController::class, 'store'])->name('farm.store');
+            Route::post('/user/update/condition', [FarmController::class, 'updateCondition'])->name('update.condition');
             Route::post('/user/hire-technician', [ServicesController::class, 'hireTechnician'])->name('user.hire');
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
-
-            Route::get('/user/help', function () {
-                return view('user.pages.help');
-            })->name('user.help');
-            Route::get('/user/about', function () {
-                return view('user.pages.about'); 
-            })->name('user.about');
         });
     });
 
@@ -101,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/notifications', [NotificationController::class, 'index'])->name('user.notifications');
         Route::get('/user/notifications/{id}/request-details', [NotificationController::class, 'viewDetails'])->name('user.viewDetails');
         Route::get('/user/reports', [ReportsController::class, 'index'])->name('user.reports');
-        Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
+        Route::get('/user/technician/settings', [ProfileController::class, 'index'])->name('user.settings');
 
         Route::middleware(['web'])->group(function () {
          
@@ -109,13 +101,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
-
-            Route::get('/user/help', function () {
-                return view('user.pages.help');
-            })->name('user.help');
-            Route::get('/user/about', function () {
-                return view('user.pages.about');
-            })->name('user.about');
         });
     });
 

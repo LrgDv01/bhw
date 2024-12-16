@@ -23,7 +23,6 @@
                                     <form action="{{ route('reports.submit') }}" method="POST" id="submitForm{{ $report->id }}">
                                         @csrf
                                         <input type="hidden" name="report_id" value="{{ $report->id }}">
-
                                         <div id="report-details">
                                             <h6 class="text-center"><strong>Farmer Details</strong></h6>
                                             <h6><strong>Farmer Name:</strong> <span id="farmer_name">{{ $report->farmer_name }}</span></h6>
@@ -36,6 +35,7 @@
                                                 <h6><strong>Farm Size:</strong> <span id="farm_size">{{ $farm->hectares }} hectares</span></h6>
                                                 <h6><strong>No. of Coconut Trees:</strong> <span id="coconut_trees">{{ $farm->planted_coconut }}</span></h6>
                                                 <h6><strong>Coconut Variety:</strong> <span id="coconut_variety">{{ $farm->variety }}</span></h6>
+                                                <hr>
                                             @endforeach
                                         </div>
                                         <div class="mb-3">
@@ -129,7 +129,6 @@
         const errorNote = document.getElementById(`error_note_${reportId}`);
         const errorDisease = document.getElementById(`error_disease_${reportId}`);
         const errorSoil = document.getElementById(`error_soil_${reportId}`);
-        
         let isValid = true;
 
         // Validate textarea

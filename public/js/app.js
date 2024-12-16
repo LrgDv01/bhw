@@ -66,6 +66,7 @@ $(document).on('submit', '#loginform', function (e) {
                 }
             }
             global_showalert(response.errors, 'Failed !', 'red');
+            location.reload(); 
         }
     });
 });

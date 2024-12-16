@@ -16,11 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
             $table->string('location');
-            $table->string('variety'); // For coconut variety (e.g., Tall, Dwarf, Hybrid)
-            $table->decimal('hectares', 8, 2); // For farm area in hectares, with 2 decimal places
-            $table->integer('tree_age'); // For age of trees in years
-            $table->integer('planted_coconut'); // For number of planted coconut trees
-            $table->string('soil_type'); // For soil type (e.g., Sandy, Clay, Loam, Silty)
+            $table->string('variety'); 
+            $table->decimal('hectares', 8, 2); 
+            $table->integer('tree_age'); 
+            $table->integer('planted_coconut'); 
+            $table->string('soil_type'); 
+            $table->string('condition');
             $table->timestamps();
         });
     }

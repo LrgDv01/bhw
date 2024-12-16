@@ -12,7 +12,6 @@ $(document).on('click', '#confirmHireButton', function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
         success: function (response) {
-            console.log("response >>>", response);
             if (response.success) {
                 $('#hireTechnicianModal').modal('hide');
                 $('.modal-backdrop').remove(); 

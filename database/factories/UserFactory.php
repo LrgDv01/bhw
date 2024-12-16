@@ -18,15 +18,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_name' => $this->faker->unique()->userName(), // Ensures unique usernames
-            'full_name' => $this->faker->name(), // Generates full names (first + last)
+            'user_name' => $this->faker->unique()->userName(), 
+            'full_name' => $this->faker->name(), 
             'address' => fake()->address(),
-            'contact' => $this->faker->unique()->e164PhoneNumber(), // Generates valid phone numbers
-            'email' => $this->faker->unique()->safeEmail(), // Unique email addresses
-            'email_verified_at' => now(), // Current timestamp for email verification
-            'password' => bcrypt('password'), // Default password for generated users
-            'user_type' => $this->faker->randomElement([1, 2]), // Randomly selects 1 or 2 as integer
-            'remember_token' => Str::random(10), // Generates a random remember token
+            'contact' => $this->faker->unique()->e164PhoneNumber(), 
+            'email' => $this->faker->unique()->safeEmail(), 
+            'email_verified_at' => now(), 
+            'password' => bcrypt('password'), 
+            'user_type' => $this->faker->randomElement([1, 2]),
+            'remember_token' => Str::random(10), 
         ];
     }
 

@@ -18,7 +18,6 @@ class DeviceMiddleware
     {
         $identifyUser = new deviceIdentifierController();
         $device = $identifyUser->index();
-        // if (Auth::check() && $device && (Auth::user()->isFarmer() || Auth::user()->isTechnician())) {
         if ($device) {
             return $next($request);
         }

@@ -20,9 +20,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        // 'valid_id',
-        // 'middle_name',
-        // 'last_name',
         // 'gender',
         // 'address',
         'profile_img',
@@ -71,10 +68,6 @@ class User extends Authenticatable
         return $this->user_type == 2;
     }
   
-    public function feedback()
-    {
-        return $this->hasMany(FeedbackModel::class, 'user_id');
-    }
     public function services()
     {
         return $this->hasMany(ServicesModel::class, 'user_id', 'id');

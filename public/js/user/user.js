@@ -12,7 +12,7 @@ $(document).on('submit', '#update_profile', function(e) {
       processData: false,
       success: function(response) {
         hideLoading();
-        global_showalert(response.message, 'Congrats', 'blue', '/user/home');
+        global_showalert(response.message, 'Congrats', 'green', '/user/home');
       },
       error: function(response) {
         hideLoading();
@@ -28,6 +28,7 @@ $(document).on('submit', '#update_profile', function(e) {
 
 $(document).on('click', '.directtologout', function (e) { 
   $('#logoutform').trigger('submit');
+  location.reload();
 });
 
 // ADD FARM 

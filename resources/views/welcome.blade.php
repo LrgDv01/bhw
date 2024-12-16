@@ -21,7 +21,8 @@
                                     
                                     <div class="form-group mb-3">
                                         <label class="form-label fw-bold" for="email">EMAIL</label>
-                                        <input type="email" name="email" class="form-control py-3" id="email" placeholder="Enter your email address" required>
+                                        <input type="email" name="email" class="form-control py-3" id="email" 
+                                                placeholder="Enter your email address" value="{{ old('email', session('email')) }}" required >
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="form-label fw-bold" for="password">PASSWORD</label>

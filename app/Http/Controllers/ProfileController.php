@@ -37,15 +37,12 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-
-        // Validate the incoming request data
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
             'contact' => 'required|string|max:15',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
         ]);
     
-        // Handle validation failures
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,

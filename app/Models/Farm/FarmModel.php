@@ -21,6 +21,7 @@ class FarmModel extends Model
         'tree_age',
         'planted_coconut',
         'soil_type',
+        'condition',
     ];
 
     public function user()

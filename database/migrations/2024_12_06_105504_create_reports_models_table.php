@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('farmer_name'); // Farmer's name
-            $table->string('contact_no'); // Contact number
-            $table->string('recipient'); // Recipient's name
-            $table->string('farm_location'); // Farm location
-            $table->decimal('farm_size', 10, 2); // Farm size in hectares, with more precision (optional change)
-            $table->bigInteger('coconut_trees'); // Number of coconut trees, use bigInteger for large numbers
-            $table->string('coconut_variety'); // Variety of coconuts
-            $table->string('soil_type'); // Type of diseases, optional
-            $table->json('disease_type'); // Type of diseases, optional
-            $table->text('note'); // Note or description of the report (use text for longer input)
+            $table->string('farmer_name'); 
+            $table->string('contact_no'); 
+            $table->string('recipient'); 
+            $table->string('farm_location'); 
+            $table->decimal('farm_size', 10, 2); 
+            $table->bigInteger('coconut_trees'); 
+            $table->string('coconut_variety');
+            $table->string('soil_type'); 
+            $table->json('disease_type'); 
+            $table->text('note'); 
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
                 </div>
      
-                <div class="d-grid">
+                <div class="d-grid login-btn">
                     <button type="submit" class="btn btn-success">Login</button>
                 </div>
             </form>
@@ -55,6 +55,7 @@
                 },
                 success: function(response) {
                     if (response.success) {
+                        $('.login-btn button').prop('disabled', true);
                         hideLoading();
                         $('#response-message')
                             .html(`<div style="color: white;">${response.message}</div>
@@ -64,9 +65,8 @@
                             `);
 
                         setTimeout(() => {
-                            global_showalert(response.message, 'Login Success', 'blue', response.redirect);
-                        }, 3000); // Redirect after 3 seconds
-                     
+                            global_showalert(response.message, 'Login Success', 'green', response.redirect);
+                        }, 1000); 
 
                     } else {
                         hideLoading();

@@ -191,8 +191,6 @@ class MapModelSeeder extends Seeder
               'trees' => 276351,
               'meters' => 8,],
         ];
-        
-        
 
         foreach ($mapLocation as $location) {
             MapModel::create([

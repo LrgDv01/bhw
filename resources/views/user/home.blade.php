@@ -5,22 +5,22 @@
     .sticky-alert {
         position: fixed;
         top: 20px;
-        left: -100%;  /* Start off-screen to the left */
+        left: -100%; 
         transform: translateY(0);
         z-index: 1050;
         width: 90%;
         max-width: 600px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        animation: slideInFromLeft 0.3s ease-in-out forwards;  /* Animation for entering */
+        animation: slideInFromLeft 0.3s ease-in-out forwards;  
     }
 
     @keyframes slideInFromLeft {
         0% {
-            left: -100%;  /* Off-screen to the left */
+            left: -100%;  
             opacity: 0;
         }
         100% {
-            left: 50%;  /* Center the message */
+            left: 50%; 
             opacity: 1;
             transform: translateX(-50%);
         }
@@ -28,13 +28,36 @@
 
     @keyframes slideOutToRight {
         0% {
-            left: 50%;  /* Center the message */
+            left: 50%; 
             opacity: 1;
         }
         100% {
-            left: 100%;  /* Move off-screen to the right */
+            left: 100%;  
             opacity: 0;
         }
+    }
+
+    .form-check-input.background-green {
+        background-color: #198754; 
+        border-color: #198754;     
+    }
+    .form-check-input.background-red {
+        background-color: #dc3545;
+        border-color: #dc3545;   
+    }
+
+    .form-check-input.shadow-green {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); 
+        outline-offset: 1px; 
+        outline: 1px solid rgba(25, 135, 84, 0.6); 
+        transition: outline-color 0.3s ease; 
+    }
+
+    .form-check-input.shadow-red {
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25); 
+        outline-offset: 1px;
+        outline: 1px solid rgba(220, 53, 69, 0.6); 
+        transition: outline-color 0.3s ease; 
     }
 
 </style>
@@ -82,17 +105,35 @@
                     @foreach($farms as $farm)
                         <div class="card mb-2">
                             <div class="card-body">
-                                <h5 class="card-title p-0">{{ $farm->name }}<hr></h5>
+                                <h5 class="card-title p-0">
+                                    <strong>{{ $farm->name }}</strong>
+                                    <span class="{{ $farm->condition === 'is Healthy' ? 'text-success' : 'text-danger' }}">
+                                        <strong> - {{ $farm->condition }}</strong>
+                                    </span>
+                                    <hr>
+                                </h5>
                                 <p class="card-text text-truncate">
                                     <strong>Address :</strong> {{ $farm->location }}<br>
-                                    <strong>Variety :</strong> {{ $farm->variety }} <br>
-                                    <strong>Hectares :</strong> {{ $farm->hectares }} <br>
-                                    <strong>Tree Age :</strong> {{ $farm->tree_age }} <br>
-                                    <strong>Planted Coconut :</strong> {{ $farm->planted_coconut }} <br>
-                                    <strong>Soil Type :</strong> {{ $farm->soil_type }} 
+                                    <strong>Variety :</strong> {{ $farm->variety }}<br>
+                                    <strong>Hectares :</strong> {{ $farm->hectares }}<br>
+                                    <strong>Tree Age :</strong> {{ $farm->tree_age }}<br>
+                                    <strong>Planted Coconut :</strong> {{ $farm->planted_coconut }}<br>
+                                    <strong>Soil Type :</strong> {{ $farm->soil_type }}
                                 </p>
                             </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button 
+                                    type="button" 
+                                    data-bs-toggle="modal" 
+                                    class="btn btn-primary"
+                                    data-bs-target="#updateFarmCondition{{ $farm->id }}" >
+                                    Update Condition
+                                </button>
+                            </div>  
                         </div>
+                        @include('user.others.update_condition', [
+                            'farmId' => $farm->id, 
+                            'farmCondition' => $farm->condition])
                     @endforeach
                 </div>
             
@@ -138,14 +179,86 @@
 </main>
 @include('user.partials.__footer')
 
+@if (auth()->user()->isFarmer())
+    <script>
+
+        function updateCondition(event, farmId) {
+            try {
+                const modalButton = event.target;
+                const modalId = modalButton.getAttribute('data-bs-target');
+                const modal = document.querySelector(modalId);
+                if (!modal) {
+                    console.error(`Modal with ID ${modalId} not found.`);
+                    return;
+                }
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+            } catch (error) {
+                console.error("An error occurred while showing the modal:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const updateFarmConditionModals = document.querySelectorAll('.modal[id^="updateFarmCondition"]');
+
+            updateFarmConditionModals.forEach(modal => {
+                modal.addEventListener('shown.bs.modal', function () {
+                    const checkbox = modal.querySelector('.custom-checkbox');
+                    const label = modal.querySelector(`[id^="conditionLabel_"]`);
+                    if (checkbox) {
+                        checkbox.focus(); 
+                    }
+                    function updateCheckboxShadow() {
+                        if (checkbox.value === 'is Infected') {
+                            checkbox.classList.add('shadow-red');
+                            checkbox.classList.remove('shadow-green');
+                        } else if (checkbox.value === 'is Healthy') {
+                            checkbox.classList.add('shadow-green');
+                            checkbox.classList.remove('shadow-red');
+                        }
+                    }
+                    updateCheckboxShadow();
+                });
+            });
+
+            $('.custom-checkbox').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $(this).addClass('shadow-none');
+                    if ($(this).val() === 'is Healthy') {
+                        $(this).addClass('background-green');
+                        $(this).removeClass('shadow-green');
+                    } 
+                    else if ($(this).val() === 'is Infected'){
+                        $(this).addClass('background-red');
+                        $(this).removeClass('shadow-red');
+                    }
+                }
+                else {
+                    $(this).removeClass('shadow-none'); 
+                    if ($(this).val() === 'is Healthy') {
+                        $(this).addClass('shadow-green');
+                        $(this).removeClass('background-green');
+                    }
+                    else if ($(this).val() === 'is Infected') {
+                        $(this).addClass('shadow-red');
+                        $(this).removeClass('background-red');
+                    }
+                }
+            });
+
+        });
+
+    </script>
+@endif
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const flashMessage = document.getElementById('flashMessage');
-    if (flashMessage) {
-        setTimeout(() => {
-            flashMessage.classList.remove('show');
-            flashMessage.style.animation = 'slideOutToRight 0.5s ease-in-out forwards';  
-        }, 3000); 
-    }
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        const flashMessage = document.getElementById('flashMessage');
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.classList.remove('show');
+                flashMessage.style.animation = 'slideOutToRight 0.5s ease-in-out forwards';  
+            }, 3000); 
+        }
+    });
 </script>

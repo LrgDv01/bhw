@@ -23,10 +23,11 @@ class FarmModelFactory extends Factory
             'name' => fake()->company(),
             'location' => fake()->address(),
             'variety' => fake()->randomElement(['Laguna Tall', 'Dwarf Coconut', 'Hybrid']),
-            'hectares' => fake()->numberBetween(1, 100), // Random number for hectares
-            'tree_age' => fake()->numberBetween(1, 50), // Random age between 1 to 50 years
-            'planted_coconut' => fake()->numberBetween(10, 1000), // Number of trees planted
-            'soil_type' => fake()->randomElement(['Sandy', 'Clay', 'Loamy', 'Silty']), // Random soil types
+            'hectares' => fake()->numberBetween(1, 100), 
+            'tree_age' => fake()->numberBetween(1, 50), 
+            'planted_coconut' => fake()->numberBetween(10, 1000), 
+            'soil_type' => fake()->randomElement(['Sandy', 'Clay', 'Loamy', 'Silty']), 
+            'condition' => fake()->randomElement(['is Healthy', 'is Infected']),
         ];
     }
 

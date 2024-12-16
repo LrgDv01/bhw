@@ -72,7 +72,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/settings') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/farmer/settings') }}">
             <i class="bi bi-gear text-white"></i>  
             <span>Settings</span>
           </a>
@@ -92,7 +92,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/settings') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/technician/settings') }}">
             <i class="bi bi-gear text-white"></i>  
             <span>Settings</span>
           </a>

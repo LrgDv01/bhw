@@ -17,10 +17,8 @@ class TechnicianMiddleware
     public function handle(Request $request, Closure $next): Response
     {
        if (Auth::check() && Auth::user()->isTechnician()) {
-
             return $next($request);
         }
-
         return redirect()->back()->with('error', 'Access denied.');
     }
 }

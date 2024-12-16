@@ -17,8 +17,6 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            // 'middle_name' => 'Admin',
-            // 'last_name' => 'Admin',
             // 'address' => 'address'  
             'user_name' => 'Admin',
             'full_name' => 'Coco Spot Admin',

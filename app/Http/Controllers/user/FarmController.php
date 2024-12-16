@@ -18,6 +18,23 @@ class FarmController extends Controller
         return view('user.home', compact('farms'));
     }
 
+    public function updateCondition(Request $request) {
+        $request->validate([
+            'condition' => 'required|string|max:255',
+            'farm_id' => 'required|exists:farms,id',
+        ]);
+    
+        $farm = FarmModel::findOrFail($request->farm_id);
+    
+        // Update the condition
+        $farm->update([
+            'condition' => $request->condition,
+        ]);
+    
+        // Redirect back with success message and open success modal
+        return redirect()->back()->with('success', 'Condition updated successfully!');
+    }
+
     public function store(Request $request)
     {
         // Validate the incoming request
@@ -32,6 +49,7 @@ class FarmController extends Controller
                 'tree_age' => 'nullable|integer|min:0',
                 'planted_coconut' => 'nullable|integer|min:0',
                 'soil_type' => 'nullable|string|max:255',
+                'condition' => 'nullable|string|max:255',
             ]);
         
             // Create the farm record

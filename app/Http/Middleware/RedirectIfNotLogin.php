@@ -17,9 +17,7 @@ class RedirectIfNotLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            // Check if the user is not an admin
             if (!Auth::user()->isAdmin() || !Auth::user()->isFarmer() || !Auth::user()->isTechnician()) {
-                // Redirect to user dashboard or homepage
                 return response()->view('errors.no-access', [], 403);
             } else {
                 return response()->view('errors.no-access', [], 403);
