@@ -13,7 +13,7 @@ class ServicesModel extends Model
     
     public $table = "services";
     protected $fillable = [
-        'user_id',
+        'farmer_id',
         'technician_id',
         'farmer_name',
         'request_id',
@@ -23,12 +23,12 @@ class ServicesModel extends Model
     // Define relationships if needed
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'farmer_id', 'id');
     }
 
     public function farms()
     {
-        return $this->belongsTo(FarmModel::class, 'user_id', 'user_id');
+        return $this->belongsTo(FarmModel::class, 'farmer_id', 'farmer_id');
     }
 
     const STATUS_PENDING = 'pending';
@@ -51,7 +51,7 @@ class ServicesModel extends Model
     }
 
     public function userFarms() {
-        return $this->hasMany(FarmModel::class, 'user_id', 'user_id');
+        return $this->hasMany(FarmModel::class, 'farmer_id', 'farmer_id');
     }
 
 }

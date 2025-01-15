@@ -11,9 +11,12 @@ class ReportsModel extends Model
 
     public $table = 'reports';
     protected $fillable = [
+        'technician_id',
+        'farm_id',
         'farmer_name',
         'contact_no',
         'recipient',
+        'farm_name',
         'farm_location',
         'farm_size',
         'coconut_trees',

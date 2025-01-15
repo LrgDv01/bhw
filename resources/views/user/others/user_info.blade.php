@@ -33,6 +33,9 @@
             url: `/technician/${technicianId}`, 
             method: 'GET',
             dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // added csrf token
+            },
             success: function(data) {
                 if (data.success) {
                     const technician = data.technician;

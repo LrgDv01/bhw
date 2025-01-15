@@ -9,7 +9,7 @@
             <form action="{{ route('update.condition') }}" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <p><strong>Note:</strong> If your condition is set as <i>"is infected"</i>, you will be able to hire a technician.</p>
+                    <p><strong>Note:</strong> If your condition is set as <i>"is infected"</i>, then you will be able to hire a technician.</p>
                     <input type="hidden" name="farm_id" value="{{ $farmId }}">
                     <div class="form-check">
                         <input 
@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" class="update-btn btn btn-success">Update</button>
                 </div>
             </form>
         </div>
@@ -42,19 +42,22 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
             <div class="modal-body">
-                <h5 class="modal-title mb-3">Condition updated successfully!</h5>
                 <div class="mb-3">
                     <i class="bi bi-check-circle-fill text-success fs-1"></i>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <a href="{{ route('user.services') }}" class="btn btn-success mx-2"> Hire a Technician now </a>
-                    <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Later</button>
+                <h5 class="modal-title mb-3">Condition updated successfully!</h5>
+                <div class="d-flex justify-content-end">
+                    @if ($farmCondition === 'is Healthy')
+                        <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                    @else
+                        <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Later</button>
+                        <a href="{{ route('user.services') }}" class="btn btn-success mx-2">Hire a Technician now</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 @if (session('success'))
     <script>

@@ -12,6 +12,7 @@ class DiseasesModel extends Model
 
     public $table = 'diseases';
     protected $fillable = [
+        'farm_id',
         'yellowing',
         'bud_rot',
         'leaf_spot',

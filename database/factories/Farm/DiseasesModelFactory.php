@@ -20,7 +20,7 @@ class DiseasesModelFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(),
+            'farm_id' => User::factory(),
             'yellowing' => fake()->numberBetween(1, 10),
             'bud_rot' => fake()->numberBetween(1, 10),
             'leaf_spot' => fake()->numberBetween(1, 10),

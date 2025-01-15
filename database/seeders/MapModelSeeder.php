@@ -13,7 +13,6 @@ class MapModelSeeder extends Seeder
     public function run(): void
     {
     //
-
         $mapLocation = [
             // District 3 > Municipality 
             [ 'name' => 'San Pablo',

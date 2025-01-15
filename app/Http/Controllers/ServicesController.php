@@ -16,7 +16,7 @@ class ServicesController extends Controller
             ->get();
 
         $user = auth()->id();
-        $hiredTechnicians = ServicesModel::where('user_id', $user)
+        $hiredTechnicians = ServicesModel::where('farmer_id', $user)
             ->pluck('technician_id')
             ->toArray();
             
@@ -36,7 +36,7 @@ class ServicesController extends Controller
         $farmer_name = auth()->user()->full_name;
         $request_id = rand(10000, 99999);
         $confirmation = new ServicesModel();
-        $confirmation->user_id = $user_id;
+        $confirmation->farmer_id = $user_id;
         $confirmation->technician_id = $request->technician_id; 
         $confirmation->farmer_name = $farmer_name;
         $confirmation->request_id = $request_id;
@@ -51,7 +51,7 @@ class ServicesController extends Controller
     public function hired() {
         $user = auth()->id();
         $hired = ServicesModel::select('technician_id')
-            ->where('user_id', $user)
+            ->where('farmer_id', $user)
             ->get();
         if ($hired) {
             return response()->json([
@@ -89,7 +89,7 @@ class ServicesController extends Controller
     
     public function show($id) {
 
-        $technician = User::join('technicians', 'users.id', '=', 'technicians.user_id')
+        $technician = User::join('technicians', 'users.id', '=', 'technicians.technician_id')
             ->where('users.id', $id)
             ->select('users.*', 'technicians.*')
             ->first();

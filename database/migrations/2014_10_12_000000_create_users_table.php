@@ -19,18 +19,15 @@ return new class extends Migration
             $table->string('address');
             $table->string('contact');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('user_type');
-            $table->integer('first_open')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
 
-
-        Schema::create('technicians', function (Blueprint $table) {
+        Schema::create('technicians_info', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('technician_id')->constrained('users')->onDelete('cascade');
             $table->integer('years_in_service')->nullable();
             $table->string('services');
             $table->timestamps();

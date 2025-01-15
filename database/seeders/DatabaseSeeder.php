@@ -22,6 +22,5 @@ class DatabaseSeeder extends Seeder
             MapModelSeeder::class,
             FarmSeeder::class,
         ]);
-
     }
 }

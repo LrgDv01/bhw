@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('technician_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->foreignId('farm_id')->constrained('farms')->onDelete('cascade')->nullable();
             $table->string('farmer_name'); 
             $table->string('contact_no'); 
             $table->string('recipient'); 
+            $table->string('farm_name');
             $table->string('farm_location'); 
             $table->decimal('farm_size', 10, 2); 
             $table->bigInteger('coconut_trees'); 

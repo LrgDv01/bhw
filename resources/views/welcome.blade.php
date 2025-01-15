@@ -47,17 +47,16 @@
                                     </div>
                                     @csrf
                                     <div class="form-group my-3">
-                                        <div class="text-center mb-3">
-                                            <button class="btn btn-success px-5 py-2 fw-100 rounded rounded-3" type="submit">LOGIN</button>
+                                        <div class="text-center mb-3"> 
+                                            <button class="btn btn-success px-5 py-2 fw-bold rounded rounded-3" type="submit">LOGIN</button>
                                         </div>
                                         @if ($device) 
                                             <div class="text-center">
-                                                <p class="text-white fs-6">Don't have an account yet, you can create one here.</p>
-                                                <a href="{{ url('/register') }}" class="btn-get-started bg-success fw-bold px-5 rounded rounded-3 my-3">Sign Up Here</a>
+                                                <p class="text-white fs-6">Don't have an account yet? You can create one here.</p>
+                                                <a href="{{ url('/register') }}" class="btn btn-success fw-bold px-5 rounded rounded-3 my-3">Sign Up Here</a>
                                             </div>
                                         @endif
                                     </div>
-                                
                                 </form>
                             </div>
                         </div>

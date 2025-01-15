@@ -11,7 +11,7 @@ class FarmController extends Controller
 
     public function index() {
         $userId = Auth::id(); 
-        $farms = FarmModel::where('user_id', $userId)
+        $farms = FarmModel::where('farmer_id', $userId)
         // ->orderBy('created_at', 'desc')->limit(4) // Order by created_at, newest first
         ->orderBy('created_at', 'desc') // Order by created_at, newest first
         ->get();
@@ -38,10 +38,10 @@ class FarmController extends Controller
     public function store(Request $request)
     {
         // Validate the incoming request
-        $request->merge(['user_id' => auth()->id()]);
+        $request->merge(['farmer_id' => auth()->id()]);
         try {
             $validated = $request->validate([
-                'user_id' => 'required|exists:users,id',
+                'farmer_id' => 'required|exists:users,id',
                 'name' => 'required|string|max:255',
                 'location' => 'required|string|max:255',
                 'variety' => 'nullable|string|max:255',
@@ -51,17 +51,15 @@ class FarmController extends Controller
                 'soil_type' => 'nullable|string|max:255',
                 'condition' => 'nullable|string|max:255',
             ]);
-        
-            // Create the farm record
+            if (!isset($validated['condition'])) {
+                $validated['condition'] = 'is Healthy'; 
+            }
             $farm = FarmModel::create($validated);
             return response()->json(['success' => true, 'farm' => $farm]);
-         
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'errors' => $e->errors()
             ], 422);
         }
-        
     }
-
 }

@@ -10,7 +10,7 @@ $(document).on('click', '#confirmHireButton', function () {
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
+        },
         success: function (response) {
             if (response.success) {
                 $('#hireTechnicianModal').modal('hide');

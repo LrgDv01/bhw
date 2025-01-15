@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('farms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('farmer_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
             $table->string('location');
             $table->string('variety'); 
             $table->decimal('hectares', 8, 2); 
             $table->integer('tree_age'); 
             $table->integer('planted_coconut'); 
-            $table->string('soil_type'); 
             $table->string('condition');
             $table->timestamps();
         });

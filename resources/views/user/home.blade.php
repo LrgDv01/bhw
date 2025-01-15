@@ -121,12 +121,15 @@
                                     <strong>Soil Type :</strong> {{ $farm->soil_type }}
                                 </p>
                             </div>
-                            <div class="card-footer d-flex justify-content-end">
+                            <div class="card-footer d-flex flex-wrap {{ $farm->condition === 'is Healthy' ? 'justify-content-end' : 'justify-content-between' }}">
+                                <a href="{{ route('user.services') }}" class="btn btn-success {{ $farm->condition === 'is Healthy' ? 'd-none' : '' }}">
+                                    Hire a Technician
+                                </a>
                                 <button 
                                     type="button" 
                                     data-bs-toggle="modal" 
                                     class="btn btn-primary"
-                                    data-bs-target="#updateFarmCondition{{ $farm->id }}" >
+                                    data-bs-target="#updateFarmCondition{{ $farm->id }}">
                                     Update Condition
                                 </button>
                             </div>  
@@ -138,7 +141,7 @@
                 </div>
             
             </div>
-            @include('user.others.add_farm')
+            @include('user.others.add_farm') 
         </section>
     @endif
     @if (auth()->user()->isTechnician())
@@ -154,7 +157,7 @@
                         <div class="card-body text-truncate p-0" style="max-height: 80vh; overflow-y: auto;">
                             <ul class="list-group">
                                 @foreach ($notifications as $notifs)
-                                    <li class="list-group-item d-flex flex-column align-items-center shadow-sm p-3">
+                                    <li class="list-group-item d-flex flex-column align-items-start shadow-sm p-3">
                                         <div class="mb-2">
                                             <h5 class="mb-1">New Service Request from Farmer</h5>
                                             <p class="mb-1">
@@ -162,7 +165,7 @@
                                                 <strong>Date/Time:</strong> {{ $notifs->created_at->format('F d, Y | h:i A') }}
                                             </p>
                                         </div>
-                                        <div class="align-self-end">
+                                        <div class="mt-3 align-self-end">
                                             <a href="{{ route('user.viewDetails', $notifs->id) }}" class="btn btn-success">
                                                 View Details
                                             </a>
@@ -221,6 +224,7 @@
                 });
             });
 
+            $('.update-btn').prop('disabled', true);
             $('.custom-checkbox').on('change', function() {
                 if ($(this).is(':checked')) {
                     $(this).addClass('shadow-none');
@@ -232,6 +236,7 @@
                         $(this).addClass('background-red');
                         $(this).removeClass('shadow-red');
                     }
+                    $('.update-btn').prop('disabled', false);
                 }
                 else {
                     $(this).removeClass('shadow-none'); 
@@ -243,11 +248,10 @@
                         $(this).addClass('shadow-red');
                         $(this).removeClass('background-red');
                     }
+                    $('.update-btn').prop('disabled', true);
                 }
             });
-
         });
-
     </script>
 @endif
 

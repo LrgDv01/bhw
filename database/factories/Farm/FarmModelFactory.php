@@ -19,14 +19,13 @@ class FarmModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+            'farmer_id' => User::factory(),
             'name' => fake()->company(),
             'location' => fake()->address(),
             'variety' => fake()->randomElement(['Laguna Tall', 'Dwarf Coconut', 'Hybrid']),
             'hectares' => fake()->numberBetween(1, 100), 
             'tree_age' => fake()->numberBetween(1, 50), 
             'planted_coconut' => fake()->numberBetween(10, 1000), 
-            'soil_type' => fake()->randomElement(['Sandy', 'Clay', 'Loamy', 'Silty']), 
             'condition' => fake()->randomElement(['is Healthy', 'is Infected']),
         ];
     }

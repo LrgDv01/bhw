@@ -19,7 +19,7 @@ class TechnicianModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+            'technician_id' => User::factory(),
             'years_in_service' => $this->faker->numberBetween(1, 30),
             'services' => $this->faker->randomElement([
                 'Plumbing, Electrical Repair',

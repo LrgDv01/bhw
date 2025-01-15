@@ -40,7 +40,6 @@
                                         {{ $isHired ? 'disabled' : '' }}>
                                     {{ $buttonText }}
                                 </button>
-
                                 <button type="button" class="btn btn-info btn-sm rounded rounded-3" 
                                         data-bs-toggle="modal" data-bs-target="#viewMoreInfoModal" 
                                         data-id="{{ $technician->id }}">
@@ -56,5 +55,4 @@
         @include('user.others.user_info')
     </section>
 </main>
-
 @include('user.partials.__footer')

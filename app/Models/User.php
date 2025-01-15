@@ -52,30 +52,22 @@ class User extends Authenticatable
     ];
     public function isAdmin()
     {
-   
         return $this->user_type == 0;
     }
     public function isFarmer()
     {
-    
         return $this->user_type == 1;
     }
-
-    
     public function isTechnician()
     {
-      
         return $this->user_type == 2;
     }
-  
     public function services()
     {
-        return $this->hasMany(ServicesModel::class, 'user_id', 'id');
+        return $this->hasMany(ServicesModel::class, 'farmer_id', 'id');
     }
     public function farms()
     {
-        return $this->hasMany(FarmModel::class, 'user_id', 'id');
+        return $this->hasMany(FarmModel::class, 'farmer_id', 'id');
     }
-
-   
 }

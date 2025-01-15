@@ -32,7 +32,6 @@
                                   placeholder="Enter your last name" required>
                           </div>
                       </div>  --}}
-                      
                   </div>
                   <div class="row mb-3 text-white">
 
@@ -80,8 +79,6 @@
                             @enderror
                         </div>
                     </div>
-
-
                     {{--<div class="col-lg-6">
                         <div class="col-lg-4 mb-3">
                         <div class="form-group mb-3">
@@ -105,43 +102,14 @@
                         <input type="file" name="valid_id" class="form-control py-3" id="valid_id" accept="image/*" required>
                     </div>
                   </div> --}}
-
-
                 </div>
-               {{-- <div class="mg-3">
-                    <div class="mb-3">
-                        <div class="form-check d-flex justify-content-center">
-                            <input class="form-check-input me-2" type="checkbox" checked value="" id="terms-and-condition" required />
-                            <label class="form-check-label" for="terms-and-condition">
-                                I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
-                            </label>
-                        </div>
-                    </div>
-                </div> --}}
                 @csrf
                 <div class="text-center">
-                  <button class="btn btn-success px-5 py-2 fw-100 rounded rounded-3" type="submit">CREATE ACCOUNT</button>
+                  <button class="btn btn-success px-5 py-2 fw-bold rounded rounded-3" type="submit">CREATE ACCOUNT</button>
                 </div>
               </form>
             </div>
         </div>
     </div>
-  <!-- Terms and Conditions Modal -->
-  <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {!! isset($appInfo->terms_and_condition) ? $appInfo->terms_and_condition : 'Default terms and conditions content.' !!}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 </main>
 @include('partials.__footer')

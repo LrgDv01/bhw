@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('coconut_variety', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('farm_id'); // Define the column
+            // $table->foreignId('farm_id')->constrained('reports')->references('farm_id')->onDelete('cascade');
             $table->integer('laguna_tall');
             $table->integer('dwarf_coconut');
             $table->integer('hybrid');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

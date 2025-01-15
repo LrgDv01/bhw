@@ -20,7 +20,7 @@ class CoconutVarietyModelFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(),
+            'farm_id' => User::factory(),
             'laguna_tall' => fake()->numberBetween(1, 10),
             'dwarf_coconut' => fake()->numberBetween(1, 10),
             'hybrid' => fake()->numberBetween(1, 10),

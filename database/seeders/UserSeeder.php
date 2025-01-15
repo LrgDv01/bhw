@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         User::factory(10)->create();
         User::where('user_type', 2)->each(function ($user) {
-            TechnicianModel::factory(1)->create(['user_id' => $user->id]);
+            TechnicianModel::factory(1)->create(['technician_id' => $user->id]);
         });
     }
 }

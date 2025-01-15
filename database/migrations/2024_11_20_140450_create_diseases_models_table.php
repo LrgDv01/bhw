@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('diseases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('farm_id'); // Define the column
+            // $table->foreignId('farm_id')->constrained('reports')->references('farm_id')->onDelete('cascade');
             $table->integer('yellowing');
             $table->integer('bud_rot');
             $table->integer('leaf_spot');
@@ -22,7 +23,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. 
      */
     public function down(): void
     {

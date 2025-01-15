@@ -12,6 +12,7 @@ class CoconutVarietyModel extends Model
 
     public $table = 'coconut_variety';
     protected $fillable = [
+        'farm_id',
         'laguna_tall',
         'dwarf_coconut',
         'hybrid',

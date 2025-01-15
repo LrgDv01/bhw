@@ -15,15 +15,12 @@ class FarmSeeder extends Seeder
      */
     public function run(): void
     {
-        
         User::where('user_type', 1)->each(function ($user) {
-            FarmModel::factory(3)->create(['user_id' => $user->id]);
+            FarmModel::factory(3)->create(['farmer_id' => $user->id]);
         });
-
         User::where('user_type', 2)->each(function ($user) {
-            DiseasesModel::factory()->create(['user_id' => $user->id]); 
-            CoconutVarietyModel::factory()->create(['user_id' => $user->id]); 
+            DiseasesModel::factory()->create(['farm_id' => $user->id]); 
+            CoconutVarietyModel::factory()->create(['farm_id' => $user->id]); 
         });
-      
     }
 }
