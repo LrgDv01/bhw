@@ -20,15 +20,31 @@ class ReportsController extends Controller
             ])
             ->get();
         $user = auth()->id();
-        $submittedReports = ReportsModel::where('technician_id', $user)
-        ->pluck('farm_id')
-        ->toArray();
+        $submitted = ReportsModel::where('technician_id', $user)
+            ->pluck('farm_id')
+            ->toArray();
+
+        $submittedReports = ReportsModel::select('farm_id', 'soil_type', 'disease_type', 'note')
+            ->where('technician_id', $user)
+            ->get()
+            ->mapWithKeys(function ($report) {
+                return [
+                    $report->farm_id => [
+                        'soil_type' => $report->soil_type,
+                        'disease_types' => explode(',', $report->disease_type), // Assuming stored as comma-separated values
+                        'note' => $report->note,
+                    ],
+                ];
+            });
+        
+        // dd($submittedReports);
         return view('user.technician.pages.reports',
             compact(
                 'reports',
                 'recipient',
+                'submitted',
                 'submittedReports'
-            ));
+        ));
     }
 
  
@@ -111,11 +127,17 @@ class ReportsController extends Controller
     
             // Process the inputs
             $soilType = implode(', ', array_values($validated['soil_type'])); // Flatten and convert to string
-            $diseaseTypes = [];
-            foreach ($validated['disease_types'] as $types) {
-                $diseaseTypes = array_merge($diseaseTypes, $types); // Merge nested arrays
-            }
-            $diseaseTypes = json_encode($diseaseTypes); // Encode as JSON
+            // $diseaseTypes = [];
+            // foreach ($validated['disease_types'] as $types) {
+            //     $diseaseTypes = array_merge($diseaseTypes, $types); // Merge nested arrays
+            // }
+            // $diseaseTypes = json_encode($diseaseTypes); // Encode as 
+
+            // Flatten the nested disease types and store as a JSON string
+$diseaseTypes = array_merge(...$validated['disease_types']); // Merge nested arrays directly
+$diseaseTypes = json_encode($diseaseTypes); // Encode as JSON string
+
+            
             $note = implode(' ', array_values($validated['note'])); // Flatten and convert to string
     
             // Create a new report detail record

@@ -86,14 +86,11 @@ class ServicesController extends Controller
         }
     }
     
-    
     public function show($id) {
-
-        $technician = User::join('technicians', 'users.id', '=', 'technicians.technician_id')
+        $technician = User::join('technicians_info', 'users.id', '=', 'technicians_info.technician_id')
             ->where('users.id', $id)
-            ->select('users.*', 'technicians.*')
+            ->select('users.*', 'technicians_info.*')
             ->first();
-
         if ($technician) {
             return response()->json([
                 'success' => true,
@@ -106,6 +103,4 @@ class ServicesController extends Controller
             ], 404);
         }
     }
-
-
 }

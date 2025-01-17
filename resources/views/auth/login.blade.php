@@ -17,11 +17,13 @@
                             
                             <div class="form-group mb-3">
                                 <label class="form-label fw-bold" for="email">EMAIL</label>
-                                <input type="email" name="email" class="form-control py-3" id="email" placeholder="Enter your email address" required>
+                                <input type="email" name="email" class="form-control py-3" id="email" placeholder="Enter your email address" 
+                                        required autocomplete="email">
                             </div>
                             <div class="form-group mb-4">
                                 <label class="form-label fw-bold" for="password">PASSWORD</label>
-                                <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password address" required>
+                                <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password" 
+                                        required autocomplete="current-password">
                             </div>
                             <div class="form-group d-flex justify-content-between align-items-center mb-4">
                                 <!-- Remember Me -->

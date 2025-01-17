@@ -94,7 +94,7 @@ class AuthController extends Controller
     //   'password' => 'required|string|min:8|confirmed', // Password validation
     //   'user_type' => 'required|integer|in:1,2', // User type validation: only 1 or 2 allowed
     // ]);
-  
+   
 
     // if ($validator->fails()) {
    
@@ -107,11 +107,10 @@ class AuthController extends Controller
     $user = User::create([
       'user_name' => $request->user_name,
       'full_name' => $request->full_name,
+      'address' => $request->address,
       'contact' => $request->contact,
       'email' => $request->email,
-      // 'address' => $request->address,
       'password' => Hash::make($request->password),
-      // 'gender' => $request->gender,
       'user_type' => $request->user_type,
     ]);
    

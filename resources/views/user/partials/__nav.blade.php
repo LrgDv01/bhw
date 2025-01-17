@@ -1,6 +1,4 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
- 
-
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/user/home') }}" class="logo d-flex align-items-center justify-content-center">
         {{-- <img src="{{ URL::asset('img/admin-profile.png') }}" alt=""> --}}
@@ -11,20 +9,9 @@
       <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
     <nav class="header-nav ms-auto">
-
       <ul class="d-flex align-items-center">
-
         <li class="nav-item dropdown pe-3">
-
           <div class="d-flex align-items-center">
-            <a href="#notification"
-              data-bs-toggle="modal"
-              data-bs-target="#notificationmodal" id="notification-bell" class="me-4 fs-2 position-relative">
-              <i class="text-dark bi bi-bell"></i>
-              <span class="notification-bell position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                <span class="visually-hidden">New alerts</span>
-              </span>
-            </a>
 
             <a class="nav-link bg-transparent border border-0 text-dark nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               {{-- <img src="{{ Auth::user()->profile_img != '' ? asset('storage/'.Auth::user()->profile_img) : URL::asset('img/admin-profile.png') }}" alt="Profile" class="rounded-circle"> --}}
@@ -122,57 +109,3 @@
   <form action="{{ route('logout') }}" id="logoutform" method="POST">
     @csrf
   </form>
-
-  <div
-    class="modal fade"
-    id="notificationmodal"
-    tabindex="-1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    
-    role="dialog" 
-    aria-labelledby="notificationmodalTitle"
-    aria-hidden="true"
-  >
-    <div
-      class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-      role="document"
-    >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="notificationmodalTitle">
-            Notification
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div class="list-group list-group-flush">
-            {{-- @if (!empty($notifications)) --}}
-            @isset($notifications)
-              @foreach ($notifications as $notification)
-                <a
-                  href="#"
-                  class="list-group-item list-group-item-action flex-column align-items-start"
-                  aria-current="true"
-                >
-                  <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ $notification['title'] }}</h5>
-                    <small class="text-muted">{{ date('M/d/Y', strtotime($notification['created_at']))}}</small>
-                  </div>
-                  <p class="mb-1">{{ $notification['content'] }}</p>
-                </a>
-              @endforeach
-            @else 
-              <div class="text-center">No Notification</div>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  

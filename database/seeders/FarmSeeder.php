@@ -16,7 +16,7 @@ class FarmSeeder extends Seeder
     public function run(): void
     {
         User::where('user_type', 1)->each(function ($user) {
-            FarmModel::factory(3)->create(['farmer_id' => $user->id]);
+            FarmModel::factory(3)->create(['farmer_id' => $user->id]); 
         });
         User::where('user_type', 2)->each(function ($user) {
             DiseasesModel::factory()->create(['farm_id' => $user->id]); 

@@ -1,6 +1,5 @@
 <header id="header" class="header d-flex align-items-center sticky-top bg-transparent">
     <div class="container-fluid container-xl position-relative d-flex flex-row-reverse align-items-end">
-
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="{{ url('/') }}" class="active">Home<br></a></li>

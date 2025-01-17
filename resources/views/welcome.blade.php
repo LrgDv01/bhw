@@ -1,14 +1,13 @@
 @include('partials.__header')
-{{-- <main class="custombg"> --}}
-@include('partials.__nav')
-<main class="main">
+{{-- <main class="custombg "> --}}
+<main class="custombg min-vh-100 loginpagebg">
     <!-- Hero Section -->
-    <section id="hero" class="hero section d-flex flex-row-reverse justify-content-end">
+    <section id="hero" class="hero section d-flex flex-row-reverse justify-content-end align-items-center">
         <div class="container d-flex justify-content-end">
             <div class="bg-transparent bg-opacity-50" style="width: 100vh">
                 <!-- <div class="card-body"> -->
-                    <div class="d-flex flex-column align-items-center mx-0">
-                        <div class="col-lg-6 mb-5 rounded-circle bg-white p-3" style="width: 150px; height: 150px;">
+                    <div class="d-flex flex-column justify-content-center align-items-center mx-0 mt-5">
+                        <div class="col-lg-6 mb-4 rounded-circle bg-white p-3" style="width: 150px; height: 150px;">
                             <img src="{{ URL::asset('img/logo.png') }}" alt="Logo" class="img-fluid rounded-5">
                         </div>
                         
@@ -22,11 +21,13 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label fw-bold" for="email">EMAIL</label>
                                         <input type="email" name="email" class="form-control py-3" id="email" 
-                                                placeholder="Enter your email address" value="{{ old('email', session('email')) }}" required >
+                                                placeholder="Enter your email address" value="{{ old('email', session('email')) }}" required 
+                                                autocomplete="email">
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="form-label fw-bold" for="password">PASSWORD</label>
-                                        <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password address" required>
+                                        <input type="password" name="password" class="form-control py-3" id="password" placeholder="Enter your password" 
+                                                required autocomplete="current-password">
                                     </div>
 
                                     <div class="form-group d-flex justify-content-between align-items-center mb-4">

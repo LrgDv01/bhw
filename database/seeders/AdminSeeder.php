@@ -17,17 +17,16 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            // 'address' => 'address'  
             'user_name' => 'Admin',
-            'full_name' => 'Coco Spot Admin',
-            'contact' => 'contact',
+            'full_name' => 'Coco-Spot Admin',
+            'contact' => fake()->unique()->e164PhoneNumber(),
+            'address' => 'At Coco-Spot Headquarters',
             'email' => 'admin@coco-spot.com',
             'password' => Hash::make('1234'),
             'user_type' => 0,
+            'remember_token' => Str::random(10), 
         ]);
-
-        PCA::factory(25)->create();
-        DOA::factory(25)->create();
-
+        PCA::factory(3)->create();
+        DOA::factory(3)->create();
     }
 }
