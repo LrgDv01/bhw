@@ -21,9 +21,9 @@ use App\Http\Controllers\user\bhw\ReportsController;
 */
 
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('welcome');
-})->middleware('redirect.nonlogin');
+})->name('home')->middleware('redirect.nonlogin');
 
 
 Route::middleware(['redirect.nonlogin', 'guest'])->group(function () { 
