@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->json('coordinates'); // Change from string to JSON
             $table->string('color');
-            $table->integer('lot_area');
-            $table->integer('trees');
-            $table->integer('meters');
+            $table->integer('population');
+            $table->integer('women');
+            $table->integer('child');
             $table->timestamps();
         });
 

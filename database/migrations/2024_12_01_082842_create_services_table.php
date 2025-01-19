@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('farmer_id')->constrained('users')->onDelete('cascade')->nullable();
-            $table->foreignId('technician_id')->constrained('users')->onDelete('cascade')->nullable();
-            $table->string('farmer_name');
-            $table->integer('request_id');
+            $table->foreignId('bhw_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->string('name');
             $table->string('status');
             $table->timestamps();
         });

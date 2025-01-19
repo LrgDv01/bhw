@@ -13,23 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('user_type');
             $table->string('profile_img')->nullable();
             $table->string('user_name');
             $table->string('full_name');
             $table->string('address');
-            $table->string('contact');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('user_type');
             $table->rememberToken();
-            $table->timestamps();
-        });
-
-        Schema::create('technicians_info', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('technician_id')->constrained('users')->onDelete('cascade');
-            $table->integer('years_in_service')->nullable();
-            $table->string('services');
             $table->timestamps();
         });
     }
@@ -40,6 +31,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('technicians');
     }
 };

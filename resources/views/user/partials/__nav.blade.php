@@ -2,8 +2,8 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/user/home') }}" class="logo d-flex align-items-center justify-content-center">
         {{-- <img src="{{ URL::asset('img/admin-profile.png') }}" alt=""> --}}
-        {{--<span class="d-none d-lg-block">{{ isset($appInfo->app_name) ? $appInfo->app_name : "Coco-Spot" }} Coco-Spot</span>--}}
-        <span class="d-none d-lg-block"> Coco-Spot</span>
+        {{--<span class="d-none d-lg-block">{{ isset($appInfo->app_name) ? $appInfo->app_name : "BHW" }} BHW</span>--}}
+        <span class="d-none d-lg-block"> BHW</span>
 
       </a>
       <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
@@ -23,7 +23,7 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
                 <h6>{{ Auth::user()->full_name }}</h6>
-                {{--<span>Farmer</span>--}}
+                {{--<span>BHW</span>--}}
               </li>
               <li>
                 <hr class="dropdown-divider mb-2">
@@ -45,46 +45,33 @@
   
   <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#134125">
     <ul class="sidebar-nav" id="sidebar-nav">
-      @if (auth()->user()->isFarmer())
+      @if (auth()->user()->isBHW())
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/farm') }}">
             <i class="bi bi-house text-white"></i>  
-            <span>My Farm</span>
+            <span>Services</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/services') }}">
             <i class="bi bi-briefcase text-white"></i>  
-            <span>Services</span>
+            <span>List</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/farmer/settings') }}">
             <i class="bi bi-gear text-white"></i>  
-            <span>Settings</span>
-          </a>
-        </li>
-      @endif
-      @if (auth()->user()->isTechnician())
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/notifications') }}">
-            <i class="bi bi-bell text-white"></i>  
-            <span>Notifications</span>
+            <span>Schedule</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/reports') }}">
-            <i class="bi bi-clipboard-data text-white"></i>  
-            <span>Reports</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/technician/settings') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/user/farmer/settings') }}">
             <i class="bi bi-gear text-white"></i>  
-            <span>Settings</span>
+            <span>User Activity</span>
           </a>
         </li>
       @endif
+    
     </ul>
     <div class="sidebar-nav">
    {{--   <form action="{{ route('logout') }}" id="logoutform" method="POST">

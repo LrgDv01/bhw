@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>{{ isset($appInfo->app_name) ? $appInfo->app_name : 'COCO SPOT' }}</title>
+        <title>{{ isset($appInfo->app_name) ? $appInfo->app_name : 'BHW' }}</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
         
@@ -48,11 +48,12 @@
         position: absolute;
         inset: 0;
         background-image: url('{{ URL::asset('img/login-bg.png') }}');
-        background-size: 100% 100%;
+        background-size: 110% 110%;
         background-repeat: no-repeat;
         background-position: center;
+        opacity: 90%;
         /* z-index: -1; */
-        filter: brightness(75%);
+        filter: brightness(50%);
     "></div>
     <!-- Your content here -->
     </body>

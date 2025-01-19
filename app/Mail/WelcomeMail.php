@@ -9,21 +9,18 @@ use Illuminate\Queue\SerializesModels;
 class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $fullname;
     public $email;
     public $password;
-    public $qr;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($fullname, $email, $password, $qr)
+    public function __construct($fullname, $email, $password)
     {
         $this->fullname = $fullname;
         $this->email = $email;
         $this->password = $password;
-        $this->qr = $qr;
     }
 
     /**
@@ -31,7 +28,7 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to Coco-Spot')
+        return $this->subject('Welcome to BHW')
                     ->view('emails.welcome');
     }
 }

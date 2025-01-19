@@ -21,9 +21,8 @@ class ProfileController extends Controller
         $user = auth()->user();
         $field = $request->input('field');
         $value = $request->input('value');
-    
-        // if (in_array($field, ['user_name', 'age', 'gender', 'contact_number', 'email', 'municipality', 'district'])) {
-        if (in_array($field, ['user_name', 'contact', 'email'])) {
+
+        if (in_array($field, ['user_name', 'full_name', 'email'])) {
 
             $user->$field = $value;
             $user->save();
@@ -38,8 +37,8 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'user_name' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',
-            'contact' => 'required|string|max:15',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
         ]);
     
@@ -52,9 +51,9 @@ class ProfileController extends Controller
         }
     
         $user = Auth::user();
-        // Update user details
+
+        $user->user_name = $request->input('user_name');
         $user->full_name = $request->input('full_name');
-        $user->contact = $request->input('contact');
         $user->email = $request->input('email');
         // Save changes and respond
         if ($user->save()) {

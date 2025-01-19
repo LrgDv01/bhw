@@ -17,14 +17,13 @@ class MapController extends Controller
                 'name' => $location->name,
                 'coordinates' => $coordinates, 
                 'color' => $location->color,
-                'lot_area' => $location->lot_area,
-                'trees' => $location->trees,
-                'meters' => $location->meters,
+                'population' => $location->population,
+                'women' => $location->women,
+                'child' => $location->child,
             ];
         }
         $res = [
             'locations' => $locations,
-            'simulation' => $locations,
         ];
         return response()->json($res);
     }

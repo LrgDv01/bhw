@@ -30,8 +30,8 @@ $(document).on('submit', '#updateProfileForm', function(event) {
   event.preventDefault();  // Prevent form submission
 
   const formData = {
+      user_name: $('#new_user_name').val(),
       full_name: $('#new_name').val(),
-      contact: $('#new_contact').val(),
       email: $('#new_email').val(),
   };
 
@@ -45,7 +45,7 @@ $(document).on('submit', '#updateProfileForm', function(event) {
       success: function (data) {
           if (data.success) {
               $('#updateProfileModal').modal('hide');
-              location.reload(); // Optionally reload the page to reflect changes
+              location.reload(); 
           } else {
               alert('Error updating profile: ' + data.message);
           }

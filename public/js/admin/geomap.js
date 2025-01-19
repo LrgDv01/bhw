@@ -17,14 +17,10 @@ $(document).ready(function() {
             },
             success: function (res) {
                 const locations = res.locations;
-                const simulation = res.simulation;
                 const locationContainer = document.getElementById('map_locations');
-                const simulationContainer = document.getElementById('map_simulation');
                 if (locationContainer) {
                     // selectLocation();
                     displayMap(locations, mapboxgl);
-                } else if (simulationContainer) {
-                    mapSimulation(simulation, mapboxgl);
                 }
             },
         });
@@ -75,7 +71,7 @@ async function displayMap(locate, mapboxgl) {
     map_locations.on('load', async function () {
         // Fit the map view to the bounds of Laguna
         const data = await geoJsonData();
-        map_locations.addSource('municipal', {
+        map_locations.addSource('barangay', {
             type: 'geojson',
             data: data
         });
@@ -93,7 +89,7 @@ async function displayMap(locate, mapboxgl) {
             }
         });
 
-        map_locations.loadImage('/img/municipal_loc.png', function(error, image) {
+        map_locations.loadImage('/img/location_indicator.png', function(error, image) {
             if (error) throw error;
 
             // Add the image to the map
@@ -130,7 +126,7 @@ async function displayMap(locate, mapboxgl) {
         document.getElementById("location").addEventListener("change", (event) => {
             const selectedName = event.target.value; // Get the selected value from the dropdown
             if (map_locations.getLayer('laguna-points')) {
-                if (selectedName === "All Municipal") {
+                if (selectedName === "All Barangays") {
                     setTimeout(function() {
                         document.getElementById('details').style.display = 'none';
                         displayMap(locate, mapboxgl); // Recursive call to reload the map
@@ -138,12 +134,6 @@ async function displayMap(locate, mapboxgl) {
                
                 } else if (selectedName) {
                     locate.forEach(loc =>{
-                        if (loc.name === selectedName) {
-                            document.getElementById('lot-area').textContent = loc.lot_area;
-                            document.getElementById('number-of-trees').textContent = loc.trees;
-                            document.getElementById('meters').textContent = loc.meters;
-                            document.getElementById('details').style.display = 'block';
-                        }
                     });
                     map_locations.setFilter('laguna-points', ['==', 'name', selectedName]);
                 } else {
@@ -161,21 +151,7 @@ async function displayMap(locate, mapboxgl) {
             const properties = e.features[0].properties;
 
             locate.forEach(loc =>{
-                if (loc.name === properties.name) {
-               
-                    const description = `
-                    <div style="background-color: #28a745; padding: 15px; border-radius: 5px; color: white; border: none;">
-                        <strong>${properties.name}</strong><br>
-                        Lot Area: ${loc.lot_area}<br>
-                        Trees: ${loc.trees}<br>
-                        Meters: ${loc.meters}
-                    </div>
-                `;
-                popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map_locations);
-                }
+
             })
         
         });
@@ -185,90 +161,6 @@ async function displayMap(locate, mapboxgl) {
                 popup.remove(); 
             }
             map_locations.getCanvas().style.cursor = '';
-        });
-    });
-}
-
-async function mapSimulation(simulate, mapboxgl) {
-    const map_simulation = new mapboxgl.Map({
-        container: 'map_simulation', 
-        style: 'mapbox://styles/mapbox/satellite-streets-v11', 
-        center: [121.423, 14.281], 
-        zoom: 3, 
-        minZoom: 3, 
-        maxZoom: 16, 
-        maxBounds: [ 
-            [120.99, 13.8],  // Southwest corner (lower latitude for Laguna)
-            [122.10, 14.7]   // Northeast corner (higher latitude for Laguna)
-        ]
-    });
-
-    map_simulation.on('load', async function () {
-        // Load geoJSON data
-        const data = await geoJsonData();
-
-        // Add the geoJSON data as a source
-        map_simulation.addSource('municipal', {
-            type: 'geojson',
-            data: data
-        });
-
-       // Add a layer for red dots
-        map_simulation.addLayer({
-            id: 'glowing-points',
-            type: 'circle',
-            source: 'municipal',
-            paint: {
-                'circle-radius': 1, // Initial radius
-                'circle-color': 'red',
-                'circle-opacity': 0.9,
-                'circle-blur': 0.5
-            },
-            filter: ['==', ['geometry-type'], 'Point']
-        });
-
-        // Add layer for municipal boundaries (polygons)
-        map_simulation.addLayer({
-            id: 'boundary',
-            type: 'fill',
-            source: 'municipal',
-            paint: {
-                'fill-color': 'darkblue',
-                'fill-opacity': 0.2
-            },
-            filter: ['==', ['geometry-type'], 'Polygon']
-        });
-
-        let time = 0;
-        // Animation loop for wave effect
-        function animateWave() {
-            time += 0.03; // Smaller value slows down the animation
-            // Use a sine wave for smoother animation
-            radius = 10 + Math.sin(time) * 3; // Oscillates between 5 and 15
-            map_simulation.setPaintProperty('glowing-points', 'circle-radius', radius);
-            // Request next frame
-            requestAnimationFrame(animateWave);
-        }
-
-        // Start the animation
-        animateWave();
-        // Add interactivity: Popup on click
-        map_simulation.on('click', 'glowing-points', (e) => {
-            const name = e.features[0].properties.name || 'Unknown';
-            const coordinates = e.features[0].geometry.coordinates.slice();
-
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(`<strong>${name}</strong>`)
-                .addTo(map_simulation);
-        });
-
-        // Change cursor on hover
-        map_simulation.on('mouseenter', 'glowing-points', () => {
-            map_simulation.getCanvas().style.cursor = 'pointer';
-        });
-        map_simulation.on('mouseleave', 'glowing-points', () => {
-            map_simulation.getCanvas().style.cursor = '';
         });
     });
 }

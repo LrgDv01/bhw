@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/admin') }}" class="logo d-flex align-items-center justify-content-center">
         <img src="{{ URL::asset('img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block fs-5">Coco-Spot</span>
+        <span class="d-none d-lg-block fs-5">BHW</span>
       </a>
       <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -22,13 +22,13 @@
             </a>
             <a class="nav-link bg-transparent border border-0 text-dark nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <img src="{{ Auth::user()->profile_img != '' ? asset('storage/'.Auth::user()->profile_img) : URL::asset('img/admin-profile.png') }}" alt="Profile" class="rounded-circle">
-              <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isAdmin() ? "Admin" : "Farmer" }}</span>
+              <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "BHW" }}</span>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
-                <h6>{{ auth()->user()->isAdmin() ? "Administrator" : "Personel" }}</h6>
-                <span>{{ auth()->user()->isAdmin() ? "Super Admin" : "Sub Admin" }}</span>
+                <h6>{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</h6>
+                <span>{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Sub Admin" }}</span>
               </li>
               <li>
                 <hr class="dropdown-divider">
@@ -37,7 +37,7 @@
                 <hr class="dropdown-divider">
               </li>
     
-              @if (auth()->user()->isAdmin())
+              @if (auth()->user()->isSuperAdmin())
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="{{ url('/admin/settings') }}">
                     <i class="text-dark bi bi-gear"></i>
@@ -82,9 +82,9 @@
 
   </header>
   
-  <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#134125">
+  <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#a6a6a6">
     <ul class="sidebar-nav flex-column" id="sidebar-nav">
-      @if (auth()->user()->isAdmin())
+      @if (auth()->user()->isSuperAdmin())
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
             <i class="text-white bi bi-grid-fill"></i>
@@ -92,15 +92,21 @@
           </a>
         </li>  
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
             <i class="text-white bi bi-map-fill"></i>
-            <span>Map</span>
+            <span>Announcement</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/map_simulation') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
             <i class="text-white bi-geo-fill"></i> 
-            <span>Simulation</span>
+            <span>Summary / List</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
+            <i class="text-white bi-geo-fill"></i> 
+            <span>List of BHW</span>
           </a>
         </li>
       @endif

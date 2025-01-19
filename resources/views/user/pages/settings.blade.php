@@ -3,9 +3,9 @@
 <main id="main" class="main">
     <section class="section settings">
         <div class="container">
-            <h4 class="mb-4">About Me</h4>
+            <h4 class="mb-4">Profile</h4>
             <div class="list-group">
-                <!-- Username -->
+  
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-person-circle me-2"></i>
@@ -17,43 +17,18 @@
                     </button>
                 </div>
 
-            {{--    <!-- Age -->
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <i class="bi bi-calendar me-2"></i>
-                        <strong id="age">{{ $user->age }}</strong>
-                        <div class="text-muted">Age</div>
+                        <i class="bi bi-person-circle me-2"></i>
+                        <strong id="fullname">{{ $user->fullname }}</strong>
+                        <div class="text-muted">Fullname</div>
                     </div>
-                    <button class="btn btn-outline-success btn-sm" onclick="editField('age', '{{ $user->age }}')">
+                    <button class="btn btn-outline-success btn-sm" onclick="editField('fullname', '{{ $user->fullname }}')">
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
 
-                <!-- Gender -->
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <i class="bi bi-gender-female me-2"></i>
-                        <strong id="gender">{{ $user->gender }}</strong>
-                        <div class="text-muted">Gender</div>
-                    </div>
-                    <button class="btn btn-outline-success btn-sm" onclick="editField('gender', '{{ $user->gender }}')">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-                --}}
-                <!-- Contact Number -->
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <i class="bi bi-telephone me-2"></i>
-                        <strong id="contact">{{ $user->contact }}</strong>
-                        <div class="text-muted">Contact No.</div>
-                    </div>
-                    <button class="btn btn-outline-success btn-sm" onclick="editField('contact', '{{ $user->contact}}')">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-
-                <!-- Email -->
+ 
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <i class="bi bi-envelope me-2"></i>
@@ -64,30 +39,6 @@
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
-
-                <!-- Municipality -->
-             {{--   <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <i class="bi bi-building me-2"></i>
-                        <strong id="municipality">{{ $user->municipality }}</strong>
-                        <div class="text-muted">Municipality</div>
-                    </div>
-                    <button class="btn btn-outline-success btn-sm" onclick="editField('municipality', '{{ $user->municipality }}')">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-
-                <!-- District -->
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <i class="bi bi-geo-alt me-2"></i>
-                        <strong id="district">{{ $user->district }}</strong>
-                        <div class="text-muted">District</div>
-                    </div>
-                    <button class="btn btn-outline-success btn-sm" onclick="editField('district', '{{ $user->district }}')">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>--}}
             </div>
 
             <div class="mt-3">

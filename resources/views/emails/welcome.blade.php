@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Coco-Spot</title>
+    <title>Welcome to BHW</title>
 </head>
 <body>
-    <h1>Welcome to Coco-Spot</h1>
+    <h1>Welcome to BHW</h1>
     <p>Dear {{ $fullname }},</p>
-    <p>Welcome to Coco-Spot! Your account has been successfully created.</p>
+    <p>Welcome to BHW! Your account has been successfully created.</p>
     <p>Your login credentials are:</p>
     <ul>
         <li><strong>Email:</strong> {{ $email }}</li>
@@ -20,6 +20,6 @@
     <p>If you have any questions or need assistance, feel free to contact us.</p>
     <p>Thank you for joining us!</p>
     <p>Sincerely,</p>
-    <p>The Coco-Spot Team</p>
+    <p>The BHW Team</p>
 </body>
 </html>

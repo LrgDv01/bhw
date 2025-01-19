@@ -63,9 +63,9 @@ class RouteServiceProvider extends ServiceProvider
     public static function redirectTo()
     {
         if (Auth::check()) {
-            if (Auth::user()->isAdmin() || Auth::user()->isFarmer()) {
+            if (Auth::user()->isSuperAdmin() || Auth::user()->isAdmin()) {
                 return '/admin'; // Redirect admin to admin dashboard
-            } elseif(Auth::user()->isTechnician()) {
+            } elseif(Auth::user()->isBHW()) {
                 return '/user/home'; // Redirect non-admin users to home page
             }
         } else {

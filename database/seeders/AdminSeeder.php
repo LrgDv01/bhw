@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\admin\PCA;
-use App\Models\admin\DOA;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class AdminSeeder extends Seeder
 {
@@ -17,16 +17,13 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'user_name' => 'Admin',
-            'full_name' => 'Coco-Spot Admin',
-            'contact' => fake()->unique()->e164PhoneNumber(),
-            'address' => 'At Coco-Spot Headquarters',
-            'email' => 'admin@coco-spot.com',
-            'password' => Hash::make('1234'),
             'user_type' => 0,
+            'user_name' => 'Admin',
+            'full_name' => 'BHW President',
+            'address' => 'At BHW Headquarters',
+            'email' => 'super.admin@bhw.com',
+            'password' => Hash::make('1234'),
             'remember_token' => Str::random(10), 
         ]);
-        PCA::factory(3)->create();
-        DOA::factory(3)->create();
     }
 }

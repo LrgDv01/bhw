@@ -14,8 +14,8 @@ class MapModel extends Model
         'name',
         'coordinates',
         'color',
-        'lot_area',
-        'trees',
-        'meters',
+        'population',
+        'women',
+        'child',
     ];
 }

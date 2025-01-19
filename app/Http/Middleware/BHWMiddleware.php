@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class TechnicianMiddleware
+class BHWMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class TechnicianMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       if (Auth::check() && Auth::user()->isTechnician()) {
+       if (Auth::check() && Auth::user()->isBHW()) {
             return $next($request);
         }
         return redirect()->back()->with('error', 'Access denied.');

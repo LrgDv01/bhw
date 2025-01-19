@@ -3,27 +3,29 @@
     @include('partials.__nav')
     <div class="d-flex flex-column justify-content-between" style="height:90vh">
         <div class="container py-3 d-flex justify-content-center align-items-center" style="height:90vh">
-            <div class="card p-4" style="width: 400px; background: transparent; border:none;">
-                <h4 class="text-center mb-4 text-white"><strong>Forgot Password</strong></h4>
-                <div id="response-message"></div>
-                <form id="forgot-password-form">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="email" class="form-label text-white"><strong>Email</strong></label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email here" required>
+            <div class="card p-4" style="width: 500px; background: transparent; border:none;">
+                <div class="card-body bg-white rounded rounded-4 bg-opacity-75">
+                    <h4 class="text-center mb-4 text-black"><strong>Forgot Password</strong></h4>
+                    <div id="response-message"></div>
+                    <form id="forgot-password-form">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-black"><strong>Email</strong></label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email here" required>
+                        </div>
+                        @error('email')
+                            <div>{{ $message }}</div>
+                        @enderror
+                        <div class="d-grid d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary px-3 py-2 fw-100 rounded rounded-5">Send me Reset Link</button>
+                        </div>
+                    </form>
+                    <div class="card p-2 align-self-start w-25" style="background: transparent; border:none;">
+                        <a href="{{ url()->previous() }}" class="btn btn-light">
+                           <i class="bi bi-arrow-left w-2"></i> </a>
                     </div>
-                    @error('email')
-                        <div>{{ $message }}</div>
-                    @enderror
-                    <div class="d-grid d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success">Send me Reset Link</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-        <div class="card p-4 align-self-start" style="background: transparent; border:none;">
-            <a href="{{ url()->previous() }}" class="btn btn-light">
-                <i class="bi bi-arrow-left w-4"></i> </a>
         </div>
     </div>
 </main>

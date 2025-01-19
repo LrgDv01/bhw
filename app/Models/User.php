@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Farm\FarmModel;
 use App\Models\ServicesModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,14 +21,13 @@ class User extends Authenticatable
     protected $fillable = [
         // 'gender',
         // 'address',
-        'profile_img',
+        'user_type',
         'user_name',
         'full_name',
         'address',
-        'contact',
         'email',
         'password',
-        'user_type',
+        'profile_img',
     ];
 
     /**
@@ -50,24 +48,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function isAdmin()
+    public function isSuperAdmin()
     {
         return $this->user_type == 0;
     }
-    public function isFarmer()
+    public function isAdmin()
     {
         return $this->user_type == 1;
     }
-    public function isTechnician()
+    public function isBHW()
     {
         return $this->user_type == 2;
     }
     public function services()
     {
-        return $this->hasMany(ServicesModel::class, 'farmer_id', 'id');
+        return $this->hasMany(ServicesModel::class, 'user_id', 'id');
     }
-    public function farms()
-    {
-        return $this->hasMany(FarmModel::class, 'farmer_id', 'id');
-    }
+
 }

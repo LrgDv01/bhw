@@ -18,7 +18,7 @@ $(document).on('submit', '#registerform', function (e) {
             hideLoading();
             $('#registerform')[0].reset();
             global_showalert(response.message, 'Congrats', 'green', '/login');
-            // Redirect to login page after displaying the message
+       
         },
         error: function (xhr) {
             hideLoading();
