@@ -24,7 +24,7 @@
                         <a href="{{ url()->previous() }}" class="btn btn-light">
                            <i class="bi bi-arrow-left w-2"></i> </a>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </div>
