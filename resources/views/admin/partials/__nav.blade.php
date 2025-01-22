@@ -93,19 +93,19 @@
         </li>  
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-            <i class="text-white bi bi-map-fill"></i>
+            <i class="text-white bi bi-megaphone-fill"></i>
             <span>Announcement</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-            <i class="text-white bi-geo-fill"></i> 
+            <i class="text-white bi-list-ul"></i> 
             <span>Summary / List</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
-            <i class="text-white bi-geo-fill"></i> 
+            <i class="text-white bi-people-fill"></i> 
             <span>List of BHW</span>
           </a>
         </li>
