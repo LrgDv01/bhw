@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/admin') }}" class="logo d-flex align-items-center justify-content-center">
         <img src="{{ URL::asset('img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block fs-5">BHW</span>
+        <span class="d-none d-lg-block fs-5">Super Admin</span>
       </a>
       <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -92,7 +92,7 @@
           </a>
         </li>  
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/announcement') }}">
             <i class="text-white bi bi-map-fill"></i>
             <span>Announcement</span>
           </a>
@@ -104,7 +104,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/list_bhw') }}">
             <i class="text-white bi-geo-fill"></i> 
             <span>List of BHW</span>
           </a>
