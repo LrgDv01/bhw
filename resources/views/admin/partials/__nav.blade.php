@@ -92,7 +92,7 @@
           </a> 
         </li>  
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/announcement') }}">
             <i class="text-white bi bi-megaphone-fill"></i>
             <span>Announcement</span>
           </a>
@@ -104,7 +104,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
+          <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin/list_bhw') }}">
             <i class="text-white bi-people-fill"></i> 
             <span>List of BHW</span>
           </a>
