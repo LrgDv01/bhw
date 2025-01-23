@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/admin') }}" class="logo d-flex align-items-center justify-content-center">
         <img src="{{ URL::asset('img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block fs-5">BHW</span>
+        <span class="d-none d-lg-block fs-5">Super Admin</span>
       </a>
       <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

@@ -30,5 +30,5 @@ class dashboardController extends Controller
         ];
         return response()->json($res);
     }
-
+    
 }
