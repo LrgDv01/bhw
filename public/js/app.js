@@ -52,7 +52,7 @@ $(document).on('submit', '#loginform', function (e) {
         },
         success: function (response) {  
             hideLoading();
-            global_showalert('', 'Login Success', 'green', response.redirect);
+            global_showalert('', 'Success !..', 'dark', response.redirect);
         },
         error: function (xhr) {
             hideLoading();
@@ -66,7 +66,6 @@ $(document).on('submit', '#loginform', function (e) {
                 }
             }
             global_showalert(response.errors, 'Failed !', 'red');
-            location.reload(); 
         }
     });
 });

@@ -4,21 +4,21 @@
             <ul>
                 <li><a href="{{ url('/') }}" class="active"><br></a></li>
                 {{--  <li class="dropdown"><a href="#"><span></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>   --}}
-                <li><a href="{{ url('/about') }}"><span></span></a>
+                <li><a href="{{ url('/') }}"><span></span></a>
                     <ul>
-                       {{-- <li><a href="{{ url('/about') }}"></a></li>
-                        <li><a href="{{ url('/mission_vision') }}"></a></li>
-                        <li><a href="{{ url('/announcement') }}"></a></li> --}}
-                        {{-- <li><a href="{{ url('/guidelines') }}"></a></li> --}}
-                        {{--<li><a href="{{ url('/contact') }}"></a></li> --}}
+                       {{-- <li><a href="{{ url('/') }}"></a></li>
+                        <li><a href="{{ url('/') }}"></a></li>
+                        <li><a href="{{ url('/') }}"></a></li> --}}
+                        {{-- <li><a href="{{ url('/') }}"></a></li> --}}
+                        {{--<li><a href="{{ url('/') }}"></a></li> --}}
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#services"><span></span></a>
                     <ul style="display: none">
-                        <li><a href="{{ url('/register') }}"></a></li>
+                        <li><a href="{{ url('/') }}"></a></li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/contact') }}"></a></li>
+                <li><a href="{{ url('/') }}"></a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

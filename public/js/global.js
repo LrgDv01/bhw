@@ -4,8 +4,8 @@ let status_arr = ['pending','accepted','canceled','declined']
 function showLoading() {
     loadingIndicator = $.alert({
         title: `
-            <i class="fa fa-circle-notch fa-spin" style="color: green; margin-right: 10px;"></i>
-            <span style="color: green;">Loading...</span>`,
+            <i class="fa fa-circle-notch fa-spin" style="color: grey; margin-right: 10px;"></i>
+            <span style="color: dark;">Loading...</span>`,
         content: '<div style="text-align: center; font-size: 17px; color: #666;">Processing, please wait ...</div>',
         theme: "modern", 
         closeIcon: false,
@@ -42,17 +42,32 @@ function global_showalert(msg, title, type, redirectURL = null) {
             content: msg,
             type: type,
             theme: "modern",
+            onOpenBefore: function () {
+                $('head').append('<style type="text/css"> \
+                    .jconfirm-box { \
+                        border-radius: 20px !important; /* Adjust the border radius here */ \
+                    } \
+                    @media (max-width: 768px) { \
+                        .jconfirm-box { width: 90% !important; } \
+                        .jconfirm-content { font-size: 14px !important; } \
+                    } \
+                    @media (max-width: 480px) { \
+                        .jconfirm-box { width: 95% !important; } \
+                        .jconfirm-content { font-size: 12px !important; } \
+                    } \
+                </style>');
+            },
             buttons: {
                 ok: {
-                    text: 'Proceed', 
-                    btnClass: 'btn-green', 
+                    text: 'Ok', 
+                    btnClass: 'btn-primary rounded rounded-5', 
                     action: function () {
                         this.close(); 
                     }
                 }
             },
             onClose: function () {
-                window.location.href = redirectURL; // Redirect after the alert is closed
+                window.location.href = redirectURL; 
             }
         });
     } else {
@@ -61,6 +76,30 @@ function global_showalert(msg, title, type, redirectURL = null) {
             content: msg,
             type: type,
             theme: "modern",
+            onOpenBefore: function () {
+                $('head').append('<style type="text/css"> \
+                    .jconfirm-box { \
+                        border-radius: 20px !important; /* Adjust the border radius here */ \
+                    } \
+                    @media (max-width: 768px) { \
+                        .jconfirm-box { width: 90% !important; } \
+                        .jconfirm-content { font-size: 14px !important; } \
+                    } \
+                    @media (max-width: 480px) { \
+                        .jconfirm-box { width: 95% !important; } \
+                        .jconfirm-content { font-size: 12px !important; } \
+                    } \
+                </style>');
+            },
+            buttons: {
+                ok: {
+                    text: 'Ok', 
+                    btnClass: 'btn-secondary rounded rounded-5', 
+                    action: function () {
+                        this.close(); 
+                    }
+                }
+            },
         });
     }
 }

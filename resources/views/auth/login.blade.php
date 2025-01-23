@@ -1,7 +1,15 @@
 @include('partials.__header')
   <main class="custombg min-vh-100 loginpagebg">
     @include('partials.__nav')
-    <div class="container d-flex justify-content-center align-items-center py-3" style="height: 80vh">
+
+    <div class="d-flex flex-column align-items-center rounded-circle bg-white p-2 mx-5" style="width: 100px; height: 100px;">
+        <a href="{{ url('/') }}">
+            <img src="{{ URL::asset('img/bhw-logo.png') }}" alt="Logo" class="img-fluid rounded-5">
+        </a>
+        <h1 class="text-white mt-3"><strong>BHW</strong></h1>
+    </div>
+ 
+    <div class="container d-flex justify-content-center align-items-start" style="height: 80vh">
         <div class="card logincardbg bg-transparent d-flex align-items-center b-none" style="width: 50vh; border:none">
             <div class="card-body bg-white rounded rounded-4 bg-opacity-75">
                 <div class="col d-flex flex-column align-items-center justify-content-center text-white">

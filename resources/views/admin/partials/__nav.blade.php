@@ -89,7 +89,7 @@
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
             <i class="text-white bi bi-grid-fill"></i>
             <span>Dashboard</span>
-          </a>
+          </a> 
         </li>  
         <li class="nav-item">
           <a class="nav-link bg-transparent border border-0 text-white " href="{{ url('/admin') }}">
