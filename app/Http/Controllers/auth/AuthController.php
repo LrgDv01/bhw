@@ -53,7 +53,9 @@ class AuthController extends Controller
           // Authentication successful
           $user = Auth::user();
           $redirectRoute = $user->isSuperAdmin()
-            ? route('admin.dashboard'):route('user.dashboard');
+            ? route('admin.dashboard'): ($user->isAdmin() 
+            ? route('admin.midwife.dashboard')
+            : route('bhw.services'));
           return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
         } else {
           // Authentication failed
@@ -140,8 +142,10 @@ class AuthController extends Controller
 
     if ($status === Password::PASSWORD_RESET) {
       $user = Auth::user();
-      $redirectRoute = $user->isSuperAdmin() 
-      ? route('admin.dashboard'):route('user.dashboard');
+      $redirectRoute = $user->isSuperAdmin()
+        ? route('admin.dashboard'): ($user->isAdmin() 
+        ? route('admin.midwife.dashboard')
+        : route('bhw.services'));
       return response()->json([
         'success' => true, 
         'message' => 'Password has been reset and you are now logged in.', 

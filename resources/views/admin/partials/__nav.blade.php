@@ -84,52 +84,84 @@
 </header>
 
 <style>
-  .nav-link.active {
-    background-color: #007bff; /* Active background color */
-    color: #fff; /* Active text color */
-    font-weight: bold; /* Optional */
+  .nav-link.active  {
+    background-color: #f8f3f2; 
+    color: gray; 
+    font-weight: bold; 
+    .bi {
+      color: gray; 
+    }
   }
+  .nav-link.active:hover {
+    background-color:  #f8f3f2;
+    color: gray; 
+    .bi {
+      color: gray; 
+    }
+  }
+  .nav-link.inactive {
+    background-color:transparent;
+    color:white;
+    .bi {
+      color: white; 
+    }
+  }
+  .nav-link.inactive:hover {
+    background-color: gray; /* Hover background color */
+    color: white; /* Hover text color */
+    .bi {
+      color: white; 
+    }
+  }
+
 </style>
 
 <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#a6a6a6">
   <ul class="sidebar-nav flex-column" id="sidebar-nav">
     @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin())
-        <li class="nav-item">
-            <a class="nav-link  border border-0 text-white {{ Request::is('admins/dashboard') ? 'active' : 'bg-transparent' }}" href="{{ url('/admins/dashboard') }}">
-                <i class="text-white bi bi-grid-fill"></i>
-                <span>Dashboard</span>
-            </a> 
-        </li>  
+        
         @if (auth()->user()->isSuperAdmin())
             <li class="nav-item">
-                <a class="nav-link border border-0 text-white {{ Request::is('admin/announcement') ? 'active' : 'bg-transparent' }}" href="{{ url('/admin/announcement') }}">
-                    <i class="text-white bi bi-megaphone-fill"></i>
+                <a class="nav-link border border-0 {{ Request::is('admin/dashboard') ? 'active' : 'inactive' }}" href="{{ url('/admin/dashboard') }}">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a> 
+            </li>  
+            <li class="nav-item">
+                <a class="nav-link border border-0 {{ Request::is('admin/announcement') ? 'active' : 'inactive' }}" href="{{ url('/admin/announcement') }}">
+                    <i class="bi bi-megaphone-fill"></i>
                     <span>Announcement</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link border border-0 text-white {{ Request::is('admin/summary-list') ? 'active' : 'bg-transparent' }}" href="{{ url('/admin/summary-list') }}">
-                    <i class="text-white bi-list-ul"></i> 
+                <a class="nav-link border border-0  {{ Request::is('admin/summary-list') ? 'active' : 'inactive' }}" href="{{ url('/admin/summary-list') }}">
+                    <i class="bi bi-list-ul"></i> 
                     <span>Summary / List</span>
-                </a>
+                </a> 
             </li>
             <li class="nav-item">
-                <a class="nav-link border border-0 text-white {{ Request::is('admin/list_bhw') ? 'active' : 'bg-transparent' }}" href="{{ url('/admin/list_bhw') }}">
-                    <i class="text-white bi-people-fill"></i> 
+                <a class="nav-link border border-0  {{ Request::is('admin/list_bhw') ? 'active' : 'inactive' }}" href="{{ url('/admin/list_bhw') }}">
+                    <i class="bi bi-people-fill"></i> 
                     <span>List of BHW</span>
                 </a>
             </li>
         @endif
         @if (auth()->user()->isAdmin())
             <li class="nav-item">
-                <a class="nav-link border border-0 text-white {{ Request::is('admin-midwife/schedule') ? 'active' : 'bg-transparent'  }}" href="{{ url('/admin-midwife/schedule') }}">
-                    <i class="text-white bi-list-ul"></i> 
+                <a class="nav-link border border-0 {{ Request::is('admin-midwife/dashboard') ? 'active' : 'inactive' }}" href="{{ url('/admin-midwife/dashboard') }}">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a> 
+            </li>  
+            <li class="nav-item">
+                <a class="nav-link border border-0  {{ Request::is('admin-midwife/schedule') ? 'active' : 'inactive'  }}" href="{{ url('/admin-midwife/schedule') }}">
+                    <i class="bi bi-list-ul"></i> 
                     <span>Schedule</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link transparent border border-0 text-white {{ Request::is('admin/list') ? 'active' : 'bg-transparent'  }}" href="{{ url('/admins/dashboard') }}">
-                    <i class="text-white bi-people-fill"></i> 
+                <a class="nav-link transparent border border-0  {{ Request::is('admin/list') ? 'active' : 'inactive'  }}" href="{{ url('/admins/dashboard') }}">
+                    <i class="bi bi-people-fill"></i> 
                     <span>List</span>
                 </a>
             </li> 

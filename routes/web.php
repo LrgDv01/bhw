@@ -45,7 +45,7 @@ Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['superadmin.bhw.president'])->group(function () {    
-        Route::get('/admins/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
+        Route::get('/admin/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
         Route::get('/admin/announcement', [Super_adminController::class, 'announcement'])->name('admin.announcement');
         Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
         Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
@@ -61,9 +61,8 @@ Route::middleware(['auth'])->group(function () {
     })->middleware('redirect.nonadmin');
     
     Route::middleware(['admin.midwife'])->group(function () {
-        Route::get('/admins/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
-        Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index'])->name('admin.schedule');
-        Route::post('/admin-midwife/schedule', [ScheduleController::class, 'store'])->name('admin.schedule.add');
+        Route::get('/admin-midwife/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.midwife.dashboard');
+        Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index']);
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
