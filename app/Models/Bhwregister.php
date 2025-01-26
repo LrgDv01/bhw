@@ -2,35 +2,30 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Bhwregister extends Authenticatable
+
+class Bhwregister extends Model
 {
-    use HasFactory, Notifiable; // Add Notifiable here
+    use HasFactory;
 
-    // Define fillable fields for mass assignment
+    protected $table = "bhwregisters";
     protected $fillable = [
-        'username',
-        'email',
-        'password',
-        'status',
-        'phone_no',
-        'first_name',
-        'last_name',
-        'middle_name',
-        'catchment_area',
+        'bhw_id',
         'cover_type',
+        'catchment_area',
         'accreditation_count',
-        'service_start_date',
-        'household_covered',
+        'household_covered',   
         'accreditation_date',
+        'service_start_date',
+        'date_of_registration',
+   
     ];
 
-    // Define hidden fields to exclude from JSON responses
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function user() {
+        return $this->belongsTo(User::class, 'bhw_id');
+    }
+
 }

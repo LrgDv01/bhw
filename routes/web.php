@@ -10,6 +10,7 @@ use App\Http\Controllers\user\bhw\ReportsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Super_adminController;
 use App\Http\Controllers\BhwregistrationController;
+use App\Http\Controllers\admin\admin_mdwf\ScheduleController;
 
 
 /*
@@ -43,29 +44,25 @@ Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::middleware(['super.admin'])->group(function () {
-        Route::get('/admin', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
+    Route::middleware(['superadmin.bhw.president'])->group(function () {    
+        Route::get('/admins/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
         Route::get('/admin/announcement', [Super_adminController::class, 'announcement'])->name('admin.announcement');
         Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
         Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
-        Route::get('/admin/list_bhw', [Super_adminController::class, 'list_bhw'])->name('admin.list_bhw');
         Route::get('/admin/list_bhw', [Super_adminController::class, 'listBHW'])->name('admin.list_bhw');
-        Route::get('/admin/bhwregistration', [Super_adminController::class, 'bhwregistration'])->name('admin.bhwregistration');
-        Route::post('/admin/bhwregistration', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
+        Route::get('/admin/bhwregistration', [BhwregistrationController::class, 'index'])->name('admin.bhwregistration.index');
+        Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
         Route::get('/bhw/dashboard', [BhwregistrationController::class, 'index'])->name('bhw.dashboardss');
-         
-
         Route::view('/admin/map', 'admin.pages.map_locations')->name('admin.map'); 
         Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
         Route::get('/admin/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('get_dashboard_info');
         Route::middleware(['web'])->group(function () {
-
         });
-
     })->middleware('redirect.nonadmin');
     
-
     Route::middleware(['admin.midwife'])->group(function () {
+        Route::get('/admins/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
+        Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index']);
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');

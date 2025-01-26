@@ -7,27 +7,21 @@
     <!-- Main Content -->
     <div class="content">
         <div class="container-fluid">
-            <h1 class="mb-4">List of BHW Users</h1>
+            <h1 class="mb-4">SCHEDULE OF ACTIVITIES</h1>
 
-            <!-- Add BHW Button -->
-            <div class="mb-3">
-                <a href="{{ route('admin.bhwregistration.index') }}" class="btn btn-success">Add BHW</a>
-            </div>
+            
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Cover Type</th>
-                        <th>Catchment Area</th>
-                        <th>Accreditation Count</th>
-                        <th>Household Covered</th>
-                        <th>Accreditation Date</th>
-                        <th>Service Start Date</th>
-                        <th>Date of Registration</th>
+                        <th>Activities</th>
+                        <th>Date</th>
+                        <th>Assigned</th>
+                        <th>Address</th>
+                        <th>Target</th>
                     </tr>
                 </thead>
-                <tbody>
+                {{--<tbody>
                     @forelse($bhwUsers as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
@@ -47,8 +41,11 @@
                             <td colspan="11" class="text-center">No BHW users found.</td>
                         </tr>
                     @endforelse
-                </tbody>
+                </tbody>--}}
             </table>
+            <div class="mb-3 d-flex justify-content-end">
+                <a href="{{ route('admin.bhwregistration.index') }}" class="btn btn-success">Add Events</a>
+            </div>
         </div>
     </div>
 

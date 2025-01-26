@@ -77,16 +77,16 @@ class AuthController extends Controller
     // Create a new user
     $user = User::create([
       'user_type' => $request->user_type,
-      'user_name' => $request->user_name,
-      'full_name' => $request->full_name,
+      'username' => $request->username,
+      'fullname' => $request->fullname,
       'email' => $request->email,
-      'catchment_area' => $request->catchment_area,
-      'cover_type' => $request->cover_type,
-      'accreditation_count' => $request->accreditation_count,
-      'date_of_registration' => $request->date_of_registration,
-      'service_start_date' => $request->service_start_date,
-      'household_covered' => $request->household_covered,
-      'accreditation_date' => $request->accreditation_date,
+      // 'catchment_area' => $request->catchment_area,
+      // 'cover_type' => $request->cover_type,
+      // 'accreditation_count' => $request->accreditation_count,
+      // 'date_of_registration' => $request->date_of_registration,
+      // 'service_start_date' => $request->service_start_date,
+      // 'household_covered' => $request->household_covered,
+      // 'accreditation_date' => $request->accreditation_date,
       'password' => Hash::make($request->password),
     ]);
    
@@ -154,6 +154,7 @@ class AuthController extends Controller
     //   'message' => __($status),
     // ], 400);
   }
+
 
   public function logout(Request $request)
   {

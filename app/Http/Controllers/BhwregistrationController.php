@@ -2,63 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Bhwregister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class BhwregistrationController extends Controller
 {
+
+    public function index()
+    {
+        return view('admin.pages.bhwregistration');
+    }
+
     public function bhwregistration(Request $request)
     {
         try {
-            $validated = $request->validate([
-                'username' => 'required|string|max:255',
-                'email' => 'required|email|unique:bhwregisters,email',
-                'password' => 'required|min:8|confirmed',
-                'phone_no' => 'required|numeric|digits_between:10,15',
-                'last_name' => 'required|string|max:255',
-                'first_name' => 'required|string|max:255',
-                'middle_name' => 'required|string|max:255',
-                'catchment_area' => 'required|string|max:255',
-                'cover_type' => 'required|string|max:255',
-                'accreditation_count' => 'required|numeric',
-                'service_start_date' => 'required|date',
-                'household_covered' => 'required|numeric',
+            // Validation
+            $validator = Validator::make($request->all(), [
+                'username' => 'required|string|max:255|unique:users,username',
+                'fullname' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|min:3|confirmed',
+                'cover_type' => 'required|string',
+                'catchment_area' => 'required|string',
+                'accreditation_count' => 'required|integer',
+                'household_covered' => 'required|integer',
                 'accreditation_date' => 'required|date',
+                'service_start_date' => 'required|date',
             ]);
+    
+            // Check if validation fails
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+    
+            // Retrieve validated data
+            $validated = $validator->validated();
+    
+            // Create user
+            $user = User::create([
+                'user_type' => '2',
+                'username' => $validated['username'],
+                'fullname' => $validated['fullname'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
 
             $user = Bhwregister::create([
-                'username' => $validated['username'],
-                'email' => $validated['email'],
-                'password' => bcrypt($validated['password']),
-                'status' => 'BHW',
-                'phone_no' => $validated['phone_no'],
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
-                'middle_name' => $validated['middle_name'],
-                'catchment_area' => $validated['catchment_area'],
+                'bhw_id' => $user->id,
                 'cover_type' => $validated['cover_type'],
+                'catchment_area' => $validated['catchment_area'],
                 'accreditation_count' => $validated['accreditation_count'],
-                'service_start_date' => $validated['service_start_date'],
                 'household_covered' => $validated['household_covered'],
                 'accreditation_date' => $validated['accreditation_date'],
+                'service_start_date' => $validated['service_start_date'],
+                'date_of_registration' => now(),
             ]);
 
-            if (!$user) {
-                session()->flash('error', 'Registration unsuccessful. Please try again.');
-                return redirect()->back()->withInput();
-            }
-
-            Auth::guard('bhw')->login($user);
-
-            session()->flash('success', 'Registration successful! Please log in.');
-            return redirect()->route('admin.list_bhw');
-
-        } catch (\Exception $e) {
-            Log::error('Registration Error: ' . $e->getMessage());
-            session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
-            return redirect()->back()->withInput();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'User registered successfully!',
+                'user' => $user,
+            ], 201);
+    
+        } catch (Exception $e) {
+            // Log the error (optional but recommended)
+            \Log::error('User registration failed: ' . $e->getMessage());
+    
+            // Return a generic error response
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while registering the user. Please try again later.',
+                'error' => $e->getMessage(), // For debugging; you may want to hide this in production
+            ], 500);
         }
     }
 }

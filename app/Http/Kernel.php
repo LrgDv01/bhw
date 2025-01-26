@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'super.admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        'superadmin.bhw.president' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'admin.midwife' => \App\Http\Middleware\AdminMiddleware::class,
         'bhw' => \App\Http\Middleware\BHWMiddleware::class,
         'redirect.nonadmin' => \App\Http\Middleware\RedirectIfNotAdmin::class,

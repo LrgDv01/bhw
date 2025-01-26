@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\ServicesModel;
+use App\Models\Bhwregister;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,12 +19,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        // 'gender',
-        // 'address',
         'user_type',
-        'user_name',
-        'full_name',
-        'address',
+        'username',
+        'fullname',
         'email',
         'password',
         'profile_img',
@@ -59,9 +57,13 @@ class User extends Authenticatable
     {
         return $this->user_type == 2;
     }
+    public function bhwInfo()
+    {
+        return $this->hasOne(Bhwregister::class, 'bhw_id');
+    }
     public function services()
     {
-        return $this->hasMany(ServicesModel::class, 'user_id', 'id');
+        return $this->hasMany(ServicesModel::class, 'user_id');
     }
 
 }

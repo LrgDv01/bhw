@@ -18,9 +18,8 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'user_type' => 0,
-            'user_name' => 'Admin',
-            'full_name' => 'BHW President',
-            'address' => 'At BHW Headquarters',
+            'username' => 'Admin',
+            'fullname' => 'BHW President',
             'email' => 'super.admin@bhw.com',
             'password' => Hash::make('1234'),
             'remember_token' => Str::random(10), 

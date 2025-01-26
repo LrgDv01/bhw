@@ -13,7 +13,7 @@
             <div class="mb-3">
                 <a href="{{ route('admin.bhwregistration.index') }}" class="btn btn-success">Add BHW</a>
             </div>
-            <table class="table table-striped">
+            {{-- <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -48,7 +48,7 @@
                         </tr>
                     @endforelse
                 </tbody>
-            </table>
+            </table> --}}
         </div>
     </div>
 

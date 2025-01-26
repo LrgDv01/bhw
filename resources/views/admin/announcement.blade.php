@@ -62,6 +62,4 @@
  
 </main>
 
-
-
 @include('admin.partials.__footer')

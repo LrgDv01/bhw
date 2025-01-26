@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bhwregister;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Announcement;
 
@@ -23,19 +24,14 @@ class Super_adminController extends Controller
         // Return the view for the technician dashboard
         return view('super_admin.summary');
     }
-    public function list_bhw()
-    {
-        // Return the view for the technician dashboard
-        return view('admin.list_bhw');
-    }
-    public function bhwregistration()
-    {
-        return view('admin.bhwregistration');
-    }
 
     public function listBHW()
     {
-        $bhwUsers = Bhwregister::all(); // Fetch all BHW users
+        $bhwUsers = User::where('user_type', '2')
+            ->whereHas('bhwInfo') 
+            ->with('bhwInfo') 
+            ->get(); 
+
         return view('admin.list_bhw', compact('bhwUsers'));
     }
 

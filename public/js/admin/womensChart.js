@@ -30,9 +30,9 @@ function displayWomenChart() {
         type: 'bar',
         data: {
             labels: [
-                'January', 'February', 'March', 'April', 
-                'May', 'June', 'July', 'August', 
-                'September', 'October', 'November', 'December'
+                'December', 'November', 'October', 'September', 
+                'August', 'July', 'June', 'May', 
+                'April', ' March', 'February', 'January'
             ], // 12 months
             datasets: [
                 {
