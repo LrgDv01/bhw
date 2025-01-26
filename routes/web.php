@@ -62,7 +62,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::middleware(['admin.midwife'])->group(function () {
         Route::get('/admins/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
-        Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index']);
+        Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index'])->name('admin.schedule');
+        Route::post('/admin-midwife/schedule', [ScheduleController::class, 'store'])->name('admin.schedule.add');
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');

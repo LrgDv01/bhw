@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bhw_id')->constrained('users')->onDelete('cascade');
             $table->string('activities');
             $table->date('date');
             $table->string('assigned');
