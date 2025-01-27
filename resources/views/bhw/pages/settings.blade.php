@@ -1,6 +1,9 @@
 @include('bhw.partials.__header')
 @include('bhw.partials.__nav')
 <main id="main" class="main">
+    <div class="pagetitle mb-5">
+        <h1><strong>Settings</strong></h1>
+    </div>
     <section class="section settings">
         <div class="container">
             <h4 class="mb-4">Profile</h4>

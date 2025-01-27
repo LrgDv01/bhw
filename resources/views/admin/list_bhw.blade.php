@@ -5,13 +5,12 @@
 <main id="main" class="main">
    
     <div class="pagetitle mb-5">
-        <h1>List of BHW Users</h1>
+        <h1><strong>List of BHW Users</strong></h1>
     </div>
     <section class="section bhw-list">
         <div class="content">
             <div class="container-fluid">
-                <!-- Add BHW Button -->
-                <div class="mb-3">
+                <div class="mb-3 {{ auth()->user() && auth()->user()->isSuperAdmin() ? '' : 'd-none' }}">
                     <a href="{{ route('admin.bhwregistration.index') }}" class="btn btn-success">Add BHW</a>
                 </div>
                 <table class="table table-striped">

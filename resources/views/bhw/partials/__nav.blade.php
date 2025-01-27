@@ -94,7 +94,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link border border-0 {{ Request::is('bhw/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/bhw/user-activity') }}">
-              <i class="bi bi-gear "></i>  
+              <i class="bi bi-graph-up "></i>  
               <span>User Activity</span>
             </a>
           </li>

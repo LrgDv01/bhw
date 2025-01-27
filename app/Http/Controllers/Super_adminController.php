@@ -35,6 +35,11 @@ class Super_adminController extends Controller
         return view('admin.list_bhw', compact('bhwUsers'));
     }
 
+    public function sched()
+    {
+        return view('bhw.pages.schedule');
+    }
+
     
 
     

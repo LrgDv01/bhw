@@ -3,9 +3,9 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
   <div class="d-flex align-items-center justify-content-between">
-    <a href="{{ url('/admin') }}" class="logo d-flex align-items-center justify-content-center">
+    <a href="{{ url('/admin/dashboard') }}" class="logo d-flex align-items-center justify-content-center">
       <img src="{{ URL::asset('img/logo.png') }}" alt="">
-      <span class="d-none d-lg-block fs-5">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</span>
+      <span class="d-none d-lg-block fs-5">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "BHW Midwife" }}</span>
     </a>
     <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->

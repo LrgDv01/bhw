@@ -31,9 +31,8 @@
 </style>
 
 <main id="main" class="main">
-
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1><strong>Dashboard</strong></h1>
     </div>
     <section class="section dashboard mt-4">
         <div class="row">
