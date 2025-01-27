@@ -41,16 +41,13 @@ class AuthController extends Controller
       $email = $request->input('email');
       return response()->json(['errors' => 'Validation failed', 'errors' => $validator->errors()], 422);
     }
-    // Attempt to log in the user
     $credentials = $request->only('email', 'password');
     $remember = $request->boolean('remember'); 
 
     $checkData = User::where('email', $request->email)->first();
     if($checkData) {
         if (Auth::attempt($credentials, $remember)) {
-          // Store "Remember Me" preference in session
-          $request->session()->put('remember_me', $remember); // Save in session
-          // Authentication successful
+          $request->session()->put('remember_me', $remember); 
           $user = Auth::user();
           $redirectRoute = $user->isSuperAdmin()
             ? route('admin.dashboard'): ($user->isAdmin() 
@@ -58,7 +55,6 @@ class AuthController extends Controller
             : route('bhw.services'));
           return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
         } else {
-          // Authentication failed
           $request->session()->flash('email', $request->input('email'));
           return response()->json(['errors' => 'Invalid credentials'], 401);
         }
@@ -75,8 +71,7 @@ class AuthController extends Controller
       return $csrfValidation;
     }
 
-    $password = Str::random(12); // Generates a random 12-character password
-    // Create a new user
+    $password = Str::random(12); 
     $user = User::create([
       'user_type' => $request->user_type,
       'username' => $request->username,
