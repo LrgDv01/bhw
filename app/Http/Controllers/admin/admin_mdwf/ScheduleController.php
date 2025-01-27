@@ -11,56 +11,45 @@ class ScheduleController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
-        return view('admin.admin_mdwf.schedule');
+        $schedules = Schedule::all(); // Fetch all schedules from the database
+        return view('admin.admin_mdwf.schedule', compact('schedules'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming data
+        $validated = $request->validate([
+            'activities' => 'required|string|max:255',
+            'date' => 'required|date',
+            'assigned' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'target' => 'required|string|max:255',
+        ]);
+
+        // Create a new schedule record
+        Schedule::create([
+            'activities' => $validated['activities'],
+            'date' => $validated['date'],
+            'assigned' => $validated['assigned'],
+            'address' => $validated['address'],
+            'target' => $validated['target'],
+        ]);
+
+        // Redirect back with success message
+        return redirect()->route('admin.schedule.add')->with('success', 'Event added successfully!');
+    }
+    
+    public function destroy($id)
+    {
+        // Find the schedule by ID and delete it
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+
+        // Redirect back with success message, passing the id to the delete route
+        return redirect()->route('admin.schedule')->with('success', 'Event deleted successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Schedule $schedule)
-    {
-        //
-    }
 }

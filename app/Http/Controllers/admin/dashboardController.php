@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class dashboardController extends Controller
 {
+    
     public function display_dashboard() {
 
         return view('admin.dashboard');

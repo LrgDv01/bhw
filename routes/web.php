@@ -11,7 +11,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Super_adminController;
 use App\Http\Controllers\BhwregistrationController;
 use App\Http\Controllers\admin\admin_mdwf\ScheduleController;
-
+use App\Http\Controllers\ListbhwController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index']);
         Route::get('/admin-midwife/list_bhw', [Super_adminController::class, 'listBHW']);
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
+        Route::delete('/admin-midwife/schedule/{id}', [ScheduleController::class, 'destroy'])->name('admin.schedule.delete');
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
