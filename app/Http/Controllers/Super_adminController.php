@@ -21,7 +21,7 @@ class Super_adminController extends Controller
     }
     public function summary()
     {
-        // Return the view for the technician dashboard
+        
         return view('super_admin.summary');
     }
 

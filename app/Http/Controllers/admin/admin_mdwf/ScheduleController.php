@@ -39,7 +39,7 @@ class ScheduleController extends Controller
         ]);
 
         // Redirect back with success message
-        return redirect()->route('admin.admin_mdwf.schedule')->with('success', 'Event added successfully!');
+        return redirect()->route('admin.schedule.add')->with('success', 'Event added successfully!');
     }
     
     public function destroy($id)
@@ -48,7 +48,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::findOrFail($id);
         $schedule->delete();
 
-        // Redirect back with success message
-        return redirect()->route('admin.admin_mdwf.schedule')->with('success', 'Event deleted successfully!');
+        // Redirect back with success message, passing the id to the delete route
+        return redirect()->route('admin.schedule')->with('success', 'Event deleted successfully!');
     }
+
 }

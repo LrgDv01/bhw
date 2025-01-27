@@ -160,7 +160,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link transparent border border-0  {{ Request::is('admin/list') ? 'active' : 'inactive'  }}" href="{{ url('/admins/dashboard') }}">
+                <a class="nav-link transparent border border-0  {{ Request::is('admin/admin-midwife/list') ? 'active' : 'inactive'  }}" href="{{ url('/admin/admin-midwife/list') }}">
                     <i class="bi bi-people-fill"></i> 
                     <span>List</span>
                 </a>

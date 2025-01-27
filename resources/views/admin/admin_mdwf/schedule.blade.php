@@ -26,6 +26,14 @@
                             <td>{{ $schedule->assigned }}</td>
                             <td>{{ $schedule->address }}</td>
                             <td>{{ $schedule->target }}</td>
+                            <td>
+                                <!-- Delete Button -->
+                                <form action="{{ route('admin.schedule.delete', $schedule->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -75,7 +83,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
-            </div>
+            </div>  
         </div>
     </div>
 </div>
