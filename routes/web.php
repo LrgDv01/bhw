@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/announcement', [Super_adminController::class, 'announcement'])->name('admin.announcement');
         Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
         Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+        Route::get('/admin/summary-list', [Super_adminController::class, 'summaryList']);
         Route::get('/admin/list_bhw', [Super_adminController::class, 'listBHW'])->name('admin.list_bhw');
         Route::get('/admin/bhwregistration', [BhwregistrationController::class, 'index'])->name('admin.bhwregistration.index');
         Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
@@ -63,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin.midwife'])->group(function () {
         Route::get('/admin-midwife/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.midwife.dashboard');
         Route::get('/admin-midwife/schedule', [ScheduleController::class, 'index']);
+        Route::get('/admin-midwife/list_bhw', [Super_adminController::class, 'listBHW']);
         Route::get('/user/services', [ServicesController::class, 'index'])->name('user.services');
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
@@ -71,6 +73,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['bhw'])->group(function () {
+        Route::get('/bhw/services', [ServicesController::class, 'index'])->name('bhw.services');
+        Route::get('/bhw/list', [ServicesController::class, 'list'])->name('bhw.list');
+        Route::get('/bhw/schedule', [ServicesController::class, 'schedule'])->name('bhw.schedule');
+        Route::get('/bhw/user-activity', [ServicesController::class, 'userActivity'])->name('bhw.user_activity');
+
         Route::get('/user/reports', [ReportsController::class, 'index'])->name('user.reports');
         Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
         Route::middleware(['web'])->group(function () {

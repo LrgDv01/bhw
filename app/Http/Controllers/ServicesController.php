@@ -11,7 +11,22 @@ class ServicesController extends Controller
 {
     public function index()
     {   
-        return view('user.pages.services');
+        return view('bhw.pages.services');
+    }
+
+    public function list() {
+        return view('bhw.pages.list');
+
+    }
+
+    public function schedule() {
+        return view('bhw.pages.schedule');
+
+    }
+
+    public function userActivity() {
+        return view('bhw.pages.user_activity');
+        
     }
 
     public function updateStatus(Request $request, $id, $status)

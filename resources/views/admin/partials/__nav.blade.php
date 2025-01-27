@@ -5,7 +5,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <a href="{{ url('/admin') }}" class="logo d-flex align-items-center justify-content-center">
       <img src="{{ URL::asset('img/logo.png') }}" alt="">
-      <span class="d-none d-lg-block fs-5">Super Admin</span>
+      <span class="d-none d-lg-block fs-5">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</span>
     </a>
     <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
@@ -14,22 +14,20 @@
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
       <li class="nav-item dropdown pe-3">
-        
+         
         <div class="d-flex align-items-center">
           <a href="#notification"
             data-bs-toggle="modal"
             data-bs-target="#notificationmodal" id="notification-bell" class="me-4 fs-2 position-relative">
-
           </a>
           <a class="nav-link bg-transparent border border-0 text-dark nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ Auth::user()->profile_img != '' ? asset('storage/'.Auth::user()->profile_img) : URL::asset('img/admin-profile.png') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "BHW" }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Admin" }}</span>
           </a>
-
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</h6>
-              <span>{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Sub Admin" }}</span>
+              <span>{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Admin" }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -86,31 +84,31 @@
 <style>
   .nav-link.active  {
     background-color: #f8f3f2; 
-    color: gray; 
+    color: #a6a6a6; 
     font-weight: bold; 
     .bi {
-      color: gray; 
+      color: #a6a6a6; 
     }
   }
   .nav-link.active:hover {
     background-color:  #f8f3f2;
-    color: gray; 
+    color: #a6a6a6; 
     .bi {
-      color: gray; 
+      color: #a6a6a6; 
     }
   }
   .nav-link.inactive {
     background-color:transparent;
-    color:white;
+    color:#f8f3f2;
     .bi {
-      color: white; 
+      color: #f8f3f2; 
     }
   }
   .nav-link.inactive:hover {
     background-color: gray; /* Hover background color */
-    color: white; /* Hover text color */
+    color: #f8f3f2; /* Hover text color */
     .bi {
-      color: white; 
+      color: #f8f3f2; 
     }
   }
 
@@ -118,8 +116,7 @@
 
 <aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#a6a6a6">
   <ul class="sidebar-nav flex-column" id="sidebar-nav">
-    @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin())
-        
+    @if (auth()->user())
         @if (auth()->user()->isSuperAdmin())
             <li class="nav-item">
                 <a class="nav-link border border-0 {{ Request::is('admin/dashboard') ? 'active' : 'inactive' }}" href="{{ url('/admin/dashboard') }}">
@@ -140,7 +137,7 @@
                 </a> 
             </li>
             <li class="nav-item">
-                <a class="nav-link border border-0  {{ Request::is('admin/list_bhw') ? 'active' : 'inactive' }}" href="{{ url('/admin/list_bhw') }}">
+                <a class="nav-link border border-0  {{ Request::is('admin/list_bhw') || Request::is('admin/bhwregistration') ? 'active' : 'inactive' }}" href="{{ url('/admin/list_bhw') }}">
                     <i class="bi bi-people-fill"></i> 
                     <span>List of BHW</span>
                 </a>
@@ -155,33 +152,65 @@
             </li>  
             <li class="nav-item">
                 <a class="nav-link border border-0  {{ Request::is('admin-midwife/schedule') ? 'active' : 'inactive'  }}" href="{{ url('/admin-midwife/schedule') }}">
-                    <i class="bi bi-list-ul"></i> 
+                    <i class="bi bi-calendar-check"></i> 
                     <span>Schedule</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link transparent border border-0  {{ Request::is('admin/list') ? 'active' : 'inactive'  }}" href="{{ url('/admins/dashboard') }}">
-                    <i class="bi bi-people-fill"></i> 
-                    <span>List</span>
+                <a class="nav-link transparent border border-0  {{ Request::is('admin-midwife/list_bhw') ? 'active' : 'inactive'  }}" href="{{ url('/admin-midwife/list_bhw') }}">
+                    <i class="bi bi-list-ul"></i> 
+                    <span>BHW List</span>
                 </a>
             </li> 
         @endif
     @endif
   </ul>
 
-
   <div class="sidebar-nav">
-    {{--  <form action="{{ route('logout') }}" id="logoutform" method="POST"> --}}
-      
-      <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="nav-link bg-transparent border border-0 text-white collapsed">
-          <i class="text-white bi bi-arrow-bar-left"></i>
-          <span>Logout</span>
-        </button>
-      </form>
+    <button 
+      type="button" 
+      class="nav-link bg-transparent border border-0 text-white collapsed" 
+      data-bs-toggle="modal" 
+      data-bs-target="#logoutModal">
+        <i class="text-white bi bi-arrow-bar-left"></i>
+        <span>Logout</span>
+    </button>
   </div>
 </aside>
+ff
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel"><strong>Confirm Logout</strong></h5>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to log out ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <form action="{{ route('logout') }}" method="POST" onsubmit="disableSubmitButton(this)">
+          @csrf
+          <button type="submit" class="btn btn-primary" id="logoutSubmitButton">
+            Yes, Log me out
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function disableSubmitButton(form) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true; 
+    submitButton.innerHTML = 'Logging out ...'; 
+  }
+</script> 
+
 
 
 <div

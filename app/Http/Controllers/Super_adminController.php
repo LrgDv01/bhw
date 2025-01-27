@@ -19,10 +19,10 @@ class Super_adminController extends Controller
         // Return the view with the announcements data
         return view('admin.announcement', compact('announcements'));
     }
-    public function summary()
+    public function summaryList()
     {
         // Return the view for the technician dashboard
-        return view('super_admin.summary');
+        return view('admin.summary_list');
     }
 
     public function listBHW()

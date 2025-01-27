@@ -1,5 +1,5 @@
-@include('user.partials.__header')
-@include('user.partials.__nav')
+@include('bhw.partials.__header')
+@include('bhw.partials.__nav')
 <main id="main" class="main">
     <section class="section settings">
         <div class="container">
@@ -73,10 +73,10 @@
                 </div>
             </div>
         </div>
-        @include('user.others.update_profile')
+        @include('bhw.others.update_profile')
     </section>
 </main>
-@include('user.partials.__footer')
+@include('bhw.partials.__footer')
 
 
 <script>
