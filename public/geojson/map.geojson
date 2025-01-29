@@ -1,0 +1,355 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Adia"
+        },
+        "geometry": {
+          "coordinates": [
+            121.4372013266688,
+            14.487465273258067
+          ],
+          "type": "Point"
+        },
+        "id": 0
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Bagong Pook"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42926073580628,
+            14.472472951419519
+          ],
+          "type": "Point"
+        },
+        "id": 1
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Bagumbayan"
+        },
+        "geometry": {
+          "coordinates": [
+            121.43437204974191,
+            14.511295273133499
+          ],
+          "type": "Point"
+        },
+        "id": 2
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Bubucal"
+        },
+        "geometry": {
+          "coordinates": [
+            121.41219079254807,
+            14.476529243115735
+          ],
+          "type": "Point"
+        },
+        "id": 3
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Cabooan"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42941494431585,
+            14.458757588059044
+          ],
+          "type": "Point"
+        },
+        "id": 4
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Calangay"
+        },
+        "geometry": {
+          "coordinates": [
+            121.40651236005488,
+            14.510042965986955
+          ],
+          "type": "Point"
+        },
+        "id": 5
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Cambuja"
+        },
+        "geometry": {
+          "coordinates": [
+            121.40265578636092,
+            14.467816837700738
+          ],
+          "type": "Point"
+        },
+        "id": 6
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Coralan"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42037556742031,
+            14.495221064739297
+          ],
+          "type": "Point"
+        },
+        "id": 7
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Cueva"
+        },
+        "geometry": {
+          "coordinates": [
+            121.45850870606381,
+            14.506302685140938
+          ],
+          "type": "Point"
+        },
+        "id": 8
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Inayapan"
+        },
+        "geometry": {
+          "coordinates": [
+            121.41379356295448,
+            14.48236425389041
+          ],
+          "type": "Point"
+        },
+        "id": 9
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Jose P. Laurel, Sr."
+        },
+        "geometry": {
+          "coordinates": [
+            121.43643670576989,
+            14.525519997146432
+          ],
+          "type": "Point"
+        },
+        "id": 10
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Jose Rizal"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42308682699212,
+            14.464765279154307
+          ],
+          "type": "Point"
+        },
+        "id": 11
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Juan Santiago"
+        },
+        "geometry": {
+          "coordinates": [
+            121.44306628551135,
+            14.561792479068217
+          ],
+          "type": "Point"
+        },
+        "id": 12
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Kayhacat"
+        },
+        "geometry": {
+          "coordinates": [
+            121.41753187051063,
+            14.470765291635459
+          ],
+          "type": "Point"
+        },
+        "id": 13
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Macasipac"
+        },
+        "geometry": {
+          "coordinates": [
+            121.44091875963005,
+            14.501092363076069
+          ],
+          "type": "Point"
+        },
+        "id": 14
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Masinao"
+        },
+        "geometry": {
+          "coordinates": [
+            121.43022828647969,
+            14.492478959093177
+          ],
+          "type": "Point"
+        },
+        "id": 15
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Matalinting"
+        },
+        "geometry": {
+          "coordinates": [
+            121.46012030689184,
+            14.538485947808113
+          ],
+          "type": "Point"
+        },
+        "id": 16
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Pao-o"
+        },
+        "geometry": {
+          "coordinates": [
+            121.4022303946374,
+            14.512779018816559
+          ],
+          "type": "Point"
+        },
+        "id": 17
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Parang ng Buho"
+        },
+        "geometry": {
+          "coordinates": [
+            121.43648944594622,
+            14.528384966697473
+          ],
+          "type": "Point"
+        },
+        "id": 18
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Poblacion Uno"
+        },
+        "geometry": {
+          "coordinates": [
+            121.4219122561122,
+            14.47033134380186
+          ],
+          "type": "Point"
+        },
+        "id": 19
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Poblacion Dos"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42768279909666,
+            14.470932937941384
+          ],
+          "type": "Point"
+        },
+        "id": 20
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Poblacion Tres"
+        },
+        "geometry": {
+          "coordinates": [
+            121.42585451068055,
+            14.47198766183243
+          ],
+          "type": "Point"
+        },
+        "id": 21
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Poblacion Quatro"
+        },
+        "geometry": {
+          "coordinates": [
+            121.43109631385562,
+            14.473694857377126
+          ],
+          "type": "Point"
+        },
+        "id": 22
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Talangka"
+        },
+        "geometry": {
+          "coordinates": [
+            121.43882804397873,
+            14.47558299977156
+          ],
+          "type": "Point"
+        },
+        "id": 23
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Tungkod"
+        },
+        "geometry": {
+          "coordinates": [
+            121.4067668287334,
+            14.492990979608535
+          ],
+          "type": "Point"
+        },
+        "id": 24
+      }
+    ]
+  }

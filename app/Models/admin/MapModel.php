@@ -12,8 +12,6 @@ class MapModel extends Model
     protected $table = 'map_locations';
     protected $fillable = [
         'name',
-        'coordinates',
-        'color',
         'population',
         'women',
         'child',

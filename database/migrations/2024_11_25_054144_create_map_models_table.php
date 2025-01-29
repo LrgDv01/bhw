@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('map_locations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('coordinates'); // Change from string to JSON
-            $table->string('color');
             $table->integer('population');
             $table->integer('women');
             $table->integer('child');
