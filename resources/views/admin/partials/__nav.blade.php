@@ -161,7 +161,18 @@
                     <i class="bi bi-list-ul"></i> 
                     <span>BHW List</span>
                 </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link border border-0 {{ Request::is('admin/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/admin/user-activity') }}">
+                <i class="bi bi-graph-up "></i>  
+                <span>User Activity</span>
+              </a>
             </li> 
+            <div class="position-relative">
+              <a href="{{ route('admin.Announcement') }}" class="btn btn-warning position-absolute" style="top: 15px; left: 15px; z-index: 1000;">
+                  <i class="bi bi-bell"></i> Announcement
+              </a>
+            </div>
         @endif
     @endif
   </ul>

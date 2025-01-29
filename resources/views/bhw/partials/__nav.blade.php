@@ -87,17 +87,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link border border-0 {{ Request::is('bhw/schedule') ? 'active' : 'inactive' }}" href="{{ url('/bhw/schedule') }}">
+            <a class="nav-link border border-0 {{ Request::is('bhw/schedule') || Request::is('bhw/duty') ? 'active' : 'inactive' }}" href="{{ url('/bhw/schedule') }}">
               <i class="bi bi-calendar-check "></i>  
               <span>Schedule</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link border border-0 {{ Request::is('bhw/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/bhw/user-activity') }}">
-              <i class="bi bi-graph-up "></i>  
-              <span>User Activity</span>
+          
+          <div class="position-relative">
+            <a href="{{ route('bhw.Announcement') }}" class="btn btn-warning position-absolute" style="top: 15px; left: 15px; z-index: 1000;">
+                <i class="bi bi-bell"></i> Announcement
             </a>
-          </li>
+          </div>
       @endif
     @endif
     </ul>
