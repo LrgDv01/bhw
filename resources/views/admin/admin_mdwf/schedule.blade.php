@@ -3,7 +3,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle mb-5">
-        <h1><strong>Visit and Activity Schedule</strong></h1>
+        <h1 class="fs-3"><strong>Visit and Activity Schedule</strong></h1>
     </div>
     <section class="section schedule">
         <div class="content">

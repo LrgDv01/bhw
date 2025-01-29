@@ -4,7 +4,7 @@
 
 <main id="main" class="main">
     <div class="pagetitle mb-5">
-        <h1><strong>Announcements</strong></h1>
+        <h1 class="fs-3"><strong>Announcements</strong></h1>
     </div>
     <section class="section announcement">
         <div class="content">

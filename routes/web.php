@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/bhwregistration', [BhwregistrationController::class, 'index'])->name('admin.bhwregistration.index');
         Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
         Route::get('/bhw/dashboard', [BhwregistrationController::class, 'index'])->name('bhw.dashboardss');
-        Route::view('/admin/map', 'admin.pages.map_locations')->name('admin.map'); 
+        Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard'); 
         Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
         Route::get('/admin/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('get_dashboard_info');
         Route::middleware(['web'])->group(function () {

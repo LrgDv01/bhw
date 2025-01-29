@@ -11,15 +11,12 @@ class MapController extends Controller
     public function get_map_locations() {
         $map_loc = MapModel::all();
         $locations = [];
-        foreach ($map_loc as $location) {
-            $coordinates = json_decode($location->coordinates, true);
+        foreach ($map_loc as $loc) {
             $locations[] = [
-                'name' => $location->name,
-                'coordinates' => $coordinates, 
-                'color' => $location->color,
-                'population' => $location->population,
-                'women' => $location->women,
-                'child' => $location->child,
+                'name' => $loc->name,
+                'population' => $loc->population,
+                'women' => $loc->women,
+                'child' => $loc->child,
             ];
         }
         $res = [
