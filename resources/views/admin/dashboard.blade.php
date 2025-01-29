@@ -112,9 +112,7 @@
                     </div>
                 </div> 
                 <div class="row">
-                 
                     <div class="col-lg-7 mb-3">
-                      
                         <div class="card women-chart">
                             <div class="card-body p-3">
                                 <div style="width: 100%; margin: auto; ">
@@ -122,7 +120,7 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
-                                <button id="resetZoomBtn1" class="btn btn-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
+                                <button id="resetZoomBtn1" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
                             </div>
                         </div>
                         <div class="card child-chart">
@@ -132,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
-                                <button id="resetZoomBtn2" class="btn btn-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
+                                <button id="resetZoomBtn2" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
                             </div>
                         </div>
                     </div>
@@ -148,8 +146,6 @@
             </div>
         </div>
     </section>
-   
-
 </main>
 
 @include('admin.partials.__footer')

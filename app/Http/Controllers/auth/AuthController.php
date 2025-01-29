@@ -130,7 +130,6 @@ class AuthController extends Controller
         $user->forceFill([
           'password' => Hash::make($password),
         ])->save();
-        // Automatically log the user in
         Auth::login($user);
       }
     );
