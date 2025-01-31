@@ -260,50 +260,50 @@ class MapModelSeeder extends Seeder
         //     ]);
         // }
 
-        $childrensData = [
-            [
-                'house_number' => '201',
-                'complete_name' => 'Alice Johnson',
-                'role_in_family' => 'Mother',
-                'dob' => '1988-06-25',
-                'age' => 36,
-                'vaccines' => 'COVID-19, Flu, Hepatitis B',
-            ],
-            [
-                'house_number' => '202',
-                'complete_name' => 'Robert Johnson',
-                'role_in_family' => 'Father',
-                'dob' => '1985-02-14',
-                'age' => 39,
-                'vaccines' => 'COVID-19, Flu',
-            ],
-            [
-                'house_number' => '203',
-                'complete_name' => 'Emma Johnson',
-                'role_in_family' => 'Child',
-                'dob' => '2015-09-30',
-                'age' => 9,
-                'vaccines' => 'MMR, Polio, Chickenpox',
-            ],
-            [
-                'house_number' => '204',
-                'complete_name' => 'John Doe',
-                'role_in_family' => 'Grandfather',
-                'dob' => '1945-03-10',
-                'age' => 79,
-                'vaccines' => 'COVID-19, Pneumonia, Shingles',
-            ],
-        ];
+        // $childrensData = [
+        //     [
+        //         'house_number' => '201',
+        //         'complete_name' => 'Alice Johnson',
+        //         'role_in_family' => 'Mother',
+        //         'dob' => '1988-06-25',
+        //         'age' => 36,
+        //         'vaccines' => 'COVID-19, Flu, Hepatitis B',
+        //     ],
+        //     [
+        //         'house_number' => '202',
+        //         'complete_name' => 'Robert Johnson',
+        //         'role_in_family' => 'Father',
+        //         'dob' => '1985-02-14',
+        //         'age' => 39,
+        //         'vaccines' => 'COVID-19, Flu',
+        //     ],
+        //     [
+        //         'house_number' => '203',
+        //         'complete_name' => 'Emma Johnson',
+        //         'role_in_family' => 'Child',
+        //         'dob' => '2015-09-30',
+        //         'age' => 9,
+        //         'vaccines' => 'MMR, Polio, Chickenpox',
+        //     ],
+        //     [
+        //         'house_number' => '204',
+        //         'complete_name' => 'John Doe',
+        //         'role_in_family' => 'Grandfather',
+        //         'dob' => '1945-03-10',
+        //         'age' => 79,
+        //         'vaccines' => 'COVID-19, Pneumonia, Shingles',
+        //     ],
+        // ];
         
-        foreach ($childrensData as $childrens) {
-            ChildCensus::create([
-                'house_number' => $childrens['house_number'],
-                'complete_name' => $childrens['complete_name'],
-                'role_in_family' => $childrens['role_in_family'],
-                'dob' => $childrens['dob'],
-                'age' => $childrens['age'],
-                'vaccines' => $childrens['vaccines'],
-            ]);
-        }
+        // foreach ($childrensData as $childrens) {
+        //     ChildCensus::create([
+        //         'house_number' => $childrens['house_number'],
+        //         'complete_name' => $childrens['complete_name'],
+        //         'role_in_family' => $childrens['role_in_family'],
+        //         'dob' => $childrens['dob'],
+        //         'age' => $childrens['age'],
+        //         'vaccines' => $childrens['vaccines'],
+        //     ]);
+        // }
     }
 }
