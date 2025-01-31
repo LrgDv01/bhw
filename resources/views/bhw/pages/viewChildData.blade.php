@@ -5,8 +5,13 @@
     <div class="pagetitle text-center mb-5">
         <h1 class="fw-bold">Child Census Data</h1>
     </div>
-
-    <div class="container shadow-lg p-5 rounded bg-light">
+    <div class="text-left mt-4 no-print">
+    <a href="{{ route('bhw.pages.list') }}" class="btn btn-secondary">Back</a>
+        <button class="btn btn-primary" onclick="printData()">Print</button>
+    </div>
+    <div class="mt-4 text-left">
+    </div>
+    <div class="container shadow-lg p-5 rounded bg-light" id="printable-area">
         <h3 class="mb-4">{{ $childs->complete_name }}'s Data</h3>
 
         <div class="row">
@@ -34,8 +39,26 @@
                 </ul>
             </div>
         </div>
-            <a href="{{ route('bhw.pages.list') }}" class="btn btn-secondary">Back</a>       
     </div>
+    
+    
 </main>
 
 @include('bhw.partials.__footer')
+
+<script>
+    function printData() {
+        var printContents = document.getElementById('printable-area').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // Reload the page to restore JavaScript functionality
+    }
+</script>
+
+<style>
+    @media print {
+        .no-print { display: none !important; }
+    }
+</style>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BhwForm;
 use App\Models\ChildCensus;
 use App\Models\FamilyMember;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FormController extends Controller
 {
@@ -16,64 +18,42 @@ class FormController extends Controller
 
     public function saveForm(Request $request)
     {
-        
-        $validatedData = $request->validate([
-            'house_no' => 'required|string',
-            'full_name' => 'required|string',
-            'role' => 'required|string',
-            'dob' => 'required|date',
+        // Validate request data
+        $request->validate([
+            'house_no' => 'required|integer',
+            'first_name' => 'required|string',
+            'middle_name' => 'nullable|string',
+            'last_name' => 'required|string',
+            'role_in_family' => 'required|string',
             'age' => 'required|integer',
-            'is_4ps' => 'required|string',
-            'is_senior_citizen' => 'required|string',
-            'is_pregnant' => 'required|string',
-            'pregnancy_months' => 'nullable|integer',
-            'birth_plan' => 'required|string',
-            'civil_status' => 'required|string',
-            'next_visit' => 'required|date',
-            'family_planning_method' => 'required|string',
-            'is_registered_voter' => 'required|string',
-            'own_toilet' => 'required|string',
-            'clean_water' => 'required|string',
-            'hypertension' => 'required|string',
-            'next_visit_clinic' => 'nullable|date',
-            'has_tb_symptoms' => 'required|string',
-            'sputum_test' => 'nullable|string',
-            'sputum_result' => 'nullable|string',
-            'treatment_partner' => 'required|string',
+            'date_of_birth' => 'required|date',
+            'senior_citizen' => 'required|in:Yes,No',
+            'next_midwife_visit' => 'nullable|date',
+            'next_clinic_visit' => 'nullable|date',
+            'civil_status' => 'required|in:Single,Married,Widowed,Divorced,Separated',
+            'registered_voter' => 'required|in:Yes,No',
+            'four_ps_member' => 'required|in:Yes,No',
+            'months_pregnant' => 'nullable|integer',
             'next_checkup' => 'nullable|date',
-        ]);
-        
-
-       
-        FamilyMember::create([
-            'house_no' => $validatedData['house_no'],
-            'full_name' => $validatedData['full_name'],
-            'role' => $validatedData['role'],
-            'dob' => $validatedData['dob'],
-            'age' => $validatedData['age'],
-            'is_4ps' => $validatedData['is_4ps'],
-            'is_senior_citizen' => $validatedData['is_senior_citizen'],
-            'is_pregnant' => $validatedData['is_pregnant'],
-            'pregnancy_months' => $validatedData['pregnancy_months'],
-            'birth_plan' => $validatedData['birth_plan'],
-            'civil_status' => $validatedData['civil_status'],
-            'next_visit' => $validatedData['next_visit'],
-            'family_planning_method' => $validatedData['family_planning_method'],
-            'is_registered_voter' => $validatedData['is_registered_voter'],
-            'own_toilet' => $validatedData['own_toilet'],
-            'clean_water' => $validatedData['clean_water'],
-            'hypertension' => $validatedData['hypertension'],
-            'next_visit_clinic' => $validatedData['next_visit_clinic'],
-            'has_tb_symptoms' => $validatedData['has_tb_symptoms'],
-            'sputum_test' => $validatedData['sputum_test'],
-            'sputum_result' => $validatedData['sputum_result'],
-            'treatment_partner' => $validatedData['treatment_partner'],
-            'next_checkup' => $validatedData['next_checkup'],
+            'family_planning' => 'required|in:Yes,No',
+            'own_toilet' => 'required|in:Yes,No',
+            'birth_plan' => 'required|in:Yes,No',
+            'clean_water_source' => 'required|in:Yes,No',
+            'hypertension_experience' => 'required|in:Yes,No',
+            'pregnant' => 'required|in:Yes,No',
+            'tb_symptoms' => 'required|in:Yes,No',
+            'sputum_test' => 'nullable|in:Yes,No',
+            'sputum_result' => 'nullable|in:Negative,Positive',
+            'tb_treatment_partner' => 'required|in:Yes,No',
         ]);
 
-        // Redirect with a success message
-        return redirect()->route('bhw.services')->with('success', 'Added successfully!');
+        // Ensure the correct model is used
+        FamilyMember::create($request->all());
+
+        return redirect()->route('bhw.services')->with('success', 'Record added successfully.');
     }
+
+
     // Add this method to your FormController
     public function showList()
     {
@@ -97,6 +77,62 @@ class FormController extends Controller
         }
 
         return redirect()->route('bhw.pages.familyMembersList')->with('error', 'Family member not found!');
+    }
+    public function print()
+    {
+        // Retrieve BHW data
+        $bhwData = BhwForm::all(); // Or use more specific queries to get the data
+        $childs = ChildCensus::all();
+        // Retrieve counts
+        $counts = [
+            'vaccines' => [
+                'BCG' => ChildCensus::whereJsonContains('vaccines', 'BCG')->count(),
+                'VitaminA' => ChildCensus::whereJsonContains('vaccines', 'VitaminA')->count(),
+            ],  
+            'family_planning' => [
+                'YES' => DB::table('family_members')->where('family_planning', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('family_planning', 'NO')->count(),
+            ],
+            'own_toilet' => [
+                'YES' => DB::table('family_members')->where('own_toilet', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('own_toilet', 'NO')->count(),
+            ],
+            'birth_plan' => [
+                'YES' => DB::table('family_members')->where('birth_plan', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('birth_plan', 'NO')->count(),
+            ],
+            'clean_water_source' => [
+                'YES' => DB::table('family_members')->where('clean_water_source', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('clean_water_source', 'NO')->count(),
+            ],
+            'hypertension_experience' => [
+                'YES' => DB::table('family_members')->where('hypertension_experience', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('hypertension_experience', 'NO')->count(),
+            ],
+            'pregnant' => [
+                'YES' => DB::table('family_members')->where('pregnant', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('pregnant', 'NO')->count(),
+            ],
+            'tb_symptoms' => [
+                'YES' => DB::table('family_members')->where('tb_symptoms', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('tb_symptoms', 'NO')->count(),
+            ],
+            'sputum_test' => [
+                'YES' => DB::table('family_members')->where('sputum_test', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('sputum_test', 'NO')->count(),
+            ],
+            'tb_treatment_partner' => [
+                'YES' => DB::table('family_members')->where('tb_treatment_partner', 'YES')->count(),
+                'NO' => DB::table('family_members')->where('tb_treatment_partner', 'NO')->count(),
+            ],
+            'sputum_result' => [
+                'YES' => DB::table('family_members')->where('sputum_result', 'Positive')->count(),
+                'NO' => DB::table('family_members')->where('sputum_result', 'Negative')->count(),
+            ],
+        ];
+
+        
+        return view('bhw.pages.print', compact('bhwData', 'counts', 'childs'));
     }
 
 

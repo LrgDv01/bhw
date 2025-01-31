@@ -16,6 +16,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\ChildCensusController;
 use App\Http\Controllers\MyscheduleController;
 use App\Http\Controllers\admin\admin_mdwf\UseractivityController;
+use App\Http\Controllers\BhwFormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,7 +93,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/child-census', [ChildCensusController::class, 'create'])->name('child.census.create');
         Route::post('/child-census', [ChildCensusController::class, 'store'])->name('child.census.store');
         Route::get('/bhw/services', [FormController::class, 'showForm'])->name('bhw.services');
+        
         Route::post('/form/save', [FormController::class, 'saveForm'])->name('form.save');
+
+        Route::get('/bhw/print', [FormController::class, 'Print'])->name('bhw.Print');
         Route::get('/bhw/list', [FormController::class, 'showList'])->name('bhw.pages.list');
         Route::get('/family-member/{id}', [FormController::class, 'viewData'])->name('bhw.pages.viewData');
         Route::delete('/family-member/{id}', [FormController::class, 'destroy'])->name('bhw.pages.deleteData');
@@ -103,6 +107,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/myschedules/{id}', [MyscheduleController::class, 'show'])->name('myschedules.show');
         Route::post('/myschedules', [MyscheduleController::class, 'store'])->name('myschedules.store');
         Route::patch('/myschedules/{id}/update-status', [MyscheduleController::class, 'updateStatus'])->name('myschedules.updateStatus');
+
+        Route::get('/bhw/bhwform', [BhwformController::class, 'bhwform'])->name('bhw.bhwform');
+        Route::Post('/bhw/bhwform', [BhwformController::class, 'store'])->name('bhwform.store');
+        
+
         Route::middleware(['web'])->group(function () {
             Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');

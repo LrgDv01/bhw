@@ -9,17 +9,16 @@ class FamilyMember extends Model
 {
     use HasFactory;
 
-    // Specify the table name (if it's not the default "family_members")
-    protected $table = 'family_members';
+    protected $table = 'family_members'; // Ensure table name matches your database
 
-    // Specify which fields are fillable
     protected $fillable = [
-        'house_no', 'full_name', 'role', 'dob', 'age', 
-        'is_4ps', 'is_senior_citizen', 'is_pregnant', 'pregnancy_months', 
-        'birth_plan', 'civil_status', 'next_visit', 'family_planning_method', 
-        'is_registered_voter', 'own_toilet', 'clean_water', 'hypertension', 
-        'next_visit_clinic', 'has_tb_symptoms', 'sputum_test', 
-        'sputum_result', 'treatment_partner', 'next_checkup'
+        'house_no', 'first_name', 'middle_name', 'last_name', 'role_in_family', 
+        'age', 'date_of_birth', 'senior_citizen', 'next_midwife_visit', 
+        'next_clinic_visit', 'civil_status', 'registered_voter', 'four_ps_member', 
+        'months_pregnant', 'next_checkup', 'family_planning', 'own_toilet', 
+        'birth_plan', 'clean_water_source', 'hypertension_experience', 'pregnant', 
+        'tb_symptoms', 'sputum_test', 'sputum_result', 'tb_treatment_partner'
     ];
 }
+
 

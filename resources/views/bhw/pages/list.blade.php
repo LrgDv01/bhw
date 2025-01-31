@@ -6,8 +6,11 @@
     <div class="pagetitle text-center mb-5">
         <h1 class="fw-bold">Census List</h1>
     </div>
+    <div class="pagetitle mb-5">
+        <a href="{{ route('bhw.Print') }}" class="btn btn-primary">Print data</a>
+        
+    </div>
 
-    <!-- Announcement Button (Bell Icon) -->
     
 
     <div class="container shadow p-5 rounded bg-light">
@@ -25,16 +28,22 @@
                     <tbody>
                         @foreach($familyMembers as $familyMember)
                         <tr>
-                            <td>{{ $familyMember->full_name }}</td>
+                            <td>{{ $familyMember->first_name }} {{ $familyMember->last_name }}</td>
                             <td>
                                 <a href="{{ route('bhw.pages.viewData', $familyMember->id) }}" class="btn btn-info">View Data</a>
 
-                                <!-- Delete Button Form -->
-                                <form action="{{ route('bhw.pages.deleteData', $familyMember->id) }}" method="POST" style="display:inline-block;">
+ 
+                                
+                                <form action="{{ route('bhw.pages.deleteData', $familyMember->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+                                <script>
+                                    function confirmDelete() {
+                                        return confirm("Are you sure you want to delete this item?");
+                                    }
+                                </script>
                             </td>
                         </tr>
                         @endforeach
@@ -60,11 +69,18 @@
                                 <a href="{{ route('bhw.pages.viewChildData', $child->id) }}" class="btn btn-info">View Data</a>
 
                                 <!-- Delete Button Form -->
-                                <form action="{{ route('bhw.pages.deleteChildData', $child->id) }}" method="POST" style="display:inline-block;">
+                                <form action="{{ route('bhw.pages.deleteChildData', $child->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+
+                                <script>
+                                    function confirmDelete() {
+                                        return confirm("Are you sure you want to delete this item?");
+                                    }
+                                </script>
+
                             </td>
                         </tr>
                         @endforeach
