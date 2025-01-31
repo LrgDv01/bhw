@@ -115,7 +115,7 @@ function displayChildChart(yearSelector, year = null) {
                     },
                     title: {
                         display: true,
-                        text: 'Deworming Beneficiaries by Ages',
+                        text: `Deworming Beneficiaries by Ages (${year})`,
                         font: {
                             size: 24,  
                         },

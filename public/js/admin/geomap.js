@@ -72,7 +72,6 @@ async function displayMap(locate, mapboxgl) {
     }
 
     map_locations.on('load', async function () {
-        // Fit the map view to the bounds of Laguna
         const data = await geoJsonData();
         map_locations.addSource('barangay', {
             type: 'geojson',
@@ -81,19 +80,15 @@ async function displayMap(locate, mapboxgl) {
 
         map_locations.loadImage('/img/location_indicator.png', function(error, image) {
             if (error) throw error;
-
-            // Add the image to the map
             map_locations.addImage('custom-location-icon', image);
-
-            // Add points layer
             map_locations.addLayer({
                 id: 'laguna-points',
                 type: 'symbol',
                 source: 'barangay',
                 filter: ['==', '$type', 'Point'],
                 layout: {
-                    'icon-image': 'custom-location-icon',  // Use the custom icon
-                    'icon-size': 0.1,                      // Adjust size if needed
+                    'icon-image': 'custom-location-icon', 
+                    'icon-size': 0.1,                     
                     'icon-allow-overlap': true
                 }
             });
@@ -112,10 +107,8 @@ async function displayMap(locate, mapboxgl) {
             option.textContent = name;
             dropdown.appendChild(option);
         }); 
-
-       
         document.getElementById("location").addEventListener("change", (event) => {
-            const selectedName = event.target.value; // Get the selected value from the dropdown
+            const selectedName = event.target.value; 
             if (map_locations.getLayer('laguna-points')) {
                 if (selectedName === "All Barangays") {
                    defaultMapView();
@@ -126,8 +119,6 @@ async function displayMap(locate, mapboxgl) {
                     const selectedFeature = data.features.find(feature => feature.properties.name === selectedName);
                     if (selectedFeature) {
                         const coordinates = selectedFeature.geometry.coordinates; 
-                
-                        // Fly to the coordinates
                         map_locations.flyTo({
                             center: coordinates, 
                             zoom: 17, 

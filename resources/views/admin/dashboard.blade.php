@@ -3,6 +3,11 @@
 
 
 <style>
+    .card {
+        background-color:grey;
+        border-radius: 25px;
+        height: auto;
+    }
     .card.gray-card {
         background-color: #a6a6a6;
         border-radius: 15px;    
@@ -11,6 +16,7 @@
     .card h5 {
         color:white;
     }
+
     .card h5 span{
         color:white;
     }
@@ -19,9 +25,10 @@
           #total_deworming,
           #total_women {
             color:white;
+            font-size: 22px;
     }
     .card i {
-        color:green;
+        color:grey;
     }
     .card.women-chart, .child-chart {
         background-color: white;
@@ -41,14 +48,14 @@
                     <h5><strong>Barangay</strong></h5>
                     <div class="form-group">
                         <select id="location" class="form-select mx-3">
-                            <option value="All Barangays"selected >All Barangay</option>
+                            <option value="All Barangays" selected>All Barangay</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-3 d-flex align-items-center text-start">
+                <div class="col-lg-2 d-flex align-items-center text-start">
                     <h5><strong>Year</strong></h5>
                     <select id="yearSelect" class="form-select mx-3">
-                        <option value="all" place-holder="">Select Year</option> 
+                        <option value="all" selected>Select Year</option> 
                     </select>
                 </div>
             </div>
@@ -62,10 +69,14 @@
             <div class="col">
                 <div class="row">
                     <div class="col-lg-3 mb-3">
-                        <div class="card info-card cardiconbg gray-card">
+                        <div class="card info-card cardiconbg">
                             <div class="card-body">
                                 <h5 class="card-title"><span> Today's | </span>Total <br> Population </h5>
                                 <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
                                     <div class="ps-3 d-flex flex-row">
                                         <h6 id="total_population">0</h6>
                                     </div>
@@ -74,11 +85,15 @@
                         </div>
                     </div>
                     <div class="col-lg-3 mb-3">
-                        <div class="card info-card cardiconbg gray-card">
+                        <div class="card info-card cardiconbg">
                             <div class="card-body">
                                 <h5 class="card-title"><span> Today's | </span>Total Maternal Care Beneficiaries</h5>
                                 <div class="d-flex align-items-center">
-                                    <div class="ps-3">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="value ps-3">
                                         <h6 id="total_maternal">0</h6>
                                     </div>
                                 </div>
@@ -87,10 +102,14 @@
                     </div>
 
                     <div class="col-lg-3 mb-3">
-                        <div class="card info-card cardiconbg gray-card">
+                        <div class="card info-card cardiconbg">
                             <div class="card-body">
                                 <h5 class="card-title"><span> Today's | </span>Total Deworming Beneficiaries</h5>
                                 <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
                                     <div class="ps-3">
                                         <h6 id="total_deworming">0</h6>
                                     </div>
@@ -99,10 +118,14 @@
                         </div>
                     </div>
                     <div class="col-lg-3 mb-3">
-                        <div class="card info-card cardiconbg gray-card">
+                        <div class="card info-card cardiconbg">
                             <div class="card-body">
                                 <h5 class="card-title"><span> Today's | </span> Total Women in Reproductive Ages</h5>
                                 <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
                                     <div class="ps-3">
                                         <h6 id="total_women">0</h6>
                                     </div>
