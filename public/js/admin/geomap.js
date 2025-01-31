@@ -8,15 +8,24 @@ function setSupported() {
 $(document).ready(function() {
     if (setSupported()) {
         mapboxgl.accessToken = 'pk.eyJ1Ijoicm9uNTcxNDM1IiwiYSI6ImNtM2g3dmcxbzBjajIycnB5NWtwaG1xazMifQ.mhRMxfZ2WfgoAECkTXAXug';
+        let url = '';
+        if (window.userType === '0') {
+            url = '/admin/get_map_locations';
+        } 
+        else if (window.userType === '1') {
+            url = '/admin-midwife/get_map_locations';
+        }
+
         $.ajax({
             method: "GET",
-            url: "/admin/get_map_locations",
+            url: url,
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (res) {
                 const locations = res.locations;
                 const locationContainer = document.getElementById('map_locations');
+                locationContainer.innerHTML = "";
                 if (locationContainer) {
                     // selectLocation();
                     displayMap(locations, mapboxgl);
@@ -53,7 +62,7 @@ async function displayMap(locate, mapboxgl) {
             [121.55, 14.60]   // Northeast corner 
         ]
     });
-
+    
     function defaultMapView() {
         map_locations.fitBounds([
             [121.30, 14.40], // Southwest corner
@@ -108,7 +117,7 @@ async function displayMap(locate, mapboxgl) {
             dropdown.appendChild(option);
         }); 
         document.getElementById("location").addEventListener("change", (event) => {
-            const selectedName = event.target.value; 
+            const selectedName = event.target.value;  
             if (map_locations.getLayer('laguna-points')) {
                 if (selectedName === "All Barangays") {
                    defaultMapView();

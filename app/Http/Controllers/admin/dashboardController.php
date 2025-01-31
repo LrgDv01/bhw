@@ -15,30 +15,20 @@ class dashboardController extends Controller
 
         return view('admin.dashboard');
     }
-    public function get_dashboard_info()
+    public function get_dashboard_info(Request $request)
     { 
-
-        // $resident = MapModel::sum('population');
-
-        $resident = MapModel::selectRaw('SUM(population) as population, SUM(women) as women, SUM(child) as child')
+        $brgys = MapModel::all();
+            // ->pluck('name')
+            // ->toArray();
+        $residents = MapModel::selectRaw('SUM(population) as population,
+            SUM(women) as women,
+            SUM(child) as child')
             ->first();
 
-        // $totalSum = $resident->population + $resident->women + $resident->child;
-        
-        // dd($residents);
-
-
-        // $total_maternal = 3334;
-        // $total_deworming = 343;
-        // $total_women = 3455;
-
-        // $res = [
-        //     'total_population' => $total_population,
-        //     'total_maternal' => $total_maternal,
-        //     'total_deworming' => $total_deworming,
-        //     'total_women' => $total_women,
-        // ];
-        return response()->json($resident);
+        $res = [
+            'brgys' => $brgys,
+            'residents' => $residents
+        ]; 
+        return response()->json($res);
     }
-    
 }

@@ -35,6 +35,7 @@
         border-radius: 15px; 
     }
 
+
 </style>
 
 <main id="main" class="main">
@@ -104,7 +105,7 @@
                     <div class="col-lg-3 mb-3">
                         <div class="card info-card cardiconbg">
                             <div class="card-body">
-                                <h5 class="card-title"><span> Today's | </span>Total Deworming Beneficiaries</h5>
+                                <h5 class="card-title"><span> Today's | </span>Total Deworming <br> Beneficiaries</h5>
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -138,8 +139,8 @@
                     <div class="col-lg-7 mb-3">
                         <div class="card women-chart">
                             <div class="card-body p-3">
-                                <div style="width: 100%; margin: auto; ">
-                                    <canvas id="womens_chart" width="500" height="300"></canvas>
+                                <div id="chart" style="width: 100%; height:auto; margin: auto; ">
+                                    <canvas id="womens_chart" width="600" height="400"></canvas>
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
@@ -148,8 +149,8 @@
                         </div>
                         <div class="card child-chart">
                             <div class="card-body p-3">
-                                <div style="width: 100%; margin: auto;">
-                                    <canvas id="childs_chart"  width="600" height="400"></canvas>
+                                <div style="width: 100%; height:auto; margin: auto;">
+                                    <canvas id="childs_chart" width="600" height="400"></canvas>
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
@@ -170,5 +171,7 @@
         </div>
     </section>
 </main>
-
 @include('admin.partials.__footer')
+<script>
+    window.userType = @json(auth()->user()->user_type);
+</script>

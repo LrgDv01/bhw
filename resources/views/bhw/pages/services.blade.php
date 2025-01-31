@@ -112,7 +112,7 @@
                             <option value="No">No</option>
                             <option value="Yes">Yes</option>
                             
-                        </select>\
+                        </select>
                         <div class="col-md-6" id="next_visit_clinic_field" style="display: none;">
                             <label for="next_visit_clinic" class="form-label fw-bold">Next visit to the clinic:</label>
                             <input type="date" class="form-control" name="next_visit_clinic" id="next_visit_clinic">
@@ -168,6 +168,7 @@
         </form>
     </div>
 </main>
+
 @include('bhw.partials.__footer')
 <script>
     function toggleFields(selectId, targetId) {

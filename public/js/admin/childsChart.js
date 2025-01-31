@@ -94,12 +94,11 @@ function displayChildChart(yearSelector, year = null) {
 
         if (childs_chart) childs_chart.destroy(); 
 
-
         childs_chart = new Chart(ctx, {
             type: 'bar',
             data: {
             labels: [
-                '7-y', '6-y', '5-y', '4-y', '3-y','2-y', '1-y', 
+                '7-years old', '6-years old', '5-years old', '4-years old', '3-years old','2-years old', '1-years old', 
             ], 
             datasets: datasets
             },

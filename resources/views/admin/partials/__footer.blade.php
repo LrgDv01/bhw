@@ -20,7 +20,7 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
 
-  @if(Request::routeIs('admin.dashboard'))
+  @if(Request::routeIs('admin.dashboard') || Request::routeIs('admin.midwife.dashboard'))
     <!-- Map Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
@@ -29,19 +29,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  @else
+    <script src="{{ URL::asset('js/admin/settings.js')}}"></script>
+    <script src="{{ URL::asset('js/admin/users.js')}}"></script> 
+    <script src="{{ URL::asset('js/admin/app.js')}}"></script>
   @endif
+  
+    <!-- Template Main JS File -->
+    <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>
+    <script src="{{ URL::asset('js/global.js') }}"></script>
+    <script src="{{ URL::asset('js/lightbox.js') }}"></script>
 
-  <!-- Template Main JS File -->
-  <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>
-  <script src="{{ URL::asset('js/global.js') }}"></script>
-  <script src="{{ URL::asset('js/lightbox.js') }}"></script>
-  <script src="{{ URL::asset('js/admin/settings.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/users.js')}}"></script> 
-  <script src="{{ URL::asset('js/admin/app.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/womensChart.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/childsChart.js')}}"></script>
-  <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
-  <script src="{{ asset('js/admin/dashboard.js') }}"></script>
+    <script src="{{ URL::asset('js/admin/womensChart.js')}}"></script>
+    <script src="{{ URL::asset('js/admin/childsChart.js')}}"></script>
+    <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
+    <script src="{{ asset('js/admin/dashboard.js') }}"></script>
+
 </body>
 
 </html>

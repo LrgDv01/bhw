@@ -4,7 +4,7 @@
 
   <div class="d-flex align-items-center justify-content-between">
     <a href="{{ url('/admin/dashboard') }}" class="logo d-flex align-items-center justify-content-center">
-      <img src="{{ URL::asset('img/logo.png') }}" alt="">
+      <img src="{{ URL::asset('img/bhw-logo.png') }}" alt="app-logo">
       <span class="d-none d-lg-block fs-5">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "BHW Midwife" }}</span>
     </a>
     <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
@@ -114,7 +114,7 @@
 
 </style>
 
-<aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#a6a6a6">
+<aside id="sidebar" class="sidebar d-flex flex-column justify-content-between px-0" style="background-color:#a6a6a6">
   <ul class="sidebar-nav flex-column" id="sidebar-nav">
     @if (auth()->user())
         @if (auth()->user()->isSuperAdmin())
@@ -188,7 +188,7 @@
     </button>
   </div>
 </aside>
-ff
+
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
 
   <div class="modal-dialog modal-dialog-centered">
@@ -253,7 +253,7 @@ ff
       </div>
       <div class="modal-body">
         <form class="row" id="changepasswordform">
-          <div class="col-lg-12 mb-3">
+          {{--<div class="col-lg-12 mb-3">
               @csrf <!-- Add CSRF token field -->
       
               <div class="col-lg-12 mb-3">
@@ -271,7 +271,7 @@ ff
                   <input type="password" class="form-control" id="password_confirmation_input" name="password_confirmation" required>
               </div>
           </div>
-          <div class="text-end"><button type="submit" class="btn btn-success px-4">Change password</button></div>
+          <div class="text-end"><button type="submit" class="btn btn-success px-4">Change password</button></div>--}}
         </form>
       </div>
     </div>

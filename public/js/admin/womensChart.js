@@ -68,6 +68,7 @@ function displayWomenChart(yearSelector, year = null) {
     ];
     
     const generateRandomData = (length) => Array.from({ length }, () => Math.floor(Math.random() * 100));
+    console.log("generateRandomData ", generateRandomData(12));
     
     const dataByYear = {};
   

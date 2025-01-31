@@ -5,9 +5,9 @@ use App\Models\admin\MapModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class MapController extends Controller
 {
-
     public function get_map_locations() {
         $map_loc = MapModel::all();
         $locations = [];
@@ -24,6 +24,5 @@ class MapController extends Controller
         ];
         return response()->json($res);
     }
-    
 }
     
