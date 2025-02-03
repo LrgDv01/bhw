@@ -24,10 +24,23 @@ class dashboardController extends Controller
             SUM(women) as women,
             SUM(child) as child')
             ->first();
+        
+        // $year = $request->input('year'); 
+        // $yearData = MapModel::whereYear('created_at', $year)->get();
+
+
+        $year = $request->input('year');
+        $yearData = MapModel::whereYear('created_at', $year)->get();
+
+        $yearDataWithMonth = $yearData->map(function ($item) {
+            $item->month = Carbon::parse($item->created_at)->format('F'); // Get the month
+            return $item;
+        });
 
         $res = [
             'brgys' => $brgys,
-            'residents' => $residents
+            'residents' => $residents,
+            'yearData' => $yearDataWithMonth
         ]; 
         return response()->json($res);
     }

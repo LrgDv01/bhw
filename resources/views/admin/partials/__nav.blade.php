@@ -164,7 +164,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link border border-0 {{ Request::is('admin/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/admin/user-activity') }}">
-                <i class="bi bi-graph-up "></i>  
+                <i class="bi bi-person-lines-fill "></i>  
                 <span>User Activity</span>
               </a>
             </li> 

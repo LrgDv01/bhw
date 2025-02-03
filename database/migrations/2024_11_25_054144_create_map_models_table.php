@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('population');
             $table->integer('women');
             $table->integer('child');
+            $table->integer('ages');
             $table->timestamps();
         });
 

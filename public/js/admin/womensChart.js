@@ -8,37 +8,15 @@ $(document).ready(function() {
             option.textContent = year;
             yearSelect.appendChild(option);
         }
-      
         const options = Array.from(yearSelect.options).slice(1);
         yearSelect.innerHTML = ""; 
         options.reverse().forEach((option) => yearSelect.appendChild(option)); 
         displayWomenChart(yearSelect, currentYear);
     }
-   
 });
-
-
-function displayWomenChart(yearSelector, year = null) { 
+function displayWomenChart(year = null) { 
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year ;
-
-    $.ajax({
-         // url: "/admin/dashboard/get-womens-data",
-        method: "GET",
-        data: { year: sendYear },
-        success: function (data) {
-
-    }});
-
-    const labels = [
-        "Adia |", "Bagong Pook |", "Bagumbayan |", "Bubucal |", "Cabooan |", "Calangay |", 
-        "Cambuja |", "Coralan |", "Cueva |", "Inayapan |", "Jose P. Laurel, Sr. |", 
-        "Jose Rizal |", "Juan Santiago |", "Kayhacat |", "Macasipac |", "Masinao |", 
-        "Matalinting |", "Pao-o |", "Parang ng Buho |", "Poblacion Uno |", 
-        "Poblacion Dos |", "Poblacion Tres |", "Poblacion Quatro |", "Talangka |", 
-        "Tungkod"
-    ];
-    
     const backgroundColors = [
         "rgba(230, 25, 75, 0.6)",    // Red
         "rgba(60, 180, 75, 0.6)",    // Green
@@ -52,95 +30,81 @@ function displayWomenChart(yearSelector, year = null) {
         "rgba(250, 190, 212, 0.6)",  // Pink
         "rgba(0, 128, 128, 0.6)",    // Teal
         "rgba(220, 190, 255, 0.6)",  // Lavender
-        "rgba(170, 110, 40, 0.6)",   // Brown
-        "rgba(255, 250, 200, 0.6)",  // Beige
-        "rgba(128, 0, 0, 0.6)",      // Maroon
-        "rgba(170, 255, 195, 0.6)",  // Mint
-        "rgba(128, 128, 0, 0.6)",    // Olive
-        "rgba(255, 215, 180, 0.6)",  // Apricot
-        "rgba(0, 0, 128, 0.6)",      // Navy
-        "rgba(128, 128, 128, 0.6)",  // Grey
-        "rgba(255, 0, 0, 0.6)",      // Bright Red
-        "rgba(0, 255, 0, 0.6)",      // Bright Green
-        "rgba(0, 0, 255, 0.6)",      // Bright Blue
-        "rgba(255, 255, 0, 0.6)",    // Bright Yellow
-        "rgba(255, 165, 0, 0.6)"     // Bright Orange
     ];
-    
-    const generateRandomData = (length) => Array.from({ length }, () => Math.floor(Math.random() * 100));
-    console.log("generateRandomData ", generateRandomData(12));
-    
-    const dataByYear = {};
-  
-    for (let year = 1990; year <= currentYear; year++) {
-        dataByYear[year] = labels.map(() => generateRandomData(12));
-    }
-
-
-    // Initialize the chart
     let womens_chart;
     Chart.register(ChartZoom);
     const ctx = document.getElementById("womens_chart").getContext("2d");
-
-    const createChart = (year) => {
-        const datasets = labels.map((label, index) => ({
-            label: label,
-            data: dataByYear[year][index], 
+    const createChart = (year, yearData) => {
+        if (!yearData || yearData.length === 0) {
+            console.log("No data available for the selected year.");
+            return;
+        }
+        const monthOrder = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const barangayNames = [...new Set(yearData.map(item => item.name))];
+        const groupedData = {};
+        yearData.forEach(item => {
+            if (!groupedData[item.month]) {
+                groupedData[item.month] = {};
+            }
+            groupedData[item.month][item.name] = item.population;
+        });
+        
+        const sortedMonths = Object.keys(groupedData).sort(
+            (a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b)
+        );
+        const datasets = sortedMonths.map((month, index) => ({
+            label: month, 
+            data: barangayNames.map(name => groupedData[month][name] || 0), 
             backgroundColor: backgroundColors[index % backgroundColors.length],
         }));
-
-        if (womens_chart) womens_chart.destroy(); 
-
+        const chartHeight = Math.max(400, yearData.length * 40); 
+        document.getElementById("womens_chart").height = chartHeight;
+        if (womens_chart) womens_chart.destroy();
+        console.log('year ', year);
         womens_chart = new Chart(ctx, {
             type: 'bar',
-            data: {
-                labels: [
-                    'December', 'November', 'October', 'September',
-                    'August', 'July', 'June', 'May',
-                    'April', ' March', 'February', 'January'
-                ],
-                datasets: datasets,
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                plugins: {
+            data: { labels: barangayNames, datasets: datasets,},
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: { 
                     legend: { position: 'top' },
                     title: {
                         display: true,
-                        text: `Women in Reproductive Ages by Month (${year})`,
+                        text: `Women in Reproductive Ages (${year})`,
                         font: { size: 24 },
                     },
                     zoom: {
-                        pan: { enabled: true, mode: 'x' },
-                        zoom: {
-                            wheel: { enabled: true },
-                            pinch: { enabled: true },
-                            mode: 'x',
-                        },
+                        pan: { enabled: true, mode: 'xy' },
+                        zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'y' },
                     },
                 },
                 scales: {
-                    x: {
-                        title: { display: true, text: 'Count of Women', font: { style: 'italic', size: 16 } },
-                        stacked: true,
-                    },
-                    y: {
-                        title: { display: true, text: 'Months', font: { style: 'italic', size: 16 } },
-                        beginAtZero: true,
-                        stacked: true,
-                    },
+                    x: { title: { display: true, text: 'Counts', font: { style: 'italic', size: 16 } }, stacked: true, },
+                    y: { title: { display: true, text: 'Barangays', font: { style: 'italic', size: 16 } }, beginAtZero: true, stacked: true, }
                 },
             },
         });
     };
 
-    createChart(currentYear);
-    yearSelector.addEventListener("change", (e) => {
+    let url = window.userType === '0' ? '/admin/get_dashboard_info' : '/admin-midwife/get_dashboard_info';
+    function reqData(selectedYear) {
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: { year: selectedYear},
+            success: function (res) {
+                createChart(selectedYear, res.yearData); 
+            }
+        });
+    }
+    reqData(currentYear);
+    sendYear.addEventListener("change", (e) => {
         const selectedYear = e.target.value;
-        createChart(selectedYear);
+        reqData(selectedYear);
     });
-
+  
     document.getElementById("resetZoomBtn1").addEventListener("click", function () {
         if (womens_chart) womens_chart.resetZoom();
     });

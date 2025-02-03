@@ -39,7 +39,7 @@
 </style>
 
 <main id="main" class="main">
-    <div class="pagetitle mt-4">
+    <div class="pagetitle mt-5">
         <h1 class="fs-3"><strong>Dashboard</strong></h1>
     </div>
     <section class="section dashboard mt-4">
@@ -140,7 +140,7 @@
                         <div class="card women-chart">
                             <div class="card-body p-3">
                                 <div id="chart" style="width: 100%; height:auto; margin: auto; ">
-                                    <canvas id="womens_chart" width="600" height="400"></canvas>
+                                    <canvas id="womens_chart"></canvas>
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
@@ -150,7 +150,7 @@
                         <div class="card child-chart">
                             <div class="card-body p-3">
                                 <div style="width: 100%; height:auto; margin: auto;">
-                                    <canvas id="childs_chart" width="600" height="400"></canvas>
+                                    <canvas id="childs_chart"></canvas>
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
