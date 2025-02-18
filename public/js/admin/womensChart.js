@@ -26,7 +26,7 @@ function displayWomenChart(year = null) {
                 return ageRanges[ageGroup].filter(item => item.month === month).length;
             });
             return {
-                label: ageGroup,
+                label: ageGroup + ' Y/O',
                 data: monthlyCounts,
                 backgroundColor: backgroundColors[ageGroup],
             };

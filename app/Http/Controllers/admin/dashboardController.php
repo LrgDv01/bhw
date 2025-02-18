@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\admin\MapModel;
 use App\Models\Dewormings;
 use App\Models\Women;
+use DateTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -110,9 +111,48 @@ class dashboardController extends Controller
         });
         
         // Historical Data 
+
+        // $historicalData = DB::table('dewormings')
+        // ->selectRaw("
+        //     YEAR(created_at) as year,
+        //     CASE 
+        //         WHEN age LIKE '%months' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 12 AND 23 THEN '12-23 months'
+        //         WHEN age LIKE '%months' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 24 AND 59 THEN '24-59 months'
+        //         WHEN age LIKE '%years' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 5 AND 9 THEN '5-9 years'
+        //         WHEN age LIKE '%years' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 10 AND 19 THEN '10-19 years'
+        //         ELSE 'Other'
+        //     END as age_group,
+        //     COUNT(*) as total
+        // ")
+        // ->whereRaw("created_at IS NOT NULL") 
+        // ->groupBy('year', 'age_group')
+        // ->orderBy('year', 'ASC')
+        // ->get();
+
+      
+        // $formattedData = [];
+        // foreach ($historicalData as $row) {
+        //     $year = $row->year;
+        //     $ageGroup = $row->age_group;
+        //     $total = $row->total;
+
+        //     if (!isset($formattedData[$year])) {
+        //         $formattedData[$year] = [
+        //             "12-23 months" => 0,
+        //             "24-59 months" => 0,
+        //             "5-9 years" => 0,
+        //             "10-19 years" => 0
+        //         ];
+        //     }
+
+        //     if (isset($formattedData[$year][$ageGroup])) {
+        //         $formattedData[$year][$ageGroup] = $total;
+        //     }
+        // }
+
         $historicalData = DB::table('dewormings')
         ->selectRaw("
-            YEAR(created_at) as year,
+            DATE_FORMAT(created_at, '%Y-%m') as month_year,
             CASE 
                 WHEN age LIKE '%months' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 12 AND 23 THEN '12-23 months'
                 WHEN age LIKE '%months' AND CAST(SUBSTRING_INDEX(age, ' ', 1) AS UNSIGNED) BETWEEN 24 AND 59 THEN '24-59 months'
@@ -122,32 +162,24 @@ class dashboardController extends Controller
             END as age_group,
             COUNT(*) as total
         ")
-        ->whereRaw("created_at IS NOT NULL") // Ensure data has timestamps
-        ->groupBy('year', 'age_group')
-        ->orderBy('year', 'ASC')
+        ->whereNotNull('created_at')
+        ->groupBy('month_year', 'age_group')
+        ->orderBy('month_year', 'ASC')
         ->get();
 
-        // Restructure data into the required format
-        $formattedData = [];
-        foreach ($historicalData as $row) {
-            $year = $row->year;
-            $ageGroup = $row->age_group;
-            $total = $row->total;
+    // Organizing data into the format expected by the frontend
+    $formattedData = [];
+    foreach ($historicalData as $row) {
+        $yearMonth = $row->month_year;
+        $ageGroup = $row->age_group;
+        $count = $row->total;
 
-            if (!isset($formattedData[$year])) {
-                $formattedData[$year] = [
-                    "12-23 months" => 0,
-                    "24-59 months" => 0,
-                    "5-9 years" => 0,
-                    "10-19 years" => 0
-                ];
-            }
-
-            if (isset($formattedData[$year][$ageGroup])) {
-                $formattedData[$year][$ageGroup] = $total;
-            }
+        if (!isset($formattedData[$yearMonth])) {
+            $formattedData[$yearMonth] = [];
         }
-
+        $formattedData[$yearMonth][$ageGroup] = $count;
+    }
+    
 
         $res = [
             'brgys' => $brgys,
