@@ -1,40 +1,18 @@
-$(document).ready(function() {
+import { yearFilter } from "./utils/filter.js";
+
+function displayWomenChart(year = null) {
     const currentYear = new Date().getFullYear();
-    const yearSelect = document.getElementById('yearSelect');
-    if (yearSelect) {
-        for (let year = 1990; year <= currentYear; year++) {
-            const option = document.createElement("option");
-            option.value = year;
-            option.textContent = year;
-            yearSelect.appendChild(option);
-        }
-        const options = Array.from(yearSelect.options).slice(1);
-        yearSelect.innerHTML = ""; 
-        options.reverse().forEach((option) => yearSelect.appendChild(option)); 
-        displayWomenChart(yearSelect, currentYear);
-    }
-});
-function displayWomenChart(year = null) { 
-    const currentYear = new Date().getFullYear();
-    let sendYear = year == null ? currentYear : year ;
-    const backgroundColors = [
-        "rgba(230, 25, 75, 0.6)",    // Red
-        "rgba(60, 180, 75, 0.6)",    // Green
-        "rgba(255, 225, 25, 0.6)",   // Yellow
-        "rgba(0, 130, 200, 0.6)",    // Blue
-        "rgba(245, 130, 48, 0.6)",   // Orange
-        "rgba(145, 30, 180, 0.6)",   // Purple
-        "rgba(70, 240, 240, 0.6)",   // Cyan
-        "rgba(240, 50, 230, 0.6)",   // Magenta
-        "rgba(210, 245, 60, 0.6)",   // Lime
-        "rgba(250, 190, 212, 0.6)",  // Pink
-        "rgba(0, 128, 128, 0.6)",    // Teal
-        "rgba(220, 190, 255, 0.6)",  // Lavender
-    ];
+    let sendYear = year == null ? currentYear : year;
+    const backgroundColors = {
+        "10-14": "rgba(230, 25, 75, 0.6)",
+        "15-19": "rgba(60, 180, 75, 0.6)",
+        "20-49": "rgba(255, 225, 25, 0.6)"
+    };
     let womens_chart;
     Chart.register(ChartZoom);
     const ctx = document.getElementById("womens_chart").getContext("2d");
-    const createChart = (year, yearData) => {
+
+    const createChart = (year, yearData, ageRanges) => {
         if (!yearData || yearData.length === 0) {
             console.log("No data available for the selected year.");
             return;
@@ -43,46 +21,40 @@ function displayWomenChart(year = null) {
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-        const barangayNames = [...new Set(yearData.map(item => item.name))];
-        const groupedData = {};
-        yearData.forEach(item => {
-            if (!groupedData[item.month]) {
-                groupedData[item.month] = {};
-            }
-            groupedData[item.month][item.name] = item.population;
+        const datasets = Object.keys(ageRanges).map((ageGroup) => {
+            const monthlyCounts = monthOrder.map((month) => {
+                return ageRanges[ageGroup].filter(item => item.month === month).length;
+            });
+            return {
+                label: ageGroup,
+                data: monthlyCounts,
+                backgroundColor: backgroundColors[ageGroup],
+            };
         });
-        
-        const sortedMonths = Object.keys(groupedData).sort(
-            (a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b)
-        );
-        const datasets = sortedMonths.map((month, index) => ({
-            label: month, 
-            data: barangayNames.map(name => groupedData[month][name] || 0), 
-            backgroundColor: backgroundColors[index % backgroundColors.length],
-        }));
-        const chartHeight = Math.max(400, yearData.length * 40); 
+
+        const chartHeight = Math.max(400, yearData.length * 40);
         document.getElementById("womens_chart").height = chartHeight;
         if (womens_chart) womens_chart.destroy();
-        console.log('year ', year);
         womens_chart = new Chart(ctx, {
             type: 'bar',
-            data: { labels: barangayNames, datasets: datasets,},
-            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                plugins: { 
+            data: { labels: monthOrder, datasets: datasets },
+            options: {
+                indexAxis: 'x', responsive: true, maintainAspectRatio: false,
+                plugins: {
                     legend: { position: 'top' },
                     title: {
                         display: true,
-                        text: `Women in Reproductive Ages (${year})`,
+                        text: `Women in Reproductive Ages by Year (${year})`,
                         font: { size: 24 },
                     },
                     zoom: {
                         pan: { enabled: true, mode: 'xy' },
-                        zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'y' },
+                        zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x' },
                     },
                 },
                 scales: {
-                    x: { title: { display: true, text: 'Counts', font: { style: 'italic', size: 16 } }, stacked: true, },
-                    y: { title: { display: true, text: 'Barangays', font: { style: 'italic', size: 16 } }, beginAtZero: true, stacked: true, }
+                    x: { title: { display: true, text: 'Months', font: { size: 16 } }, stacked: false },
+                    y: { title: { display: true, text: 'Counts', font: { size: 16 } }, beginAtZero: true, stacked: false }
                 },
             },
         });
@@ -93,19 +65,26 @@ function displayWomenChart(year = null) {
         $.ajax({
             url: url,
             method: "GET",
-            data: { year: selectedYear},
+            data: { year: selectedYear },
             success: function (res) {
-                createChart(selectedYear, res.yearData); 
+                createChart(selectedYear, res.yearDataWithMonth, res.womenAgeRanges);
             }
         });
     }
     reqData(currentYear);
+
     sendYear.addEventListener("change", (e) => {
         const selectedYear = e.target.value;
         reqData(selectedYear);
     });
-  
+
     document.getElementById("resetZoomBtn1").addEventListener("click", function () {
         if (womens_chart) womens_chart.resetZoom();
     });
 }
+
+$(document).ready(function() {
+    const yearSelect = new yearFilter();
+    displayWomenChart(yearSelect);
+});
+

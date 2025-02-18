@@ -27,8 +27,10 @@
       crossorigin="anonymous"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js"></script>
 
+    <!-- Chart Script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+
   @else
     <script src="{{ URL::asset('js/admin/settings.js')}}"></script>
     <script src="{{ URL::asset('js/admin/users.js')}}"></script> 
@@ -40,8 +42,8 @@
     <script src="{{ URL::asset('js/global.js') }}"></script>
     <script src="{{ URL::asset('js/lightbox.js') }}"></script>
 
-    <script src="{{ URL::asset('js/admin/womensChart.js')}}"></script>
-    <script src="{{ URL::asset('js/admin/childsChart.js')}}"></script>
+    <script type="module" src="{{ URL::asset('js/admin/womensChart.js')}}"></script>
+    <script type="module" src="{{ URL::asset('js/admin/dewormingChart.js')}}"></script>
     <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
     <script src="{{ asset('js/admin/dashboard.js') }}"></script>
 

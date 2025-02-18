@@ -17,6 +17,7 @@ class MapController extends Controller
                 'population' => $loc->population,
                 'women' => $loc->women,
                 'child' => $loc->child,
+                'age' => $loc->age
             ];
         }
         $res = [

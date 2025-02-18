@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('map_locations', function (Blueprint $table) {
+        Schema::create('dewormings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('population');
-            $table->integer('women');
-            $table->integer('child');
-            $table->integer('age');
+            $table->string('age');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('map_locations');
+        Schema::dropIfExists('dewormings');
     }
 };

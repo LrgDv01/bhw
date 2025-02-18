@@ -30,9 +30,38 @@
     .card i {
         color:grey;
     }
-    .card.women-chart, .child-chart {
+    .card.women, .deworming, .forecast {
         background-color: white;
         border-radius: 15px; 
+    }
+
+    /* Optional: for smooth zoom transitions */
+    #deworming_chart {
+        transition: transform 0.2s ease;
+    }
+
+
+    #card-forecast {
+        background-color: #fefefe;
+        border: 1px solid #888;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #hideForecastChartBtn {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: grey;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+    #hideForecastChartBtn:hover {
+        background-color: dark;
     }
 
 
@@ -137,7 +166,18 @@
                 </div> 
                 <div class="row">
                     <div class="col-lg-7 mb-3">
-                        <div class="card women-chart">
+                        <div class="card deworming">
+                            <div class="card-body p-3">
+                                <div style="width: 100%; height:auto; margin: auto;">
+                                    <div id="deworming_chart" style="height: 370px; width: 100%;"></div>
+                                    <div id="insight_container" class="mt-1 mb-0 p-2 text-center rounded" style="background-color:#d1dee7"></div>
+                                    <div class="d-flex flex-row justify-content-center align-items-center py-2">
+                                        <button id="showForecastChartBtn" type="button" class="btn btn-outline-secondary btn-sm rounded rounded-3">See Forecast</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card women">
                             <div class="card-body p-3">
                                 <div id="chart" style="width: 100%; height:auto; margin: auto; ">
                                     <canvas id="womens_chart"></canvas>
@@ -147,22 +187,25 @@
                                 <button id="resetZoomBtn1" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
                             </div>
                         </div>
-                        <div class="card child-chart">
-                            <div class="card-body p-3">
-                                <div style="width: 100%; height:auto; margin: auto;">
-                                    <canvas id="childs_chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row justify-content-center">
-                                <button id="resetZoomBtn2" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-lg-5 mb-3">
-                        <div class="card women-chart">
+                        <div class="card map">
                             <div class="card-body p-3">
                                 <div id="map_locations" style="width: 100%; height: 500px; margin: auto;">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="card-forecast" class="row" style="position: fixed; top: 20%; z-index: 995; right:0; left:20%; height:auto; width:70%;">
+                    <div class="card forecast">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end">
+                                <button id="hideForecastChartBtn" class="btn-close"></button>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div id="forecast_insight_container" class="p-3 pe-4 rounded" style="background-color:#d1dee7; height: 300px; width:60%;"></div> 
+                                <div id="forecast_chart" style="height: 350px; width: 50%;"></div> 
                             </div>
                         </div>
                     </div>
@@ -174,4 +217,16 @@
 @include('admin.partials.__footer')
 <script>
     window.userType = @json(auth()->user()->user_type);
+
+    const btn = document.getElementById('showForecastChartBtn');
+    const card_forecast = document.getElementById('card-forecast');
+    const hideBtn = document.getElementById('hideForecastChartBtn');
+    card_forecast.style.display = 'none';
+    btn.addEventListener('click', function() {
+        card_forecast.style.display = 'block';
+    });
+    hideBtn.addEventListener('click', function() {
+        card_forecast.style.display = 'none';
+    });
+
 </script>

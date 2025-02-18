@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 use App\Models\admin\MapModel;
+use App\Models\Dewormings;
+use App\Models\Women;
 use App\Models\FamilyMember;
 use App\Models\ChildCensus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,134 +19,154 @@ class MapModelSeeder extends Seeder
         $mapLocation = [
           
               [ 'name' => 'Adia',
-              'population' => 25743,
-              'women' => 512880,
-              'child' => 348,
-                'ages' => 4],
+                'population' => 500,
+                'women' => 500,
+                'child' => 500,
+                'age' => 4],
 
               [ 'name' => 'Bagong Pook',
-              'population' => 53745,
-              'women' => 2431,
-              'child' => 834,
-              'ages' => 7],
+                'population' => 500,
+                'women' => 500,
+                'child' => 500,
+                'age' => 4],
 
               [ 'name' => 'Bagumbayan',
-              'population' => 53163,
-              'women' => 76444,
-              'child' => 745,
-              'ages' => 17],
+                'population' => 500,
+                'women' => 500,
+                'child' => 500,
+                'age' => 4],
 
               [ 'name' => 'Bubucal',
-              'population' => 62344,
-              'women' => 2344,
-              'child' => 623,
-              'ages' => 15],
+                'population' => 500,
+                'women' => 500,
+                'child' => 500,
+                'age' => 4],
 
               [ 'name' => 'Cabooan',
-              'population' => 65344,
-              'women' => 2456,
-              'child' => 234,
-              'ages' => 2],
+                'population' => 65344,
+                'women' => 2456,
+                'child' => 234,
+                'age' => 4],
 
             //   [ 'name' => 'Calangay',
-            //   'population' => 64454,
-            //   'women' => 5434,
-            //   'child' => 834,],
+            //     'population' => 64454,
+            //     'women' => 5434,
+            //     'child' => 834,
+            //     'ages' => 2],
 
             //   [ 'name' => 'Cambuja',
-            //   'population' => 23432,
-            //   'women' => 2342,
-            //   'child' => 544,],
-              
+            //     'population' => 23432,
+            //     'women' => 2342,
+            //     'child' => 544,
+            //     'ages' => 3],
+                
             //   [ 'name' => 'Coralan',
-            //   'population' => 43243,
-            //   'women' => 2233,
-            //   'child' => 544,],
+            //     'population' => 43243,
+            //     'women' => 2233,
+            //     'child' => 544,
+            //     'ages' => 3],
 
             //   [ 'name' => 'Cueva',
-            //   'population' => 22244,
-            //   'women' => 2422,
-            //   'child' => 342,],
+            //     'population' => 22244,
+            //     'women' => 2422,
+            //     'child' => 342,
+            //     'ages' => 1],
 
             //   [ 'name' => 'Inayapan',
-            //   'population' => 24322,
-            //   'women' => 2432,
-            //   'child' => 543,],
+            //     'population' => 24322,
+            //     'women' => 2432,
+            //     'child' => 543,
+            //     'ages' => 6],
 
             //   [ 'name' => 'Jose P. Laurel, Sr.',
-            //   'population' => 24343,
-            //   'women' => 2343,
-            //   'child' => 223,],
+            //     'population' => 24343,
+            //     'women' => 2343,
+            //     'child' => 223,
+            //     'ages' => 19],
 
             //   [ 'name' => 'Jose Rizal',
-            //   'population' => 35333,
-            //   'women' => 3445,
-            //   'child' => 554,],
+            //     'population' => 35333,
+            //     'women' => 3445,
+            //     'child' => 554,
+            //     'ages' => 15],
 
             //   [ 'name' => 'Juan Santiago',
-            //   'population' => 77554,
-            //   'women' => 5336,
-            //   'child' => 522,],
+            //     'population' => 77554,
+            //     'women' => 5336,
+            //     'child' => 522,
+            //     'ages' => 13],
 
             //   [ 'name' => 'Kayhacat',
-            //   'population' => 94263,
-            //   'women' => 779,
-            //   'child' => 834,],
+            //     'population' => 94263,
+            //     'women' => 779,
+            //     'child' => 834,
+            //     'ages' => 17],
 
             //   [ 'name' => 'Macasipac',
-            //   'population' => 22434,
-            //   'women' => 3533,
-            //   'child' => 345,],
+            //     'population' => 22434,
+            //     'women' => 3533,
+            //     'child' => 345,
+            //     'ages' => 9],
 
             //   [ 'name' => 'Masinao',
-            //   'population' => 66633,
-            //   'women' => 6344,
-            //   'child' => 632,],
+            //     'population' => 66633,
+            //     'women' => 6344,
+            //     'child' => 632,
+            //     'ages' => 10],
 
             //   [ 'name' => 'Matalinting',
-            //   'population' => 65345,
-            //   'women' => 7655,
-            //   'child' => 252,],
+            //     'population' => 65345,
+            //     'women' => 7655,
+            //     'child' => 252,
+            //     'ages' => 8],
 
             //   [ 'name' => 'Pao-o',
-            //   'population' => 43253,
-            //   'women' => 2432,
-            //   'child' => 432,],
+            //     'population' => 43253,
+            //     'women' => 2432,
+            //     'child' => 432,
+            //     'ages' => 5],
 
             //   [ 'name' => 'Parang ng Buho',
-            //   'population' => 42166,
-            //   'women' => 1132,
-            //   'child' => 431,],
+            //     'population' => 42166,
+            //     'women' => 1132,
+            //     'child' => 431,
+            //     'ages' => 7],
 
             //   [ 'name' => 'Poblacion Uno',
-            //   'population' => 12341,
-            //   'women' => 1123,
-            //   'child' => 532,],
+            //     'population' => 12341,
+            //     'women' => 1123,
+            //     'child' => 532,
+            //     'ages' => 3],
 
             //   [ 'name' => 'Poblacion Dos',
-            //   'population' => 23421,
-            //   'women' => 3325,
-            //   'child' => 432,],
+            //     'population' => 23421,
+            //     'women' => 3325,
+            //     'child' => 432,
+            //     'ages' => 7],
 
             //   [ 'name' => 'Poblacion Tres',
-            //   'population' => 21412,
-            //   'women' => 3453,
-            //   'child' => 452,],
+            //     'population' => 21412,
+            //     'women' => 3453,
+            //     'child' => 9,
+            //     'ages' => 7],
 
             //   [ 'name' => 'Poblacion Quatro',
-            //   'population' => 53254,
-            //   'women' => 2442,
-            //   'child' => 632,],
+            //     'population' => 53254,
+            //     'women' => 2442,
+            //     'child' => 632,
+            //     'ages' => 7],
 
             //   [ 'name' => 'Talangka',
-            //   'population' => 24253,
-            //   'women' => 5333,
-            //   'child' => 623,],
+            //     'population' => 24253,
+            //     'women' => 5333,
+            //     'child' => 623,
+            //     'ages' => 9],
 
             //   [ 'name' => 'Tungkod',
-            //   'population' => 23453,
-            //   'women' => 2344,
-            //   'child' => 234,],
+            //     'population' => 23453,
+            //     'women' => 2344,
+            //     'child' => 234,
+            //     'ages' => 7],
               
         ];
 
@@ -154,7 +176,131 @@ class MapModelSeeder extends Seeder
                 'population' => $location['population'],
                 'women' => $location['women'],
                 'child' => $location['child'],
-                'ages' => $location['ages'],
+                'age' => $location['age']
+            ]);
+        }
+
+        $dewormings = [
+            [
+                'name' => "john",
+                'age' => "12 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "12 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "15 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "15 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "15 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "23 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "24 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "24 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "27 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "40 months",
+            ],
+            [
+                'name' => "john",
+                'age' => "5 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "7 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "9 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "10 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "12 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "17 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "17 years",
+            ],
+            [
+                'name' => "john",
+                'age' => "12 years",
+            ],
+        ];
+
+        foreach ($dewormings as $d) {
+            Dewormings::create([
+                'name' => $d['name'],
+                'age' => $d['age']
+            ]);
+        }
+
+        $womens = [
+            [
+                'name' => "Jane",
+                'age' => "12",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "14",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "15",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "17",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "20",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "23",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "30",
+            ],
+            [
+                'name' => "Jane",
+                'age' => "33",
+            ],
+        ];
+
+        foreach ($womens as $w) {
+            Women::create([
+                'name' => $w['name'],
+                'age' => $w['age']
             ]);
         }
 
