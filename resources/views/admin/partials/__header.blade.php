@@ -43,6 +43,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
   {{-- Chart js --}}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
+
+  
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
  
   @if(Request::routeIs('admin.dashboard') || Request::routeIs('admin.midwife.dashboard'))

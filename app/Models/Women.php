@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Models\admin;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MapModel extends Model
+class Women extends Model
 {
     use HasFactory;
 
-    protected $table = 'map_locations';
+    protected $table = 'womens';
     protected $fillable = [
         'name',
-        'population',
-        'women',
-        'child',
-        'age'
+        'age',
     ];
 }
