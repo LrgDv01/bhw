@@ -75,7 +75,7 @@
     @if (auth()->user())
       @if (auth()->user()->isBHW())
           <li class="nav-item">
-            <a class="nav-link border border-0 {{ Request::is('bhw/services') ? 'active' : 'inactive' }}" href="{{ url('/bhw/services') }}">
+            <a class="nav-link border border-0 {{ Request::is('bhw/serv') ? 'active' : 'inactive' }}" href="{{ url('/bhw/serv') }}">
               <i class="bi bi-briefcase "></i>  
               <span>Services</span>
             </a>

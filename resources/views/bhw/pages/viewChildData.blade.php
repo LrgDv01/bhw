@@ -29,16 +29,20 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <strong>Vaccines:</strong>
-                <ul>
-                    @foreach($childs->vaccines as $vaccine)
-                        <li class="mb-2">{{ $vaccine }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
+        
+        <div class="col-md-4 mb-3">
+        <strong>Vaccines:</strong>
+        <ul>
+            @if(is_array($childs->vaccines))
+                @foreach($childs->vaccines as $vaccine)
+                    <li class="mb-2">{{ $vaccine }}</li>
+                @endforeach
+            @else
+                <li>No vaccine records available</li>
+            @endif
+        </ul>
+    </div>
+
     </div>
     
     
