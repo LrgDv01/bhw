@@ -7,10 +7,8 @@
         
         
     </div>
-    <div class="pagetitle text-center mb-3">
-                <a href="{{ route('bhw.child') }}" class="btn btn-outline-primary">Go to Child Census →</a>
-
-    </div>
+    <button onclick="window.location.href='{{ route('bhw.serv') }}'" >Back</button>
+       
     <div class="container shadow p-5 rounded bg-light">
         @if ($errors->any())
             <ul>

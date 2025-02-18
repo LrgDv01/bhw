@@ -36,6 +36,10 @@ class ServicesController extends Controller
         return view('bhw.pages.child');
         
     }
+    public function Serv() {
+        return view('bhw.pages.serv');
+        
+    }
 
     public function updateStatus(Request $request, $id, $status)
     {

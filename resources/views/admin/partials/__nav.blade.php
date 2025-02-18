@@ -163,7 +163,7 @@
                 </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link border border-0 {{ Request::is('admin/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/admin/user-activity') }}">
+              <a class="nav-link border border-0 {{ Request::is('admin-midwife/user-activity') ? 'active' : 'inactive' }}" href="{{ url('/admin-midwife/user-activity') }}">
                 <i class="bi bi-person-lines-fill "></i>  
                 <span>User Activity</span>
               </a>

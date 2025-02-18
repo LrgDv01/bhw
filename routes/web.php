@@ -17,6 +17,9 @@ use App\Http\Controllers\ChildCensusController;
 use App\Http\Controllers\MyscheduleController;
 use App\Http\Controllers\admin\admin_mdwf\UseractivityController;
 use App\Http\Controllers\BhwFormController;
+use App\Http\Controllers\FamilyPlanningController;
+use App\Http\Controllers\WreproductiveAgeController;
+use App\Http\Controllers\DewormingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,7 +96,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/child-census', [ChildCensusController::class, 'create'])->name('child.census.create');
         Route::post('/child-census', [ChildCensusController::class, 'store'])->name('child.census.store');
         Route::get('/bhw/services', [FormController::class, 'showForm'])->name('bhw.services');
-        
+        Route::get('/bhw/serv', [ServicesController::class, 'Serv'])->name('bhw.serv');
+
         Route::post('/form/save', [FormController::class, 'saveForm'])->name('form.save');
 
         Route::get('/bhw/print', [FormController::class, 'Print'])->name('bhw.Print');
@@ -111,6 +115,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/bhw/bhwform', [BhwformController::class, 'bhwform'])->name('bhw.bhwform');
         Route::Post('/bhw/bhwform', [BhwformController::class, 'store'])->name('bhwform.store');
         
+        
+
+        Route::get('/familyplanning', [FamilyPlanningController::class, 'index'])->name('bhw.familyplanning');
+        Route::post('/familyplanning/store', [FamilyPlanningController::class, 'store'])->name('bhw.familyplanning.store');
+
+        Route::get('/wreproductiveage', [WreproductiveAgeController::class, 'index'])->name('bhw.wreproductiveage.index');
+        Route::get('/wreproductiveage/create', [WreproductiveAgeController::class, 'create'])->name('bhw.wreproductiveage.create');
+        Route::post('/wreproductiveage', [WreproductiveAgeController::class, 'store'])->name('bhw.wreproductiveage.store');
+        Route::get('/wreproductiveage/{id}/edit', [WreproductiveAgeController::class, 'edit'])->name('bhw.wreproductiveage.edit');
+        Route::put('/wreproductiveage/{id}', [WreproductiveAgeController::class, 'update'])->name('bhw.wreproductiveage.update');
+        Route::delete('/wreproductiveage/{id}', [WreproductiveAgeController::class, 'destroy'])->name('bhw.wreproductiveage.destroy');
+
+        Route::get('/deworming', [DewormingController::class, 'index'])->name('bhw.deworming.index');
+        Route::get('/deworming/create', [DewormingController::class, 'create'])->name('bhw.deworming.create');
+        Route::post('/deworming', [DewormingController::class, 'store'])->name('bhw.deworming.store');
+        Route::get('/deworming/{id}/edit', [DewormingController::class, 'edit'])->name('bhw.deworming.edit');
+        Route::put('/deworming/{id}', [DewormingController::class, 'update'])->name('bhw.deworming.update');
+        Route::delete('/deworming/{id}', [DewormingController::class, 'destroy'])->name('bhw.deworming.destroy');
 
         Route::middleware(['web'])->group(function () {
             Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
