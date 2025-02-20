@@ -3,38 +3,30 @@ import { yearFilter } from "./utils/filter.js";
 function displayChildChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year;
-
     const chartContainer = document.getElementById("deworming_chart");
     const insightContainer = document.getElementById("insight_container"); 
     const forecastContainer = document.getElementById("forecast_chart");
     const forecastInsightContainer = document.getElementById("forecast_insight_container"); 
-
     if (!chartContainer || !insightContainer || !forecastContainer) {
         console.error("Some container not found.");
         return;
     }
-
     const createInsight = (dataPoints) => {
         if (!dataPoints || dataPoints.length === 0) {
             insightContainer.innerHTML = `<p>No data available for the selected filter.</p>`;
             return;
         }
-
         const sortedData = [...dataPoints].sort((a, b) => b.y - a.y);
-
         const highestValue = sortedData[0].y;
         const lowestValue = sortedData[sortedData.length - 1].y;
-
         const highestGroups = sortedData.filter(dp => dp.y === highestValue);
         const lowestGroups = sortedData.filter(dp => dp.y === lowestValue);
-
-        const highestText = highestGroups.map(g => g.label).join(", ");
-        const lowestText = lowestGroups.map(g => g.label).join(", ");
+        const highestText = highestGroups.map(g => g.label).join(" and ");
+        const lowestText = lowestGroups.map(g => g.label).join(" and ");
 
         let insightText = "";
-
         if (highestValue === 0 || highestValue <= 0.01) {
-            insightText = "No significant data available for deworming beneficiaries.";
+            insightText = "No significant data available for the selected year.";
         }
         else if (highestGroups.length === 1 && lowestGroups.length === 1) {
             insightText = `
@@ -61,7 +53,6 @@ function displayChildChart(year = null) {
                 At the same time, the age groups <b>${lowestText}</b> have the lowest percentage at <b>${lowestValue}%</b>.
             `;
         }
-
         insightContainer.innerHTML = `<p>${insightText}</p>`;
     };
 
@@ -73,7 +64,7 @@ function displayChildChart(year = null) {
         }
 
         const sliceColors = ["#36a2eb", "#ffce56", "#4bc0c0", "#9966ff"];
-
+        const noDataColor = '#7b7b7b';
         let totalPopulation = Object.values(dewormingAgeRanges).reduce((sum, count) => sum + count, 0);
 
         const dataPoints = Object.keys(dewormingAgeRanges).map((ageRange, index) => {
@@ -83,7 +74,7 @@ function displayChildChart(year = null) {
             return {
                 label: ageRange,
                 y: count > 0 ? parseFloat(percentage) : 0.01,
-                color: sliceColors[index % sliceColors.length]
+                color: count == 0 ? noDataColor : sliceColors[index % sliceColors.length]
             };
         });
 
@@ -106,361 +97,293 @@ function displayChildChart(year = null) {
       
     };
 
-
-
-    function generateForecastInsights(historicalData, forecastData, movingAvg) {
-        if (!historicalData || Object.keys(historicalData).length === 0) {
-            forecastInsightContainer.innerHTML = "<br>No historical data available for accurate forecasting.";
-            return;
-        }
-    
-        // Get the last and second-to-last months (for comparing)
-        let monthKeys = Object.keys(historicalData).sort(); // Sort keys (YYYY-MM)
-        let lastMonthKey = monthKeys.pop(); // Latest month
-        let prevMonthKey = monthKeys.pop() || null; // Previous month (if exists)
-    
-        let lastMonthData = historicalData[lastMonthKey] || {};
-        let prevMonthData = prevMonthKey ? historicalData[prevMonthKey] : {};
-    
-        // Total beneficiaries for last and previous months
-        let lastMonthTotal = Object.values(lastMonthData).reduce((sum, count) => sum + count, 0);
-        let prevMonthTotal = Object.values(prevMonthData).reduce((sum, count) => sum + count, 0);
-    
-        // Monthly trend analysis using lastMonthTotal
-        let trendType = lastMonthTotal > prevMonthTotal ? "growth" 
-                       : lastMonthTotal < prevMonthTotal ? "decline" 
-                       : "stability";
-    
-        // Identify highest and lowest age groups for last month
-        let sortedAgeGroups = Object.entries(lastMonthData).sort((a, b) => b[1] - a[1]);
-        let highestGroup = sortedAgeGroups.length > 0 ? sortedAgeGroups[0][0] : "N/A";
-        let lowestGroup = sortedAgeGroups.length > 1 ? sortedAgeGroups[sortedAgeGroups.length - 1][0] : "N/A";
-    
-        // Monthly trend insights (now using lastMonthTotal correctly)
-        let forecastInsight = "";
-        if (lastMonthTotal > prevMonthTotal * 1.2) {
-            forecastInsight = "A substantial increase in deworming beneficiaries is expected.";
-        } else if (lastMonthTotal > prevMonthTotal * 1.05) {
-            forecastInsight = "A gradual rise in deworming beneficiaries is expected.";
-        } else if (Math.abs(lastMonthTotal - prevMonthTotal) <= prevMonthTotal * 0.05) {
-            forecastInsight = "The forecast suggests a stable trend.";
-        } else if (lastMonthTotal < prevMonthTotal * 0.95) {
-            forecastInsight = "A slight decline in deworming beneficiaries is predicted.";
-        } else if (lastMonthTotal < prevMonthTotal * 0.8) {
-            forecastInsight = "A significant drop in deworming beneficiaries is forecasted.";
-        }
-    
-        // Check for age group ties
-        let tiedGroups = [];
-        let maxValue = Math.max(...Object.values(lastMonthData));
-        Object.entries(lastMonthData).forEach(([group, count]) => {
-            if (count === maxValue) tiedGroups.push(group);
-        });
-    
-        if (tiedGroups.length > 1) {
-            forecastInsight += ` Forecasts indicate that <strong>${tiedGroups.join(" and ")}</strong> will have similar high participation levels.`;
-        } else {
-            forecastInsight += ` The forecast predicts that <strong>${highestGroup}</strong> will continue to have the highest number of beneficiaries.`;
-        }
-    
-        // Forecast for the next month using movingAvg
-        let nextMonthForecast = movingAvg && movingAvg > 0 ? movingAvg.toFixed(2) : "N/A"; // Formatted forecast for next month
-        let nextMonthInsight = nextMonthForecast !== "N/A" 
-            ? `The forecast predicts <strong>${nextMonthForecast}</strong> beneficiaries for the upcoming month.`
-            : "No prediction available for the upcoming month.";
-    
-        // Generate insight text with **monthly** focus and future prediction
-        let insightText = `
-            <strong>Insights for ${lastMonthKey}:</strong><br>
-            - The total number of beneficiaries in ${lastMonthKey} was <strong>${lastMonthTotal}</strong>.<br>
-            - Compared to ${prevMonthKey || 'previous month'}, past trends show a <strong>${trendType}</strong> in deworming beneficiaries.<br>
-            - The highest age group in ${lastMonthKey} was <strong>${highestGroup}</strong>.<br>
-            - The lowest age group in ${lastMonthKey} was <strong>${lowestGroup}</strong>.<br>
-            - ${forecastInsight}<br>
-            - ${nextMonthInsight}
-        `;
-    
-        forecastInsightContainer.innerHTML = insightText;
-    }
-    
-    // function generateForecastInsights(historicalData, forecastData, movingAvg) {
-    //     if (!historicalData || Object.keys(historicalData).length === 0) {
-    //         forecastInsightContainer.innerHTML = "<br>No historical data available for accurate forecasting.";
+    // function generateForecastInsights(responseData) {
+    //     if (!responseData || typeof responseData !== 'object' || Object.keys(responseData).length === 0) {
+    //         forecastInsightContainer.innerHTML = "<br>No data available for forecasting.";
     //         return;
     //     }
     
-    //     // Get the last and second-to-last months
-    //     let monthKeys = Object.keys(historicalData).sort(); // Sort keys (YYYY-MM)
-    //     let lastMonthKey = monthKeys.pop(); // Latest month
-    //     let prevMonthKey = monthKeys.pop() || null; // Previous month (if exists)
+    //     let historicalData = responseData.historicalDewormingData || {};
+    //     let forecastData = responseData.forecastedDewormingData || {};
     
-    //     let lastMonthData = historicalData[lastMonthKey] || {};
-    //     let prevMonthData = prevMonthKey ? historicalData[prevMonthKey] : {};
-    
-    //     // Total beneficiaries for last and previous months
-    //     let lastMonthTotal = Object.values(lastMonthData).reduce((sum, count) => sum + count, 0);
-    //     let prevMonthTotal = Object.values(prevMonthData).reduce((sum, count) => sum + count, 0);
-    
-    //     // Monthly trend analysis using lastMonthTotal
-    //     let trendType = lastMonthTotal > prevMonthTotal ? "growth" 
-    //                    : lastMonthTotal < prevMonthTotal ? "decline" 
-    //                    : "stability";
-    
-    //     // Identify highest and lowest age groups for last month
-    //     let sortedAgeGroups = Object.entries(lastMonthData).sort((a, b) => b[1] - a[1]);
-    //     let highestGroup = sortedAgeGroups.length > 0 ? sortedAgeGroups[0][0] : "N/A";
-    //     let lowestGroup = sortedAgeGroups.length > 1 ? sortedAgeGroups[sortedAgeGroups.length - 1][0] : "N/A";
-    
-    //     // Monthly trend insights (now using lastMonthTotal correctly)
-    //     let forecastInsight = "";
-    //     if (lastMonthTotal > prevMonthTotal * 1.2) {
-    //         forecastInsight = "A substantial increase in deworming beneficiaries is expected.";
-    //     } else if (lastMonthTotal > prevMonthTotal * 1.05) {
-    //         forecastInsight = "A gradual rise in deworming beneficiaries is expected.";
-    //     } else if (Math.abs(lastMonthTotal - prevMonthTotal) <= prevMonthTotal * 0.05) {
-    //         forecastInsight = "The forecast suggests a stable trend.";
-    //     } else if (lastMonthTotal < prevMonthTotal * 0.95) {
-    //         forecastInsight = "A slight decline in deworming beneficiaries is predicted.";
-    //     } else if (lastMonthTotal < prevMonthTotal * 0.8) {
-    //         forecastInsight = "A significant drop in deworming beneficiaries is forecasted.";
+    //     if (Object.keys(historicalData).length === 0) {
+    //         forecastInsightContainer.innerHTML = "<br>No historical data for insights.";
+    //         return;
     //     }
     
-    //     // Check for age group ties
-    //     let tiedGroups = [];
-    //     let maxValue = Math.max(...Object.values(lastMonthData));
-    //     Object.entries(lastMonthData).forEach(([group, count]) => {
-    //         if (count === maxValue) tiedGroups.push(group);
-    //     });
+    //     let currentDate = new Date();
+    //     let currentYearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth() < 6 ? "01" : "07"}`;
+    //     let allMonths = [...Object.keys(historicalData), ...Object.keys(forecastData)].sort();
+    //     let lastHistoricalMonth = allMonths.filter(month => month <= currentYearMonth).pop() || allMonths[0];
+    //     let nextForecastMonth = allMonths.find(month => month > currentYearMonth) || allMonths[allMonths.length - 1];
     
-    //     if (tiedGroups.length > 1) {
-    //         forecastInsight += ` Forecasts indicate that <strong>${tiedGroups.join(" and ")}</strong> will have similar high participation levels.`;
-    //     } else {
-    //         forecastInsight += ` The forecast predicts that <strong>${highestGroup}</strong> will continue to have the highest number of beneficiaries.`;
-    //     }
+    //     let ageGroups = ["12-23 months", "24-59 months", "5-9 years", "10-19 years"];
+    //     let lastHistoricalTotals = historicalData[lastHistoricalMonth] || {};
+    //     let forecastTotals = forecastData[nextForecastMonth] || {};
     
-    //     // Generate insight text with **monthly** focus
+    //     // Calculate overall historical and forecast totals
+    //     let historicalTotal = Object.values(lastHistoricalTotals).reduce((sum, count) => sum + (count || 0), 0);
+    //     let forecastTotal = Object.values(forecastTotals).reduce((sum, count) => sum + (count || 0), 0);
+    
+    //     // Determine trend (based on last historical vs. previous)
+    //     let previousHistoricalMonth = allMonths.filter(month => month < lastHistoricalMonth).pop() || null;
+    //     let prevHistoricalTotal = previousHistoricalMonth ? Object.values(historicalData[previousHistoricalMonth] || {}).reduce((sum, count) => sum + (count || 0), 0) : 0;
+    //     let trend = historicalTotal > prevHistoricalTotal ? "growth" : historicalTotal < prevHistoricalTotal ? "decline" : "stable";
+    
+    //     // Identify top age group historically and in forecast
+    //     let topHistoricalGroup = Object.entries(lastHistoricalTotals).sort((a, b) => (b[1] || 0) - (a[1] || 0))[0]?.[0] || "None";
+    //     let topForecastGroup = Object.entries(forecastTotals).sort((a, b) => (b[1] || 0) - (a[1] || 0))[0]?.[0] || "None";
+    
+    //     // Forecast change for each age group
+    //     let forecastChanges = ageGroups.map(group => {
+    //         let historicalAvg = Object.values(historicalData).reduce((sum, data) => sum + (data[group] || 0), 0) / Object.keys(historicalData).length || 0;
+    //         let forecastValue = forecastTotals[group] || 0;
+    //         return { group, change: forecastValue - historicalAvg };
+    //     }).sort((a, b) => b.change - a.change);
+    
+    //     let strongestGrowth = forecastChanges[0].group;
+    //     let weakestGrowth = forecastChanges[forecastChanges.length - 1].group;
+    
+    //     // Generate concise insight
     //     let insightText = `
-    //         <strong>Insights for ${lastMonthKey}:</strong><br>
-    //         - The total number of beneficiaries in ${lastMonthKey} was <strong>${lastMonthTotal}</strong>.<br>
-    //         - Compared to ${prevMonthKey}, past trends show a <strong>${trendType}</strong> in deworming beneficiaries.<br>
-    //         - The highest age group in ${lastMonthKey} was <strong>${highestGroup}</strong>.<br>
-    //         - The lowest age group in ${lastMonthKey} was <strong>${lowestGroup}</strong>.<br>
-    //         - ${forecastInsight}
+    //         <strong>Key Insights (${lastHistoricalMonth}):</strong><br>
+    //         - Total deworming beneficiaries: <strong>${historicalTotal}</strong> (previously <strong>${prevHistoricalTotal}</strong>, showing ${trend}).<br>
+    //         - Top age group historically: <strong>${topHistoricalGroup}</strong>.<br>
+    //         - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastTotal}</strong> beneficiaries.<br>
+    //         - Strongest forecasted growth: <strong>${strongestGrowth}</strong>. Weakest: <strong>${weakestGrowth}</strong>.<br>
+    //         - Chart shows solid lines for past data (<strong>${lastHistoricalMonth}</strong>) and dashed for future (<strong>${nextForecastMonth}</strong>). Focus on <strong>${topForecastGroup}</strong> for upcoming efforts.
     //     `;
     
     //     forecastInsightContainer.innerHTML = insightText;
     // }
-    
-    
-    // function createForecastChart(historicalData) {
-    //     if (!historicalData || Object.keys(historicalData).length === 0) {
-    //         insightContainer.innerHTML += "<br>No historical data available for forecasting.";
-    //         return;
-    //     }
-    //     let forecastData = new Map(); 
-    //     Object.keys(historicalData).forEach(monthYear => {
-    //         const [year, month] = monthYear.split('-').map(Number);
-    //         let total = Object.values(historicalData[monthYear]).reduce((sum, count) => sum + count, 0);
-    //         let dateKey = `${year}-${month}`;
-    //         forecastData.set(dateKey, { x: new Date(year, month - 1), y: total });
-    //     });
-    
-    //     let forecastArray = Array.from(forecastData.values()).sort((a, b) => a.x - b.x);
-    //     let lastThree = forecastArray.slice(-3);
-    //     let movingAvg = lastThree.length > 0 
-    //         ? lastThree.reduce((sum, d) => sum + d.y, 0) / lastThree.length
-    //         : 0;
-    
-    //     let lastDate = forecastArray.length > 0 ? forecastArray[forecastArray.length - 1].x : new Date();
-    //     let nextMonth = new Date(lastDate);
-    //     nextMonth.setMonth(nextMonth.getMonth() + 1);
 
-    //     let nextMonthKey = `${nextMonth.getFullYear()}-${nextMonth.getMonth() + 1}`;
-    //     if (!forecastData.has(nextMonthKey)) {
-    //         forecastArray.push({ x: nextMonth, y: movingAvg });
-    //     }
-    
-    //     const forecastChart = new CanvasJS.Chart("forecast_chart", {
-    //         animationEnabled: true,
-    //         title: { text: "Deworming Forecast (Next Month Projection)" },
-    //         axisX: { 
-    //             valueFormatString: "MMM YYYY", 
-    //             title: "Month", 
-    //             interval: 1, 
-    //             intervalType: "month"
-    //         },
-    //         axisY: { title: "Counts", includeZero: false },
-    //         data: [{
-    //             type: "line",
-    //             markerSize: 10,
-    //             toolTipContent: "{x}: {y}",
-    //             dataPoints: forecastArray
-    //         }]
-    //     });
-    //     generateForecastInsights(historicalData, forecastArray, movingAvg);
-    //     forecastChart.render();
-    // }
-    
-    // function createForecastChart(historicalData) {
-    //     if (!historicalData || Object.keys(historicalData).length === 0) {
-    //         insightContainer.innerHTML += "<br>No historical data available for forecasting.";
+    // function generateForecastInsights(responseData) {
+    //     // Validate input
+    //     if (!responseData || typeof responseData !== 'object' || Object.keys(responseData).length === 0) {
+    //         forecastInsightContainer.innerHTML = "<br>No data available for forecasting.";
     //         return;
     //     }
     
-    //     let forecastData = new Map(); 
-    //     // Process each month-year entry
-    //     Object.keys(historicalData).forEach(monthYear => {
-    //         const [year, month] = monthYear.split('-').map(Number);
-    //         let total = Object.values(historicalData[monthYear]).reduce((sum, count) => sum + count, 0);
-    //         let dateKey = `${year}-${month}`;
-    //         forecastData.set(dateKey, { x: new Date(year, month - 1), y: total });
-    //     });
-    
-    //     // Create an array of all months in the current year (January to December)
-    //     const allMonths = [];
-    //     const currentYear = new Date().getFullYear(); // Current year
-    //     for (let month = 1; month <= 12; month++) {
-    //         const monthKey = `${currentYear}-${month}`;
-    //         if (!forecastData.has(monthKey)) {
-    //             allMonths.push({ x: new Date(currentYear, month - 1), y: null }); // No data for this month
-    //         } else {
-    //             allMonths.push(forecastData.get(monthKey)); // Use data if available
-    //         }
+    //     if (!forecastInsightContainer) {
+    //         console.error("forecastInsightContainer is not defined.");
+    //         return;
     //     }
     
-    //     // Sorting the months correctly (from January to December)
-    //     let forecastArray = allMonths.sort((a, b) => a.x - b.x);
+    //     // Extract historical and forecast data
+    //     let historicalData = responseData.historicalDewormingData || {};
+    //     let forecastData = responseData.forecastedDewormingData || {};
     
-    //     // Calculate moving average (using last 3 months)
-    //     let lastThree = forecastArray.slice(-3);
-    //     let movingAvg = lastThree.length > 0 
-    //         ? lastThree.reduce((sum, d) => sum + (d.y || 0), 0) / lastThree.length
-    //         : 0;
-    
-    //     // Predict next month's data (if necessary)
-    //     let lastDate = forecastArray.length > 0 ? forecastArray[forecastArray.length - 1].x : new Date();
-    //     let nextMonth = new Date(lastDate);
-    //     nextMonth.setMonth(nextMonth.getMonth() + 1);
-    
-    //     // Ensure the forecast for next month is only for the current year
-    //     if (nextMonth.getFullYear() === currentYear) {
-    //         let nextMonthKey = `${nextMonth.getFullYear()}-${nextMonth.getMonth() + 1}`;
-    //         if (!forecastData.has(nextMonthKey)) {
-    //             forecastArray.push({ x: nextMonth, y: movingAvg });
-    //         }
+    //     if (Object.keys(historicalData).length === 0) {
+    //         forecastInsightContainer.innerHTML = "<br>No historical data for insights.";
+    //         return;
     //     }
     
-    //     // Render the forecast chart
-    //     const forecastChart = new CanvasJS.Chart("forecast_chart", {
-    //         animationEnabled: true,
-    //         title: { text: "Deworming Forecast (Next Month Projection)" },
-    //         axisX: { 
-    //             valueFormatString: "MMM YYYY", 
-    //             title: "Month", 
-    //             interval: 1, 
-    //             intervalType: "month"
-    //         },
-    //         axisY: { title: "Counts", includeZero: false },
-    //         data: [{
-    //             type: "line",
-    //             markerSize: 10,
-    //             toolTipContent: "{x}: {y}",
-    //             dataPoints: forecastArray
-    //         }]
-    //     });
+    //     if (Object.keys(forecastData).length === 0) {
+    //         console.warn("No forecast data available.");
+    //     }
     
-    //     // Call function for insights
-    //     // generateForecastInsights(historicalData, forecastArray, movingAvg);
+    //     // Get current period (YYYY-MM)
+    //     let currentDate = new Date();
+    //     let currentYearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0") < "07" ? "01" : "07"}`;
     
-    //     // Render the chart
-    //     forecastChart.render();
+    //     // Get all valid periods and sort them
+    //     const isValidPeriod = (period) => /^\d{4}-\d{2}$/.test(period);
+    //     let allMonths = [...Object.keys(historicalData), ...Object.keys(forecastData)]
+    //         .filter(isValidPeriod)
+    //         .sort();
+    
+    //     // Determine last historical and next forecast periods
+    //     let lastHistoricalMonth = allMonths.filter(month => month <= currentYearMonth).pop() || allMonths[0];
+    //     let nextForecastMonth = allMonths.find(month => month > currentYearMonth) || allMonths[allMonths.length - 1];
+    
+    //     // Dynamically extract age groups
+    //     const ageGroups = [...new Set([
+    //         ...Object.values(historicalData).flatMap(data => Object.keys(data)),
+    //         ...Object.values(forecastData).flatMap(data => Object.keys(data))
+    //     ])].sort();
+    
+    //     // Get totals for last historical and next forecast periods
+    //     let lastHistoricalTotals = historicalData[lastHistoricalMonth] || {};
+    //     let forecastTotals = forecastData[nextForecastMonth] || {};
+    
+    //     let historicalTotal = Object.values(lastHistoricalTotals).reduce((sum, count) => sum + (count || 0), 0);
+    //     let forecastTotal = Object.values(forecastTotals).reduce((sum, count) => sum + (count || 0), 0);
+    
+    //     // Determine trend
+    //     let previousHistoricalMonth = allMonths.filter(month => month < lastHistoricalMonth).pop() || null;
+    //     let prevHistoricalTotal = previousHistoricalMonth ? Object.values(historicalData[previousHistoricalMonth] || {}).reduce((sum, count) => sum + (count || 0), 0) : 0;
+    //     let trend = historicalTotal > prevHistoricalTotal ? "growth" : historicalTotal < prevHistoricalTotal ? "decline" : "stable";
+    
+    //     // Identify top age groups
+    //     let topHistoricalGroup = Object.entries(lastHistoricalTotals).sort((a, b) => (b[1] || 0) - (a[1] || 0))[0]?.[0] || "None";
+    //     let topForecastGroup = Object.entries(forecastTotals).sort((a, b) => (b[1] || 0) - (a[1] || 0))[0]?.[0] || "None";
+    
+    //     // Calculate forecast changes for each age group
+    //     let forecastChanges = ageGroups.map(group => {
+    //         let historicalAvg = Object.values(historicalData).reduce((sum, data) => sum + (data[group] || 0), 0) / Object.keys(historicalData).length || 0;
+    //         let forecastValue = forecastTotals[group] || 0;
+    //         return { group, change: forecastValue - historicalAvg };
+    //     }).sort((a, b) => b.change - a.change);
+    
+    //     let strongestGrowth = forecastChanges.length > 0 ? forecastChanges[0].group : "None";
+    //     let weakestGrowth = forecastChanges.length > 0 ? forecastChanges[forecastChanges.length - 1].group : "None";
+    
+    //     // Generate insight text
+    //     let insightText = `
+    //         <strong>Key Insights (${lastHistoricalMonth}):</strong><br>
+    //         - Total deworming beneficiaries: <strong>${historicalTotal}</strong> (previously <strong>${prevHistoricalTotal}</strong>, showing ${trend}).<br>
+    //         - Top age group historically: <strong>${topHistoricalGroup}</strong>.<br>
+    //         - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastTotal}</strong> beneficiaries.<br>
+    //         - Strongest forecasted growth: <strong>${strongestGrowth}</strong>. Weakest: <strong>${weakestGrowth}</strong>.<br>
+    //         - Chart shows solid lines for past data (<strong>${lastHistoricalMonth}</strong>) and dashed for future (<strong>${nextForecastMonth}</strong>). Focus on <strong>${topForecastGroup}</strong> for upcoming efforts.
+    //     `;
+    
+    //     forecastInsightContainer.innerHTML = insightText;
     // }
 
 
-    function createForecastChart(historicalData) {
-        if (!historicalData || Object.keys(historicalData).length === 0) {
-            insightContainer.innerHTML += "<br>No historical data available for forecasting.";
+    function generateForecastInsights(responseData) {
+        if (!responseData || typeof responseData !== 'object' || Object.keys(responseData).length === 0) {
+            forecastInsightContainer.innerHTML = "<br><strong>No data available for forecasting.</strong>";
             return;
         }
-    
-        let forecastData = new Map(); 
-        // Process each month-year entry
-        Object.keys(historicalData).forEach(monthYear => {
-            const [year, month] = monthYear.split('-').map(Number);
-            let total = Object.values(historicalData[monthYear]).reduce((sum, count) => sum + count, 0);
-            let dateKey = `${year}-${month}`;
-            forecastData.set(dateKey, { x: new Date(year, month - 1), y: total });
-        });
-    
-        // Create an array of all months in the current year (January to December)
-        const allMonths = [];
-        const currentYear = new Date().getFullYear(); // Current year
-        for (let month = 1; month <= 12; month++) {
-            const monthKey = `${currentYear}-${month}`;
-            if (!forecastData.has(monthKey)) {
-                allMonths.push({ x: new Date(currentYear, month - 1), y: null }); // No data for this month
-            } else {
-                allMonths.push(forecastData.get(monthKey)); // Use data if available
-            }
+        if (!forecastInsightContainer) {
+            console.error("forecastInsightContainer is not defined.");
+            return;
         }
+        let historicalData = responseData.historicalDewormingData || {};
+        let forecastData = responseData.forecastedDewormingData || {};
+        if (Object.keys(historicalData).length === 0) {
+            forecastInsightContainer.innerHTML = "<br><strong>No historical data available for insights.</strong>";
+            return;
+        }
+        let currentDate = new Date();
+        let currentYearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1 <= 6 ? "01" : "07"}`;
     
-        // Sorting the months correctly (from January to December)
-        let forecastArray = allMonths.sort((a, b) => a.x - b.x);
+        const isValidPeriod = (period) => /^\d{4}-\d{2}$/.test(period);
+        let allMonths = [...Object.keys(historicalData), ...Object.keys(forecastData)]
+            .filter(isValidPeriod)
+            .sort();
     
-        // Calculate moving average (using last 3 months)
-        let lastThree = forecastArray.slice(-3);
-        let movingAvg = lastThree.length > 0 
-            ? lastThree.reduce((sum, d) => sum + (d.y || 0), 0) / lastThree.length
-            : 0;
+        let lastHistoricalMonth = allMonths.filter(month => month <= currentYearMonth).pop() || allMonths[0];
+        let nextForecastMonth = allMonths.find(month => month > currentYearMonth) || allMonths[allMonths.length - 1];
+        console.log('nextForecastMonth', nextForecastMonth);
+        let lastHistoricalTotals = historicalData[lastHistoricalMonth] || {};
+        let forecastTotals = forecastData[nextForecastMonth] || {};
+        console.log('forecastTotals', forecastTotals);
+        let historicalTotal = Object.values(lastHistoricalTotals).reduce((sum, count) => sum + (count || 0), 0);
+        let prevHistoricalMonth = allMonths.filter(month => month < lastHistoricalMonth).pop() || null;
+        let prevHistoricalTotal = prevHistoricalMonth ? 
+            Object.values(historicalData[prevHistoricalMonth] || {}).reduce((sum, count) => sum + (count || 0), 0) : 0;
+        let lastThreePeriods = allMonths.slice(-3);
+        let avgHistoricalTotal = lastThreePeriods.reduce((sum, period) => 
+            sum + (Object.values(historicalData[period] || {}).reduce((a, b) => a + b, 0)), 0
+        ) / Math.max(1, lastThreePeriods.length);
+        let trend = historicalTotal > avgHistoricalTotal ? "focus" :
+                    historicalTotal < avgHistoricalTotal ? "decline" : "stable";
+        let forecastChanges = Object.keys(forecastTotals).map(group => {
+            let historicalAvg = Object.values(historicalData)
+                .reduce((sum, data) => sum + (data[group] || 0), 0) / Math.max(1, Object.keys(historicalData).length);
+            let forecastValue = forecastTotals[group] || 0;
+            let percentageChange = historicalAvg > 0 ? (((forecastValue - historicalAvg) / historicalAvg * 1000) / 100) .toFixed(2) : "N/A";
     
-        // Predict next month's data (if necessary)
-        let lastDate = forecastArray.length > 0 ? forecastArray[forecastArray.length - 1].x : new Date();
-        let nextMonth = new Date(lastDate);
-        nextMonth.setMonth(nextMonth.getMonth() + 1);
+            return { group, change: forecastValue - historicalAvg, forecastValue, percentageChange };
+        }).sort((a, b) => b.change - a.change);
     
-        // Adding prediction for the next month
-        const nextMonthKey = `${nextMonth.getFullYear()}-${nextMonth.getMonth() + 1}`;
-        forecastArray.push({ x: nextMonth, y: movingAvg });
+        // let sortedHistoricalGroups = Object.entries(lastHistoricalTotals)
+        //     .filter(([_, count]) => count > 0)
+        //     .sort((a, b) => b[1] - a[1]);
     
-        // Render the forecast chart
-        const forecastChart = new CanvasJS.Chart("forecast_chart", {
-            animationEnabled: true,
-            title: { text: "Deworming Forecast (Next Month Projection)" },
-            axisX: { 
-                valueFormatString: "MMM YYYY", 
-                title: "Month", 
-                interval: 1, 
-                intervalType: "month"
-            },
-            axisY: { title: "Counts", includeZero: false },
-            data: [{
-                type: "line",
-                markerSize: 10,
-                toolTipContent: "{x}: {y}",
-                dataPoints: forecastArray
-            }, {
-                type: "line",
-                markerSize: 10,
-                toolTipContent: "{x}: {y} (Prediction)",
-                dataPoints: forecastArray.filter(point => point.y !== null),  // Display only actual data points
-                lineDashType: "dash", // Make prediction line dashed
-                showInLegend: true,
-                name: "Prediction"
-            }]
-        });
+        // let sortedForecastGroups = Object.entries(forecastTotals)
+        //     .filter(([_, count]) => count > 0)
+        //     .sort((a, b) => b[1] - a[1]);
     
-        // Call function for insights
-        generateForecastInsights(historicalData, forecastArray, movingAvg);
+        // let topHistoricalGroup = sortedHistoricalGroups.length > 0 ? sortedHistoricalGroups[0][0] : "No data";
+        // let topForecastGroup = sortedForecastGroups.length > 0 ? sortedForecastGroups[0][0] : "No data";
+
+
+        // - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastChanges[0]?.forecastValue}</strong> deworming service.<br>
     
-        // Render the chart
-        forecastChart.render();
+        let insightText = `
+            <strong>Key Insights (${lastHistoricalMonth}):</strong><br>
+            - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastChanges[0]?.forecastValue}</strong> deworming service.<br>
+            - Current total deworming beneficiaries: <strong>${historicalTotal}</strong> (previously <strong>${prevHistoricalTotal}</strong>, showing <span style="color:${trend === "focus" ? "green" : trend === "decline" ? "red" : "gray"};">${trend}</span>).<br>
+            - Top historical age group: <strong>${forecastChanges[0]?.group || "N/A"}</strong>.<br>
+            - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${Object.values(forecastTotals).reduce((sum, count) => sum + (count || 0), 0)}</strong> deworming service.<br>
+            - Strongest service: <strong>${forecastChanges[0]?.group || "N/A"}</strong> (<span style="color:green;">${forecastChanges[0]?.percentageChange || "N/A"}%</span>).<br>
+            - Weakest service: <strong>${forecastChanges[forecastChanges.length - 1]?.group || "N/A"}</strong> (<span style="color:red;">${forecastChanges[forecastChanges.length - 1]?.percentageChange || "N/A"}%</span>).<br>
+            - <em>Upcoming focus should be on <strong>${forecastChanges[forecastChanges.length - 1]?.group || "N/A"}</strong> for better deworming planning.</em>
+        `;
+        forecastInsightContainer.innerHTML = insightText;
     }
     
-
+    function createForecastChart(historicalDewormingData, forecastedDewormingData) {
+        let ageGroups = ["12-23 months", "24-59 months", "5-9 years", "10-19 years"];
+        let dataSeries = {};
+        let currentYear = new Date().getFullYear();
+        let currentYearMonth = `${currentYear}-${new Date().getMonth() < 6 ? "01" : "07"}`;
+        let startYear = 2023;
+        let endYear = 2027;
+        let months = [];
+        for (let year = startYear; year <= endYear; year++) {
+            months.push(`${year}-01`, `${year}-07`);
+        }
+        ageGroups.forEach(group => {
+            let seriesData = [];
+            months.forEach(month => {
+                let isForecast = month >= currentYearMonth;
+                let value = historicalDewormingData[month]?.[group] || forecastedDewormingData[month]?.[group] || 0;
+                // Estimate missing forecast values using previous data
+                if (isForecast && value === 0) {
+                    let prevValues = Object.values(historicalDewormingData)
+                        .map(data => data[group])
+                        .filter(v => v !== null && v !== undefined);
     
+                    if (prevValues.length > 0) {
+                        let avgValue = prevValues.reduce((a, b) => a + b, 0) / prevValues.length;
+                        value = Math.round(avgValue * (0.9 + Math.random() * 0.2)); // Adds slight smoothing variation
+                    }
+                }
+                seriesData.push({
+                    label: month,
+                    y: value,
+                    lineDashType: isForecast ? "dash" : "solid",
+                    indexLabelFontSize: 12,
+                    indexLabelFontWeight: "bold",
+                    indexLabelPlacement: "outside"
+                });
+            });
     
-
-
+            dataSeries[group] = seriesData;
+        });
+    
+        let chart = new CanvasJS.Chart("forecast_chart", {
+            animationEnabled: true,
+            theme: "light2",
+            title: { text: "Deworming Forecast" },
+            axisX: {
+                title: "Month-Year",
+                labelAngle: -45,
+                interval: 1,
+                labelFormatter: function (e) {
+                    return e.label;
+                }
+            },
+            axisY: { title: "Count", minimum: 0 },
+            toolTip: { shared: true },
+            legend: { cursor: "pointer" },
+            data: ageGroups.map(group => ({
+                type: "line",
+                showInLegend: true,
+                name: group,
+                markerSize: 5,
+                dataPoints: dataSeries[group]
+            }))
+        });
+    
+        chart.render();
+    }
+    
     let url = window.userType === '0' ? '/admin/get_dashboard_info' : '/admin-midwife/get_dashboard_info';
     function reqData(selectedYear) {
         $.ajax({
@@ -469,8 +392,18 @@ function displayChildChart(year = null) {
             data: { year: selectedYear },
             success: function (res) {
                 createChart(selectedYear, res.dewormingAgeRanges);
-                createForecastChart(res.historicalDewormingData);
-                console.log('historicalDewormingData', res.historicalDewormingData);
+                const btn = document.getElementById('showForecastChartBtn');
+                const card_forecast = document.getElementById('card-forecast');
+                const hideBtn = document.getElementById('hideForecastChartBtn');
+                btn.addEventListener('click', function() {
+                    card_forecast.style.visibility = 'visible';  
+                    createForecastChart(res.historicalDewormingData, res.forecastedDewormingData);
+                    generateForecastInsights(res);
+                    console.log('historicalDewormingData and forecastedDewormingData', res.historicalDewormingData, res.forecastedDewormingData);
+                });
+                hideBtn.addEventListener('click', function() {
+                    card_forecast.style.visibility = 'hidden';  
+                });
             },
             error: function () {
                 console.error("Failed to fetch data.");
@@ -483,7 +416,6 @@ function displayChildChart(year = null) {
     reqData(currentYear);
     sendYear.addEventListener("change", (e) => reqData(e.target.value));
 }
-
 
 $(document).ready(function () {
     const yearSelect = new yearFilter();

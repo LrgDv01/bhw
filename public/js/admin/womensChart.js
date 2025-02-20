@@ -46,6 +46,7 @@ function displayWomenChart(year = null) {
                         display: true,
                         text: `Women in Reproductive Ages by Year (${year})`,
                         font: { size: 24 },
+                        color: 'black'
                     },
                     zoom: {
                         pan: { enabled: true, mode: 'xy' },
@@ -53,8 +54,8 @@ function displayWomenChart(year = null) {
                     },
                 },
                 scales: {
-                    x: { title: { display: true, text: 'Months', font: { size: 16 } }, stacked: false },
-                    y: { title: { display: true, text: 'Counts', font: { size: 16 } }, beginAtZero: true, stacked: false }
+                    x: { title: { display: true, text: 'Month', font: { size: 16 } }, stacked: false },
+                    y: { title: { display: true, text: 'Count', font: { size: 16 } }, beginAtZero: true, stacked: false }
                 },
             },
         });

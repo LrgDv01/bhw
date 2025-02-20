@@ -203,9 +203,9 @@
                             <div class="d-flex justify-content-end">
                                 <button id="hideForecastChartBtn" class="btn-close"></button>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div id="forecast_insight_container" class="p-3 pe-4 rounded" style="background-color:#d1dee7; height: 300px; width:60%;"></div> 
-                                <div id="forecast_chart" style="height: 350px; width: 50%;"></div> 
+                            <div class="d-flex flex-column align-items-center">
+                                <div id="forecast_chart" class="mb-3" style="height: 350px; width: 90%;"></div> 
+                                <div id="forecast_insight_container" class="p-3 pe-4 rounded" style="background-color:#d1dee7; height: auto; width:100%;"></div> 
                             </div>
                         </div>
                     </div>
@@ -217,16 +217,6 @@
 @include('admin.partials.__footer')
 <script>
     window.userType = @json(auth()->user()->user_type);
-
-    const btn = document.getElementById('showForecastChartBtn');
     const card_forecast = document.getElementById('card-forecast');
-    const hideBtn = document.getElementById('hideForecastChartBtn');
-    card_forecast.style.display = 'none';
-    btn.addEventListener('click', function() {
-        card_forecast.style.display = 'block';
-    });
-    hideBtn.addEventListener('click', function() {
-        card_forecast.style.display = 'none';
-    });
-
+    card_forecast.style.visibility = 'hidden'; 
 </script>
