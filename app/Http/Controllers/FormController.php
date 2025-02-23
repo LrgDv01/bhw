@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BhwForm;
 use App\Models\ChildCensus;
-use App\Models\FamilyMember;
+use App\Models\MotherCensus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +13,7 @@ class FormController extends Controller
     
     public function showForm()
     {
-        return view('bhw.pages.services'); 
+        return view('bhw.pages.mcensus'); 
     }
 
     public function saveForm(Request $request)
@@ -48,28 +48,28 @@ class FormController extends Controller
         ]);
 
         // Ensure the correct model is used
-        FamilyMember::create($request->all());
+        MotherCensus::create($request->all());
 
-        return redirect()->route('bhw.services')->with('success', 'Record added successfully.');
+        return redirect()->route('bhw.mother-census')->with('success', 'Record added successfully.');
     }
 
 
     // Add this method to your FormController
     public function showList()
     {
-        $familyMembers = FamilyMember::all();  // Fetch all family members from the database
+        $familyMembers = MotherCensus::all();  // Fetch all family members from the database
         $childs = ChildCensus::all();
         return view('bhw.pages.list', compact('familyMembers','childs'));  // Pass the family members to the view
     }
     
     public function viewData($id)
     {
-        $familyMember = FamilyMember::findOrFail($id);  // Find the family member by ID
+        $familyMember = MotherCensus::findOrFail($id);  // Find the family member by ID
         return view('bhw.pages.viewData', compact('familyMember'));  // Pass the data to the view
     }
     public function destroy($id)
     {
-        $familyMember = FamilyMember::find($id);
+        $familyMember = MotherCensus::find($id);
 
         if ($familyMember) {
             $familyMember->delete();

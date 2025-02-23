@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 use App\Models\admin\MapModel;
-use App\Models\Dewormings;
-use App\Models\Women;
-use App\Models\FamilyMember;
+use App\Models\Deworming;
+use App\Models\WreproductiveAge;
+use App\Models\MotherCensus;
 use App\Models\ChildCensus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -182,129 +182,134 @@ class MapModelSeeder extends Seeder
 
         $dewormings = [
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "12 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
-                'age' => "12 months",
-            ],
-            [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "15 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "15 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "15 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "23 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "24 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
-                'age' => "24 months",
-            ],
-            [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "27 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "40 months",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "5 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "7 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "9 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "10 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "12 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "17 years",
+                'gender' => 'male'
             ],
             [
-                'name' => "john",
-                'age' => "17 years",
-            ],
-            [
-                'name' => "john",
+                'full_name' => "john Daron Salvuena",
                 'age' => "12 years",
+                'gender' => 'male'
             ],
         ];
 
         foreach ($dewormings as $d) {
-            Dewormings::create([
-                'name' => $d['name'],
-                'age' => $d['age']
+            Deworming::create([
+                'full_name' => $d['full_name'],
+                'age' => $d['age'],
+                'gender' => $d['gender']
             ]);
         }
 
         $womens = [
             [
                 'name' => "Jane",
-                'age' => "12",
+                'birthday' => "2011-05-15",
+                'age' => 15,
+                'status' => "Single",
+                'fp_used' => "None",
+                'address' => "123 Main St",
+                'nhts' => "None"
             ],
             [
                 'name' => "Jane",
-                'age' => "14",
+                'birthday' => "2009-08-20",
+                'age' => 15,
+                'status' => "Single",
+                'fp_used' => "None",
+                'address' => "123 Main St",
+                'nhts' => "None"
             ],
             [
                 'name' => "Jane",
-                'age' => "15",
+                'birthday' => "2008-03-10",
+                'age' => 15,
+                'status' => "Single",
+                'fp_used' => "None",
+                'address' => "123 Main St",
+                'nhts' => "None"
             ],
-            [
-                'name' => "Jane",
-                'age' => "17",
-            ],
-            [
-                'name' => "Jane",
-                'age' => "20",
-            ],
-            [
-                'name' => "Jane",
-                'age' => "23",
-            ],
-            [
-                'name' => "Jane",
-                'age' => "30",
-            ],
-            [
-                'name' => "Jane",
-                'age' => "33",
-            ],
+            
         ];
-
+        
         foreach ($womens as $w) {
-            Women::create([
+            WreproductiveAge::create([
                 'name' => $w['name'],
-                'age' => $w['age']
+                'birthday' => $w['birthday'],
+                'age' => $w['age'],
+                'status' => $w['status'],
+                'fp_used' => $w['fp_used'],
+                'address' => $w['address'],
+                'nhts' => $w['nhts']
             ]);
         }
 
-        $womensData = [
+        $mother_census = [
             [
                 'house_no' => '102',
                 'first_name' => 'Anna',
@@ -388,33 +393,33 @@ class MapModelSeeder extends Seeder
             ],
         ];
         
-        foreach ($womensData as $womens) {
-            FamilyMember::create([
-                'house_no' => $womens['house_no'],
-                'first_name' => $womens['first_name'],
-                'middle_name' => $womens['middle_name'],
-                'last_name' => $womens['last_name'],
-                'role_in_family' => $womens['role_in_family'], 
-                'age' => $womens['age'],
-                'date_of_birth' => $womens['date_of_birth'], 
-                'senior_citizen' => $womens['senior_citizen'], 
-                'next_midwife_visit' => $womens['next_midwife_visit'],
-                'next_clinic_visit' => $womens['next_clinic_visit'], 
-                'civil_status' => $womens['civil_status'],
-                'registered_voter' => $womens['registered_voter'], 
-                'four_ps_member' => $womens['four_ps_member'], 
-                'months_pregnant' => $womens['months_pregnant'], 
-                'next_checkup' => $womens['next_checkup'],
-                'family_planning' => $womens['family_planning'],
-                'own_toilet' => $womens['own_toilet'],
-                'birth_plan' => $womens['birth_plan'],
-                'clean_water_source' => $womens['clean_water_source'], 
-                'hypertension_experience' => $womens['hypertension_experience'], 
-                'pregnant' => $womens['pregnant'], 
-                'tb_symptoms' => $womens['tb_symptoms'], 
-                'sputum_test' => $womens['sputum_test'],
-                'sputum_result' => $womens['sputum_result'],
-                'tb_treatment_partner' => $womens['tb_treatment_partner'],
+        foreach ($mother_census as $ms) {
+            MotherCensus::create([
+                'house_no' => $ms['house_no'],
+                'first_name' => $ms['first_name'],
+                'middle_name' => $ms['middle_name'],
+                'last_name' => $ms['last_name'],
+                'role_in_family' => $ms['role_in_family'], 
+                'age' => $ms['age'],
+                'date_of_birth' => $ms['date_of_birth'], 
+                'senior_citizen' => $ms['senior_citizen'], 
+                'next_midwife_visit' => $ms['next_midwife_visit'],
+                'next_clinic_visit' => $ms['next_clinic_visit'], 
+                'civil_status' => $ms['civil_status'],
+                'registered_voter' => $ms['registered_voter'], 
+                'four_ps_member' => $ms['four_ps_member'], 
+                'months_pregnant' => $ms['months_pregnant'], 
+                'next_checkup' => $ms['next_checkup'],
+                'family_planning' => $ms['family_planning'],
+                'own_toilet' => $ms['own_toilet'],
+                'birth_plan' => $ms['birth_plan'],
+                'clean_water_source' => $ms['clean_water_source'], 
+                'hypertension_experience' => $ms['hypertension_experience'], 
+                'pregnant' => $ms['pregnant'], 
+                'tb_symptoms' => $ms['tb_symptoms'], 
+                'sputum_test' => $ms['sputum_test'],
+                'sputum_result' => $ms['sputum_result'],
+                'tb_treatment_partner' => $ms['tb_treatment_partner'],
             ]);
         }
 

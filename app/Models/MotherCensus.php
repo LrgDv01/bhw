@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FamilyMember extends Model
+class MotherCensus extends Model
 {
     use HasFactory;
 
-    protected $table = 'family_members'; // Ensure table name matches your database
+    protected $table = 'mother_census'; // Ensure table name matches your database
 
     protected $fillable = [
         'house_no', 'first_name', 'middle_name', 'last_name', 'role_in_family', 

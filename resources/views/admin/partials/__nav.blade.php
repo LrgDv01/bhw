@@ -5,7 +5,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <a href="{{ url('/admin/dashboard') }}" class="logo d-flex align-items-center justify-content-center">
       <img src="{{ URL::asset('img/bhw-logo.png') }}" alt="app-logo">
-      <span class="d-none d-lg-block fs-5">{{ auth()->user()->isSuperAdmin() ? "BHW President" : "BHW Midwife" }}</span>
+      <span class="d-none d-lg-block">{{ auth()->user()->isSuperAdmin() ? "BHW President" : (auth()->user()->isAdmin() ?  "BHW Midwife" : "BHW")}}</span>
     </a>
     <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
@@ -22,12 +22,14 @@
           </a>
           <a class="nav-link bg-transparent border border-0 text-dark nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ Auth::user()->profile_img != '' ? asset('storage/'.Auth::user()->profile_img) : URL::asset('img/admin-profile.png') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Admin" }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->isSuperAdmin() ? "Super Admin" 
+                       : (auth()->user()->isAdmin() ?  "Admin" : Auth::user()->username )}}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</h6>
               <span>{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Admin" }}</span>
+              
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -81,7 +83,7 @@
 
 </header>
 
-<style>
+{{-- <style>
   .nav-link.active  {
     background-color: #f8f3f2; 
     color: #a6a6a6; 
@@ -112,10 +114,151 @@
     }
   }
 
-</style>
+  .nav-item .nav-link[aria-expanded="true"] i.bi-chevron-down {
+    color: #f8f3f2; 
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+  
+  } 
+  .nav-item .nav-link[aria-expanded=""] i.bi-chevron-down {
+    color: #f8f3f2; 
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
 
-<aside id="sidebar" class="sidebar d-flex flex-column justify-content-between px-0" style="background-color:#a6a6a6">
+
+  .nav-content {
+    background-color: transparent; /* Light gray background for sub-menu */
+    padding-left: 10px;
+    border-left: 3px solid #a6a6a6; /* Adds a left border to distinguish it */
+  }
+
+  .nav-content a {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: white !important; /* Dark text for visibility */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-content a:hover {
+    background-color: gray; /* Slightly lighter shade for hover */
+    color: #000;
+  }
+
+  .nav-content a.active {
+    background-color: #bfbfbf; /* Active item color */
+    color: #000;
+    font-weight: bold;
+  }
+
+  .nav-content a.active i {
+    color: #000;
+  }
+
+</style> --}}
+
+<style>
+  .nav-item .nav-link.active {
+    background-color: #f8f3f2;
+    color: #a6a6a6;
+    font-weight: bold;
+  }
+
+  .nav-item .nav-link.active .bi,
+  .nav-item .nav-link.active:hover,
+  .nav-item .nav-link.active:hover .bi {
+    color: #a6a6a6;
+  }
+
+  .nav-item .nav-link.inactive {
+    background-color: transparent;
+    color: #f8f3f2;
+  }
+
+  .nav-item .nav-link.inactive .bi,
+  .nav-item .nav-link.inactive:hover .bi {
+    color: #f8f3f2;
+  }
+
+  .nav-item .nav-link.inactive:hover {
+    background-color: gray;
+    color: #f8f3f2;
+  }
+
+
+  /* Dropdown Indicator */
+  .nav-item .nav-link i.bi-chevron-down {
+    transition: transform 0.5s ease;
+  }
+
+  .nav-item .nav-link[aria-expanded="true"] i.bi-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .nav-item .nav-link[aria-expanded="false"] i.bi-chevron-down {
+    transform: rotate(0deg);
+  }
+
+  /* Collapse Transition for Expanding and Closing */
+  .nav-content.collapse {
+      transition: height 1s ease !important; 
+      overflow: hidden; 
+    }
+
+  .nav-content.collapsing {
+    transition: height 1s ease !important;
+    overflow: hidden;
+  }
+
+  .nav-content.collapse.show {
+    transition: height 3s ease !important; 
+    overflow: hidden;
+  }
+
+  /* Sidebar Styling */
+  .sidebar {
+    background-color: #a6a6a6;
+  }
+
+  .nav-content {
+    background-color: transparent; 
+    padding-left: 10px;
+    border-left: 3px solid #a6a6a6;
+  }
+
+  .nav-content a {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-content a:hover {
+    background-color: gray; 
+    color: #000;
+  }
+
+  .nav-content a.active {
+    background-color: #bfbfbf; 
+    color: #000;
+    font-weight: bold;
+  }
+
+  .nav-content a.active i {
+    color: #000;
+  }
+
+</style> 
+
+<aside id="sidebar" class="sidebar d-flex flex-column justify-content-between" style="background-color:#a6a6a6">
   <ul class="sidebar-nav flex-column" id="sidebar-nav">
+    
     @if (auth()->user())
         @if (auth()->user()->isSuperAdmin())
             <li class="nav-item">
@@ -174,6 +317,103 @@
               </a>
             </div>
         @endif
+        @if (auth()->user()->isBHW())
+          @php
+            $isServiceActive = Request::is(
+                'bhw/services', 'bhw/census-form', 'bhw/mother-census', 
+                'deworming', 'familyplanning', 'wreproductiveage', 
+                'bhw/child'
+            );
+          @endphp
+          <li class="nav-item">
+            <a class="nav-link border-0 {{ Request::is('bhw/dashboard') ? 'active' : 'inactive' }}" 
+                href="{{ route('bhw.dashboard') }}">
+                <i class="bi bi-grid-fill"></i>
+                <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link border-0 {{ $isServiceActive ? 'active' : 'inactive' }}"
+                  data-bs-toggle="collapse" 
+                  href="#services-nav" 
+                  aria-expanded="{{ $isServiceActive ? 'true' : 'false' }}" 
+                  aria-controls="services-nav">
+                  <i class="bi bi-briefcase"></i>
+                  <span>My Services</span>
+                  <i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              
+              <ul id="services-nav" class="nav-content collapse {{ $isServiceActive ? 'show' : '' }}" 
+                  data-bs-parent="#sidebar-nav">
+                  <li>
+                      <a href="{{ route('bhw.census-form') }}" class="{{ Request::is('bhw/census-form') ? 'active' : '' }}">
+                          <span>- Census</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{{ route('bhw.mother-census') }}" class="{{ Request::is('bhw/mother-census') ? 'active' : '' }}">
+                          <span>- Maternal Care</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="{{ route('bhw.deworming.index') }}" class="{{ Request::is('deworming') ? 'active' : '' }}">
+              
+                          <span>- Deworming</span>
+                      </a>
+                  </li>
+                  
+                  <li>
+                      <a href="{{ route('bhw.familyplanning') }}" class="{{ Request::is('familyplanning') ? 'active' : '' }}">
+                    
+                          <span>- Family Planning</span>
+                      </a>
+                  </li>
+                  
+                  <li>
+                      <a href="{{ route('bhw.wreproductiveage.index') }}" class="{{ Request::is('wreproductiveage') ? 'active' : '' }}">
+                        
+                          <span>- Woman in Reproductive Age</span>
+                      </a>
+                  </li>
+                  
+                  <li>
+                      <a href="{{ route('bhw.child') }}" class="{{ Request::is('bhw/child') ? 'active' : '' }}">
+            
+                          <span>- Immunization</span>
+                      </a>
+                  </li>
+                  
+              
+                  
+                  <li>
+                      <a href="{{ route('bhw.deworming.index') }}" class="{{ Request::is('bhw/deworming') ? 'active' : '' }}">
+                          {{-- <i class="bi bi-person-workspace fs-6"></i> --}}
+                          <span>- Overall Monthly Report</span>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+
+          <!-- List -->
+          <li class="nav-item">
+              <a class="nav-link border-0 {{ Request::is('bhw/list') ? 'active' : 'inactive' }}" 
+                  href="{{ route('bhw.pages.list') }}">
+                  <i class="bi bi-list-ul"></i>
+                  <span>List</span>
+              </a>
+          </li>
+
+          <!-- Schedule -->
+          <li class="nav-item">
+              <a class="nav-link border-0 {{ Request::is('bhw/schedule', 'bhw/duty') ? 'active' : 'inactive' }}" 
+                  href="{{ route('bhw.schedule') }}">
+                  <i class="bi bi-calendar-check"></i>
+                  <span>Schedule</span>
+              </a>
+          </li>
+
+        @endif
     @endif
   </ul>
 
@@ -221,60 +461,4 @@
     submitButton.innerHTML = 'Logging out ...'; 
   }
 </script> 
-
-
-
-<div
-  class="modal fade"
-  id="forgotpasswordmodal"
-  tabindex="-1"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  
-  role="dialog"
-  aria-labelledby="forgotpasswordTitle"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-    role="document"
-  >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="forgotpasswordTitle">
-          Forgot Password?
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form class="row" id="changepasswordform">
-          {{--<div class="col-lg-12 mb-3">
-              @csrf <!-- Add CSRF token field -->
-      
-              <div class="col-lg-12 mb-3">
-                  <label for="old_password" class="form-label">Old Password</label>
-                  <input type="password" class="form-control" id="old_password_input" name="old_password" required>
-              </div>
-          
-              <div class="col-lg-12 mb-3">
-                  <label for="new_password" class="form-label">New Password</label>
-                  <input type="password" class="form-control" id="new_password_input" name="password" required>
-              </div>
-          
-              <div class="col-lg-12 mb-3">
-                  <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                  <input type="password" class="form-control" id="password_confirmation_input" name="password_confirmation" required>
-              </div>
-          </div>
-          <div class="text-end"><button type="submit" class="btn btn-success px-4">Change password</button></div>--}}
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 

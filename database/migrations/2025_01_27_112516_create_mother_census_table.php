@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFamilyMembersTable extends Migration
+class CreateMotherCensusTable extends Migration
 {
     public function up()
     {
-        Schema::create('family_members', function (Blueprint $table) {
+        Schema::create('mother_census', function (Blueprint $table) {
             $table->id(); 
             $table->integer('house_no');
             $table->string('first_name'); 
@@ -38,8 +38,12 @@ class CreateFamilyMembersTable extends Migration
             $table->timestamps();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
-        Schema::dropIfExists('family_members');
+        Schema::dropIfExists('mother_census');
     }
 }

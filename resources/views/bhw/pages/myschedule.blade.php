@@ -1,5 +1,5 @@
 @include('bhw.partials.__header')
-@include('bhw.partials.__nav')
+@include('admin.partials.__nav')
 
 <main id="main" class="main">
     <div class="pagetitle mb-5">
@@ -94,5 +94,4 @@
 
 @include('bhw.partials.__footer')
 
-<!-- Bootstrap JS (Ensure Bootstrap is included in your layout) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+

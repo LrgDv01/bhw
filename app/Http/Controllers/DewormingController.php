@@ -9,7 +9,8 @@ class DewormingController extends Controller
 {
     public function index()
     {
-        $records = Deworming::all();
+        // $records = Deworming::all();
+        $records = Deworming::paginate(12); // Adjust the number (10) as needed
         return view('bhw.pages.deworming', compact('records'));
     }
 
@@ -20,14 +21,20 @@ class DewormingController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->full_name, $request->ageUnit, $request->gender, $request->age);
+        $ageString = (string)$request->age;
+        $fullAge = $ageString . ' ' . $request->ageUnit;
+        // dd(gettype($fullAge));
+        $request->merge(['age' => $fullAge]);
         $request->validate([
             'full_name' => 'required|string|max:255',
-            'age' => 'required|integer|min:0',
+            'age'=> 'required|string|max:255',
             'gender' => 'required|in:Male,Female',
         ]);
 
         Deworming::create($request->all());
-
+        // return view('bhw.pages.Deworming');
+        // return response()->json($request->full_name);
         return redirect()->route('bhw.deworming.index')->with('success', 'Record added successfully!');
     }
 

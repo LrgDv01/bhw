@@ -24,8 +24,10 @@ class WreproductiveAgeController extends Controller
             'name' => 'required|string',
             'birthday' => 'required|date',
             'age' => 'required|integer',
+            'status' => 'required|string',
             'fp_used' => 'required|string',
             'address' => 'required|string',
+            'nhts' => 'required|string',
         ]);
 
         WreproductiveAge::create($request->all());

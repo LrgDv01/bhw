@@ -52,7 +52,7 @@ class AuthController extends Controller
           $redirectRoute = $user->isSuperAdmin()
             ? route('admin.dashboard'): ($user->isAdmin() 
             ? route('admin.midwife.dashboard')
-            : route('bhw.services'));
+            : route('bhw.dashboard'));
           return response()->json(['message' => 'Login successful', 'user' => $user, 'redirect' => $redirectRoute], 200);
         } else {
           $request->session()->flash('email', $request->input('email'));
@@ -139,7 +139,7 @@ class AuthController extends Controller
       $redirectRoute = $user->isSuperAdmin()
         ? route('admin.dashboard'): ($user->isAdmin() 
         ? route('admin.midwife.dashboard')
-        : route('bhw.services'));
+        : route('bhw.dashboard'));
       return response()->json([
         'success' => true, 
         'message' => 'Password has been reset and you are now logged in.', 

@@ -1,16 +1,14 @@
 @include('bhw.partials.__header')
-@include('bhw.partials.__nav')
+@include('admin.partials.__nav')
 
-@extends('layouts.app')
 
-@section('content')
 <main id="main" class="main">
-    <div class="pagetitle text-center mb-4">
+    <div class="pagetitle mb-4">
         <h1 class="fw-bold">Child Census</h1>
     </div>
     
     <div class="text-center mb-3">
-        <a href="{{ route('bhw.services') }}" class="btn btn-outline-primary">
+        <a href="{{ route('bhw.mother-census') }}" class="btn btn-outline-primary">
             &larr; Go to Pregnancy Census
         </a>
     </div>
@@ -20,7 +18,6 @@
             <div class="card shadow-lg p-4">
                 <form action="{{ route('child.census.store') }}" method="POST">
                     @csrf
-
                     <div class="mb-3">
                         <label for="house_number" class="form-label fw-bold">No. of House</label>
                         <input type="text" class="form-control" id="house_number" name="house_number" required>
@@ -90,6 +87,6 @@
         </div>
     </section>
 </main>
-@endsection
+
 
 @include('bhw.partials.__footer')

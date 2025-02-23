@@ -15,7 +15,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  background: #f8f3f2;
   color: #444444;
   
 }
@@ -67,7 +67,7 @@ h6 {
   margin-top: 60px;
   padding: 20px 30px;
   transition: all 0.3s;
-  background-color: #f8f3f2
+  background-color: #f8f3f2;
 }
 
 @media (max-width: 1199px) {

@@ -9,5 +9,10 @@ class Deworming extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['full_name', 'age', 'gender'];
+    protected $table = 'dewormings';
+    protected $fillable = [
+        'full_name',
+        'age',
+        'gender'
+    ];
 }

@@ -1,4 +1,4 @@
-import { yearFilter } from "./utils/filter.js";
+import { yearFilter } from "./admin/utils/filter.js";
 
 function displayWomenChart(year = null) {
     const currentYear = new Date().getFullYear();

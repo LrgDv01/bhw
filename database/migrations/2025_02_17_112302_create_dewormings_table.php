@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('dewormings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('full_name');
             $table->string('age');
+            $table->string('gender');
             $table->timestamps();
         });
     }

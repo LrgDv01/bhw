@@ -1,11 +1,14 @@
 $(document).ready(function () {
-  let url = '';
-  if (window.userType === '0') {
-      url = '/admin/get_dashboard_info';
-  } 
-  else if (window.userType === '1') {
-      url = '/admin-midwife/get_dashboard_info';
-  }
+  // let url = '';
+  // if (window.userType === '0') {
+  //     url = '/admin/get_dashboard_info';
+  // } 
+  // else if (window.userType === '1') {
+  //     url = '/admin-midwife/get_dashboard_info';
+  // }
+  let url = window.userType === '0' ? '/admin/get_dashboard_info' 
+          : window.userType === '1' ? '/admin-midwife/get_dashboard_info' 
+          : '/bhw/get_dashboard_info';
   $.ajax({
     method: "GET",
     url: url,

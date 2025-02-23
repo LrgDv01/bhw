@@ -1,7 +1,6 @@
 @include('admin.partials.__header')
 @include('admin.partials.__nav')
 
-
 <style>
     .card {
         background-color:grey;
@@ -197,14 +196,14 @@
                         </div>
                     </div>
                 </div>
-                <div id="card-forecast" class="row" style="position: fixed; top: 20%; z-index: 995; right:0; left:20%; height:auto; width:70%;">
+                <div id="card-forecast" class="row" style="position: fixed; top: 20%; z-index: 995; right:0; left:20%; height:auto; width:60%;">
                     <div class="card forecast">
                         <div class="card-body">
                             <div class="d-flex justify-content-end">
                                 <button id="hideForecastChartBtn" class="btn-close"></button>
                             </div>
                             <div class="d-flex flex-column align-items-center">
-                                <div id="forecast_chart" class="mb-3" style="height: 350px; width: 90%;"></div> 
+                                <div id="forecast_chart" class="mb-3" style="height: 300px; width: 90%;"></div> 
                                 <div id="forecast_insight_container" class="p-3 pe-4 rounded" style="background-color:#d1dee7; height: auto; width:100%;"></div> 
                             </div>
                         </div>

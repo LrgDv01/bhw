@@ -1,5 +1,5 @@
 @include('bhw.partials.__header')
-@include('bhw.partials.__nav')
+@include('admin.partials.__nav')
 <main id="main" class="main">
     <div class="pagetitle mb-5">
         <h1 class="fs-3"><strong>Settings</strong></h1>

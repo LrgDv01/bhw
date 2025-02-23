@@ -259,26 +259,21 @@ function displayChildChart(year = null) {
         }
         let currentDate = new Date();
         let currentYearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1 <= 6 ? "01" : "07"}`;
-    
         const isValidPeriod = (period) => /^\d{4}-\d{2}$/.test(period);
         let allMonths = [...Object.keys(historicalData), ...Object.keys(forecastData)]
             .filter(isValidPeriod)
             .sort();
-    
         let lastHistoricalMonth = allMonths.filter(month => month <= currentYearMonth).pop() || allMonths[0];
         let nextForecastMonth = allMonths.find(month => month > currentYearMonth) || allMonths[allMonths.length - 1];
-        console.log('nextForecastMonth', nextForecastMonth);
         let lastHistoricalTotals = historicalData[lastHistoricalMonth] || {};
         let forecastTotals = forecastData[nextForecastMonth] || {};
-        console.log('forecastTotals', forecastTotals);
         let historicalTotal = Object.values(lastHistoricalTotals).reduce((sum, count) => sum + (count || 0), 0);
         let prevHistoricalMonth = allMonths.filter(month => month < lastHistoricalMonth).pop() || null;
         let prevHistoricalTotal = prevHistoricalMonth ? 
             Object.values(historicalData[prevHistoricalMonth] || {}).reduce((sum, count) => sum + (count || 0), 0) : 0;
         let lastThreePeriods = allMonths.slice(-3);
         let avgHistoricalTotal = lastThreePeriods.reduce((sum, period) => 
-            sum + (Object.values(historicalData[period] || {}).reduce((a, b) => a + b, 0)), 0
-        ) / Math.max(1, lastThreePeriods.length);
+            sum + (Object.values(historicalData[period] || {}).reduce((a, b) => a + b, 0)), 0) / Math.max(1, lastThreePeriods.length);
         let trend = historicalTotal > avgHistoricalTotal ? "focus" :
                     historicalTotal < avgHistoricalTotal ? "decline" : "stable";
         let forecastChanges = Object.keys(forecastTotals).map(group => {
@@ -286,7 +281,6 @@ function displayChildChart(year = null) {
                 .reduce((sum, data) => sum + (data[group] || 0), 0) / Math.max(1, Object.keys(historicalData).length);
             let forecastValue = forecastTotals[group] || 0;
             let percentageChange = historicalAvg > 0 ? (((forecastValue - historicalAvg) / historicalAvg * 1000) / 100) .toFixed(2) : "N/A";
-    
             return { group, change: forecastValue - historicalAvg, forecastValue, percentageChange };
         }).sort((a, b) => b.change - a.change);
     
@@ -301,13 +295,11 @@ function displayChildChart(year = null) {
         // let topHistoricalGroup = sortedHistoricalGroups.length > 0 ? sortedHistoricalGroups[0][0] : "No data";
         // let topForecastGroup = sortedForecastGroups.length > 0 ? sortedForecastGroups[0][0] : "No data";
 
-
         // - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastChanges[0]?.forecastValue}</strong> deworming service.<br>
     
         let insightText = `
             <strong>Key Insights (${lastHistoricalMonth}):</strong><br>
-            - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${forecastChanges[0]?.forecastValue}</strong> deworming service.<br>
-            - Current total deworming beneficiaries: <strong>${historicalTotal}</strong> (previously <strong>${prevHistoricalTotal}</strong>, showing <span style="color:${trend === "focus" ? "green" : trend === "decline" ? "red" : "gray"};">${trend}</span>).<br>
+            - Total current deworming beneficiaries: <strong>${historicalTotal}</strong> (previously <strong>${prevHistoricalTotal}</strong>, showing <span style="color:${trend === "focus" ? "green" : trend === "decline" ? "red" : "gray"};">${trend}</span>).<br>
             - Top historical age group: <strong>${forecastChanges[0]?.group || "N/A"}</strong>.<br>
             - Forecast for <strong>${nextForecastMonth}</strong>: Expected <strong>${Object.values(forecastTotals).reduce((sum, count) => sum + (count || 0), 0)}</strong> deworming service.<br>
             - Strongest service: <strong>${forecastChanges[0]?.group || "N/A"}</strong> (<span style="color:green;">${forecastChanges[0]?.percentageChange || "N/A"}%</span>).<br>
@@ -353,7 +345,6 @@ function displayChildChart(year = null) {
                     indexLabelPlacement: "outside"
                 });
             });
-    
             dataSeries[group] = seriesData;
         });
     
@@ -384,7 +375,10 @@ function displayChildChart(year = null) {
         chart.render();
     }
     
-    let url = window.userType === '0' ? '/admin/get_dashboard_info' : '/admin-midwife/get_dashboard_info';
+    let url = window.userType === '0' ? '/admin/get_dashboard_info' 
+            : window.userType === '1' ? '/admin-midwife/get_dashboard_info' 
+            : '/bhw/get_dashboard_info';
+
     function reqData(selectedYear) {
         $.ajax({
             url: url,

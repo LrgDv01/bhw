@@ -20,6 +20,7 @@ use App\Http\Controllers\BhwFormController;
 use App\Http\Controllers\FamilyPlanningController;
 use App\Http\Controllers\WreproductiveAgeController;
 use App\Http\Controllers\DewormingController;
+use App\Http\Controllers\CensusModelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +52,8 @@ Route::middleware(['redirect.nonlogin', 'guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['superadmin.bhw.president'])->group(function () {    
         Route::get('/admin/dashboard', [dashboardController::class, 'display_dashboard'])->name('admin.dashboard');
+        Route::get('/admin/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('admin.get_dashboard_info');
+        Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
         Route::get('/admin/announcement', [Super_adminController::class, 'announcement'])->name('admin.announcement');
         Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
         Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
@@ -60,8 +63,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
         Route::get('/bhw/dashboard', [BhwregistrationController::class, 'index'])->name('bhw.dashboardss');
         Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard'); 
-        Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
-        Route::get('/admin/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('get_dashboard_info');
         Route::middleware(['web'])->group(function () {
         });
     })->middleware('redirect.nonadmin');
@@ -88,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['bhw'])->group(function () {
+        Route::get('/bhw/dashboard', [dashboardController::class, 'display_dashboard'])->name('bhw.dashboard');
+        Route::get('/bhw/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('bhw.get_dashboard_info');
         Route::get('/bhw/schedule', [ServicesController::class, 'schedule'])->name('bhw.schedule');
         Route::get('/bhw/duty', [ServicesController::class, 'duty'])->name('bhw.duty');
         Route::get('/bhw/child', [ServicesController::class, 'child'])->name('bhw.child');
@@ -95,9 +98,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
         Route::get('/child-census', [ChildCensusController::class, 'create'])->name('child.census.create');
         Route::post('/child-census', [ChildCensusController::class, 'store'])->name('child.census.store');
-        Route::get('/bhw/services', [FormController::class, 'showForm'])->name('bhw.services');
-        Route::get('/bhw/serv', [ServicesController::class, 'Serv'])->name('bhw.serv');
-
+        Route::get('/bhw/mother-census', [FormController::class, 'showForm'])->name('bhw.mother-census');
+        Route::get('/bhw/services', [ServicesController::class, 'Serv'])->name('bhw.services');
+        Route::get('/bhw/census-form', [CensusModelController::class, 'create'])->name('bhw.census-form');
+        Route::post('/bhw/census-store', [CensusModelController::class, 'store'])->name('bhw.census-store');
         Route::post('/form/save', [FormController::class, 'saveForm'])->name('form.save');
 
         Route::get('/bhw/print', [FormController::class, 'Print'])->name('bhw.Print');
@@ -138,6 +142,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
+        
         });
     });
 

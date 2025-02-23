@@ -9,7 +9,14 @@ class WreproductiveAge extends Model
 {
     use HasFactory;
 
+    protected $table = 'wreproductive_ages';
     protected $fillable = [
-        'name', 'birthday', 'age', 'status', 'fp_used', 'address', 'nhts'
+        'name',
+        'birthday',
+        'age',
+        'status',
+        'fp_used',
+        'address',
+        'nhts'
     ];
 }

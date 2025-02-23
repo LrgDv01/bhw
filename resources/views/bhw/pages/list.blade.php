@@ -1,5 +1,5 @@
 @include('bhw.partials.__header')
-@include('bhw.partials.__nav')
+@include('admin.partials.__nav')
 
 
 <main id="main" class="main">
@@ -10,8 +10,6 @@
         <a href="{{ route('bhw.Print') }}" class="btn btn-primary">Print data</a>
         
     </div>
-
-    
 
     <div class="container shadow p-5 rounded bg-light">
         <div class="row">

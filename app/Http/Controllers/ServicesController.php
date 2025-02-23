@@ -14,7 +14,8 @@ class ServicesController extends Controller
 {
     
     public function announcement()
-    {   
+    {
+    
         $announcements = Announcement::all();
         return view('bhw.pages.Announcement',compact('announcements'));
     }
@@ -28,7 +29,6 @@ class ServicesController extends Controller
     public function duty() {
         $duty_schedules = DutySchedule::all();
         return view('bhw.pages.duty', compact('duty_schedules'));
-
     }
 
     
@@ -37,7 +37,7 @@ class ServicesController extends Controller
         
     }
     public function Serv() {
-        return view('bhw.pages.serv');
+        return view('bhw.pages.services');
         
     }
 

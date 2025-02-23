@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\MapModel;
-use App\Models\Dewormings;
-use App\Models\Women;
+use App\Models\Deworming;
+use App\Models\WreproductiveAge;
 use DateTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,12 +22,12 @@ class dashboardController extends Controller
     private function convertAgeToMonths($age)
     {
         preg_match('/(\d+)/', $age, $matches);
-        $value = (int)$matches[0];  // Extract numeric value
+        $value = (int)$matches[0];  
 
         if (strpos($age, 'month') !== false) {
-            return $value;  // If it's months
+            return $value; 
         } elseif (strpos($age, 'year') !== false) {
-            return $value * 12;  // Convert years to months
+            return $value * 12;  
         }
 
         return 0;
@@ -46,19 +46,17 @@ class dashboardController extends Controller
         $year = $request->input('year');
 
         // Deworming Data
-        $deworming = Dewormings::whereYear('created_at', $year)->get();
+        $deworming = Deworming::whereYear('created_at', $year)->get();
         $dewormingAgeRanges = [
             '12-23 months' => 0,
             '24-59 months' => 0,
             '5-9 years' => 0,
             '10-19 years' => 0,
         ];
-
         foreach ($deworming as $record) {
             $age = $record->age;
             $ageInMonths = 0;
             $ageInYears = 0;
-    
             if (strpos($age, 'month') !== false) {
                 preg_match('/(\d+)\s+months?/', $age, $matches);
                 $ageInMonths = (int) $matches[1]; 
@@ -66,7 +64,6 @@ class dashboardController extends Controller
                 preg_match('/(\d+)\s+years?/', $age, $matches);
                 $ageInYears = (int) $matches[1]; 
             }
-    
             if ($ageInMonths > 0) {
                 if ($ageInMonths >= 12 && $ageInMonths <= 23) {
                     $dewormingAgeRanges['12-23 months']++;
@@ -74,7 +71,6 @@ class dashboardController extends Controller
                     $dewormingAgeRanges['24-59 months']++;
                 }
             }
-    
             if ($ageInYears > 0) {
                 if ($ageInYears >= 5 && $ageInYears <= 9) {
                     $dewormingAgeRanges['5-9 years']++;
@@ -109,13 +105,11 @@ class dashboardController extends Controller
             ->groupBy('period', 'age_group')
             ->orderBy('period', 'ASC')
             ->get();
-
         $formattedData = [];
         foreach ($historicalData as $row) {
             $period = $row->period;
             $ageGroup = $row->age_group;
             $count = $row->total;
-
             if (!isset($formattedData[$period])) {
                 $formattedData[$period] = [];
             }
@@ -129,7 +123,6 @@ class dashboardController extends Controller
             }
             $weightedSum = 0;
             $weightTotal = array_sum($weights);
-
             if ($weightTotal == 0) {
                 return 0;
             }
@@ -138,20 +131,17 @@ class dashboardController extends Controller
             }
             return round($weightedSum / $weightTotal);
         }
-
         function holtWintersForecast(array $data, float $alpha = 0.5) {
             if (empty($data)) {
                 return 0;
             }
             $smoothed = [$data[0]]; 
             $alpha = max(0, min(1, $alpha)); 
-
             for ($i = 1; $i < count($data); $i++) {
                 $smoothed[] = round($alpha * $data[$i] + (1 - $alpha) * end($smoothed));
             }
             return end($smoothed);
         }
-
         $forecastedData = [];
         $periods = array_keys($formattedData);
         if (empty($periods)) {
@@ -194,7 +184,7 @@ class dashboardController extends Controller
         }
 
         // Women Reproductive Data
-        $yearData = Women::whereYear('created_at', $year)->get(); 
+        $yearData = WreproductiveAge::whereYear('created_at', $year)->get(); 
         $womenAgeRanges = [
             '10-14' => [],
             '15-19' => [],
