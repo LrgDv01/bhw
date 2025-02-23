@@ -6,7 +6,7 @@ use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\MapController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\user\bhw\ReportsController;
+//use App\Http\Controllers\user\bhw\ReportsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Super_adminController;
 use App\Http\Controllers\BhwregistrationController;
@@ -20,6 +20,7 @@ use App\Http\Controllers\BhwFormController;
 use App\Http\Controllers\FamilyPlanningController;
 use App\Http\Controllers\WreproductiveAgeController;
 use App\Http\Controllers\DewormingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,6 +82,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/admin/duty/update-attendance/{id}', [DutyScheduleController::class, 'updateAttendance'])->name('admin.duty.updateAttendance');
         Route::get('/admin-midwife/user-activity', [UseractivityController::class, 'userActivity'])->name('bhw.user_activity');
         Route::get('/admin/Announcement', [ScheduleController::class, 'announcement'])->name('admin.Announcement');
+        Route::get('/user-activity', [UseractivityController::class, 'index'])->name('user.activity');
+
         Route::middleware(['web'])->group(function () {
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
@@ -91,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/bhw/schedule', [ServicesController::class, 'schedule'])->name('bhw.schedule');
         Route::get('/bhw/duty', [ServicesController::class, 'duty'])->name('bhw.duty');
         Route::get('/bhw/child', [ServicesController::class, 'child'])->name('bhw.child');
-        Route::get('/user/reports', [ReportsController::class, 'index'])->name('user.reports');
+        //Route::get('/user/reports', [ReportsController::class, 'index'])->name('user.reports');
         Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
         Route::get('/child-census', [ChildCensusController::class, 'create'])->name('child.census.create');
         Route::post('/child-census', [ChildCensusController::class, 'store'])->name('child.census.store');
@@ -135,7 +138,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deworming/{id}', [DewormingController::class, 'destroy'])->name('bhw.deworming.destroy');
 
         Route::middleware(['web'])->group(function () {
-            Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
+            //Route::post('/reports/submit', [ReportsController::class, 'submitReport'])->name('reports.submit');
             Route::post('/user/update-field', [ProfileController::class, 'updateField'])->name('user.update-profile');
             Route::post('/user/update-profile', [ProfileController::class, 'updateProfile'])->name('user.update-profile');
         });

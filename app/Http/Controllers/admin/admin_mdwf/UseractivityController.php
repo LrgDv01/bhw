@@ -11,4 +11,5 @@ class UseractivityController extends Controller
     public function userActivity() {
         return view('admin.admin_mdwf.user_activity');
     }
+    
 }
