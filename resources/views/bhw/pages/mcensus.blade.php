@@ -18,16 +18,13 @@
             </ul>
         @endif
         <form action="{{ route('form.save') }}" method="POST" enctype="multipart/form-data">
-
             @csrf
-
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="house_no" class="form-label fw-bold">No. of House</label>
                     <input type="number" class="form-control" id="house_no" name="house_no" required>
                 </div>
                 <div class="col-md-6">
-                    
                     <label for="full_name" class="form-label fw-bold">Complete Name (FN, MN, LN)</label>
                     <table width="100%" >
                     <tbody>
@@ -118,7 +115,6 @@
                             
                         </select>
                     </div>
-
                     <div class="col-md-6">
                         <label for="clean_water" class="form-label fw-bold">Do you have a source of clean water?</label>
                         <select class="form-select" name="clean_water_source" id="clean_water_source" required>
@@ -139,13 +135,11 @@
                             <input type="date" class="form-control" name="next_clinic_visit" id="next_clinic_visit">
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <label for="has_tb_symptoms" class="form-label fw-bold">Do you have any symptoms of TB?</label>
                         <select class="form-select" name="tb_symptoms" id="tb_symptoms" required onchange="toggleTBFields()">
                             <option value="No">No</option>
                             <option value="Yes">Yes</option>
-                            
                         </select>
                         <div class="col-md-6" id="sputum_test_field" style="display: none;">
                             <label for="sputum_test" class="form-label fw-bold">Did you get a sputum test?</label>
@@ -162,10 +156,6 @@
                             </select>
                         </div>
                     </div>
-
-
-
-
 
                     <div class="col-md-6">
                         <label for="treatment_partner" class="form-label fw-bold">Do you have a treatment partner for TB?</label>

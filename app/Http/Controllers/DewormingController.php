@@ -10,7 +10,7 @@ class DewormingController extends Controller
     public function index()
     {
         // $records = Deworming::all();
-        $records = Deworming::paginate(12); // Adjust the number (10) as needed
+        $records = Deworming::paginate(12); 
         return view('bhw.pages.deworming', compact('records'));
     }
 

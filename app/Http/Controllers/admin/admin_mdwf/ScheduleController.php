@@ -28,7 +28,6 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming data
         $validated = $request->validate([
             'activities' => 'required|string|max:255',
             'date' => 'required|date',
@@ -37,7 +36,6 @@ class ScheduleController extends Controller
             'target' => 'required|string|max:255',
         ]);
 
-        // Create a new schedule record
         Schedule::create([
             'activities' => $validated['activities'],
             'date' => $validated['date'],
@@ -46,17 +44,14 @@ class ScheduleController extends Controller
             'target' => $validated['target'],
         ]);
 
-        // Redirect back with success message
         return redirect()->route('admin.schedule.index')->with('success', 'Event added successfully!');
     }
     
     public function destroy($id)
     {
-        // Find the schedule by ID and delete it
         $schedule = Schedule::findOrFail($id);
         $schedule->delete();
 
-        // Redirect back with success message, passing the id to the delete route
         return redirect()->route('admin.schedule.index')->with('success', 'Event deleted successfully!');
     }
    

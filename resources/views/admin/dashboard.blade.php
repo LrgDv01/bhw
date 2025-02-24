@@ -34,11 +34,9 @@
         border-radius: 15px; 
     }
 
-    /* Optional: for smooth zoom transitions */
     #deworming_chart {
         transition: transform 0.2s ease;
     }
-
 
     #card-forecast {
         background-color: #fefefe;

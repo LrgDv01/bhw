@@ -30,14 +30,12 @@
                                         required autocomplete="current-password">
                             </div>
                             <div class="form-group d-flex justify-content-between align-items-center mb-4">
-                                <!-- Remember Me -->
                                 <div class="form-check">
                                     <input type="hidden" name="remember" value="0">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember"  value="1" 
                                         {{ session('remember_me') ? 'checked' : '' }}>
                                     <label class="form-check-label text-black" for="remember">Remember Me</label>
                                 </div>
-                                <!-- Forgot Password -->
                                 <div>
                                     <a href="{{ route('request-form') }}" class="text-black text-decoration-none" 
                                         ><u>Forgot Password?</u></a>

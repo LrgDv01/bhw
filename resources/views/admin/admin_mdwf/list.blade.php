@@ -3,13 +3,11 @@
 @include('admin.partials.__nav')
 
 <main id="main" class="main">
-    <!-- Sidebar -->
-    <!-- Main Content -->
+
     <div class="content">
         <div class="container-fluid">
             <h1 class="mb-4">List of BHW Users</h1>
 
-            <!-- Add BHW Button -->
             
             <table class="table table-striped">
                 <thead class="table-dark">

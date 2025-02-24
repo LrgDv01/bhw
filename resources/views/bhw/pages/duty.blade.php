@@ -30,8 +30,6 @@
                             <td>{{ $schedule->time }}</td>
                             <td>{{ $schedule->remark ?? 'N/A' }}</td>
                             <td>{{ $schedule->attendance }}</td>
-                            
-                                
                         </tr>
                     @empty
                         <tr>

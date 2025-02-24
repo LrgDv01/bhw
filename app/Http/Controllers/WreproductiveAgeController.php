@@ -12,12 +12,10 @@ class WreproductiveAgeController extends Controller
         $data = WreproductiveAge::all();
         return view('bhw.pages.WreproductiveAge', compact('data'));
     }
-
     public function create()
     {
         return view('bhw.WreproductiveAge');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,9 +27,7 @@ class WreproductiveAgeController extends Controller
             'address' => 'required|string',
             'nhts' => 'required|string',
         ]);
-
         WreproductiveAge::create($request->all());
-
         return redirect()->route('bhw.wreproductiveage.index')->with('success', 'Record added successfully!');
     }
 
@@ -44,7 +40,6 @@ class WreproductiveAgeController extends Controller
     public function update(Request $request, $id)
     {
         $record = WreproductiveAge::findOrFail($id);
-
         $request->validate([
             'name' => 'required|string',
             'birthday' => 'required|date',
@@ -52,12 +47,9 @@ class WreproductiveAgeController extends Controller
             'fp_used' => 'required|string',
             'address' => 'required|string',
         ]);
-
         $record->update($request->all());
-
         return redirect()->route('bhw.wreproductiveage.index')->with('success', 'Record updated successfully!');
     }
-
     public function destroy($id)
     {
         WreproductiveAge::findOrFail($id)->delete();

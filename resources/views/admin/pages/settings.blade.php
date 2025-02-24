@@ -11,10 +11,10 @@
                 <li class="breadcrumb-item active">Settings</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section settings">
-        <!-- Nav tabs -->
+   
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             
             <li class="nav-item" role="presentation">
@@ -26,7 +26,6 @@
     
         </ul>
 
-        <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane py-3" id="contactus" role="tabpanel" aria-labelledby="contactus-tab">
                 @include('admin.pages.settings.contactus')

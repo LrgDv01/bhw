@@ -15,7 +15,6 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <!-- Button to Open Modal -->
          <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-success rounded rounded-3 me-3" data-bs-toggle="modal" data-bs-target="#addRecordModal">
                 <i class="bi bi-plus"></i> <strong>New Record</strong>
@@ -63,7 +62,6 @@
             </form>
         </div> --}}
         
-        <!-- Records Table -->
         <div class="container mt-2">
             <table class="table table-bordered">
                 <thead>
@@ -100,7 +98,6 @@
         </div>
     </div>
 
-    <!-- Modal for Adding a New Record -->
     <div class="modal fade" id="addRecordModal" tabindex="-1" aria-labelledby="addRecordModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

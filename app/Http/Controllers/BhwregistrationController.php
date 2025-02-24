@@ -21,7 +21,6 @@ class BhwregistrationController extends Controller
     public function bhwregistration(Request $request)
     {
         try {
-            // Validation
             $validator = Validator::make($request->all(), [
                 'username' => 'required|string|max:255|unique:users,username',
                 'fullname' => 'required|string|max:255',
@@ -35,7 +34,6 @@ class BhwregistrationController extends Controller
                 'service_start_date' => 'required|date',
             ]);
     
-            // Check if validation fails
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
@@ -43,10 +41,8 @@ class BhwregistrationController extends Controller
                 ], 422);
             }
     
-            // Retrieve validated data
             $validated = $validator->validated();
     
-            // Create user
             $user = User::create([
                 'user_type' => '2',
                 'username' => $validated['username'],
@@ -67,7 +63,6 @@ class BhwregistrationController extends Controller
                 'date_of_registration' => now(),
             ]);
 
-    
             return response()->json([
                 'success' => true,
                 'message' => 'User registered successfully!',
@@ -75,14 +70,11 @@ class BhwregistrationController extends Controller
             ], 201);
     
         } catch (Exception $e) {
-            // Log the error (optional but recommended)
             \Log::error('User registration failed: ' . $e->getMessage());
-    
-            // Return a generic error response
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while registering the user. Please try again later.',
-                'error' => $e->getMessage(), // For debugging; you may want to hide this in production
+                'error' => $e->getMessage(), 
             ], 500);
         }
     }

@@ -15,10 +15,10 @@ class ChildCensus extends Model
         'role_in_family',
         'dob',
         'age',
-        'vaccines', // This will be stored as a JSON array
+        'vaccines', 
     ];
 
     protected $casts = [
-        'vaccines' => 'array', // This will cast vaccines to an array when fetched from the database
+        'vaccines' => 'array',
     ];
 }

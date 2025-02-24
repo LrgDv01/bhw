@@ -48,8 +48,6 @@
                 <button class="btn btn-success w-100" onclick="updateProfile()">Edit Profile</button>
             </div>
         </div>
-
-        <!-- Modal for Editing -->
         <div class="modal fade" id="editFieldModal" tabindex="-1" aria-labelledby="editFieldModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -80,7 +78,6 @@
     </section>
 </main>
 @include('bhw.partials.__footer')
-
 
 <script>
     function editField(field, value) {

@@ -57,7 +57,7 @@
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
-        location.reload(); // Reload the page to restore JavaScript functionality
+        location.reload(); 
     }
 </script>
 

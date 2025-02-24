@@ -18,7 +18,6 @@ class FormController extends Controller
 
     public function saveForm(Request $request)
     {
-        // Validate request data
         $request->validate([
             'house_no' => 'required|integer',
             'first_name' => 'required|string',
@@ -47,25 +46,24 @@ class FormController extends Controller
             'tb_treatment_partner' => 'required|in:Yes,No',
         ]);
 
-        // Ensure the correct model is used
+
         MotherCensus::create($request->all());
 
         return redirect()->route('bhw.mother-census')->with('success', 'Record added successfully.');
     }
 
 
-    // Add this method to your FormController
     public function showList()
     {
-        $familyMembers = MotherCensus::all();  // Fetch all family members from the database
+        $familyMembers = MotherCensus::all(); 
         $childs = ChildCensus::all();
-        return view('bhw.pages.list', compact('familyMembers','childs'));  // Pass the family members to the view
+        return view('bhw.pages.list', compact('familyMembers','childs')); 
     }
     
     public function viewData($id)
     {
-        $familyMember = MotherCensus::findOrFail($id);  // Find the family member by ID
-        return view('bhw.pages.viewData', compact('familyMember'));  // Pass the data to the view
+        $familyMember = MotherCensus::findOrFail($id);  
+        return view('bhw.pages.viewData', compact('familyMember'));  
     }
     public function destroy($id)
     {
@@ -80,10 +78,10 @@ class FormController extends Controller
     }
     public function print()
     {
-        // Retrieve BHW data
-        $bhwData = BhwForm::all(); // Or use more specific queries to get the data
+   
+        $bhwData = BhwForm::all();
         $childs = ChildCensus::all();
-        // Retrieve counts
+  
         $counts = [
             'vaccines' => [
                 'BCG' => ChildCensus::whereJsonContains('vaccines', 'BCG')->count(),

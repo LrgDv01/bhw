@@ -1,5 +1,4 @@
 <div class="modal-content">
-  <!-- Example of booking detail modal content -->
   <div class="modal-header border-0">
       <h5 class="modal-title fw-bold">User Data</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">

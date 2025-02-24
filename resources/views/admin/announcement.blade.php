@@ -25,22 +25,17 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Post Announcement</button>
                 </form>
-
-
                 <h2>Announcements</h2>
-
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
-
                 @foreach ($announcements as $announcement)
                     <div class="card mb-3">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>{{ $announcement->title }}</h5>
                             
-                            <!-- Delete Button -->
                             <form action="{{ route('admin.announcement.destroy', $announcement->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this announcement?');">
                                 @csrf
                                 @method('DELETE')
@@ -55,11 +50,9 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>
- 
 </main>
 
 @include('admin.partials.__footer')

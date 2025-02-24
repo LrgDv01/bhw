@@ -37,7 +37,6 @@
                                     <td>{{ $schedule->target }}</td>
                                     <td>{{ $schedule->status ?? 'Pending' }}</td>
                                     <td>
-                                        <!-- Action buttons here -->
                                     </td>
                                 </tr>
                             @endforeach

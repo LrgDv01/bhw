@@ -7,7 +7,6 @@
         margin-top: 10px;
     }
 
-    /* Transition styles for adding and removing forms */
     .family-member-form {
         opacity: 1;
         transform: translateY(0);
@@ -16,12 +15,12 @@
 
     .family-member-form.new {
         opacity: 0;
-        transform: translateY(-20px); /* Start slightly above for adding */
+        transform: translateY(-20px); 
     }
 
     .family-member-form.removing {
         opacity: 0;
-        transform: translateY(-100px); /* Slide up and fade out for removing */
+        transform: translateY(-100px); 
     }   
 
     .form-number {
@@ -78,7 +77,7 @@
                 <div class="row">
                     <div class="d-flex flex-row justify-content-center my-3">
                         <label class="form-label fw-bold fs-5 mx-3" for="family_members"><strong><u>FAMILY MEMBERS</u></strong></label>
-                        <button type="button" class="btn btn-outline-primary border-1 fw-bold rounded rounded-3 ms-3" id="add-family-member">+ Add</button>
+                        <button type="button" class="btn btn-outline-secondary border-1 fw-bold rounded rounded-3 ms-3" id="add-family-member">+ Add</button>
                     </div>
                     <div id="family-members-container">
                         <div class="family-member-form row" data-index="0">

@@ -39,9 +39,6 @@
             <div class="col-md-6"><strong>Next Checkup:</strong> {{ $familyMember->next_checkup }}</div>
         </div>
     </div>
-
-    
-    
 </main>
 
 @include('bhw.partials.__footer')

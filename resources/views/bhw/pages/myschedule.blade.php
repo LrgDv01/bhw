@@ -8,7 +8,6 @@
     <section class="section schedule">
         <div class="content">
             <div class="container-fluid">
-                <!-- Add Event Button -->
                 <div class="mb-3 d-flex justify-content-end">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEventModal">Add Event</button>
                 </div>
@@ -58,7 +57,6 @@
     </section>
 </main>
 
-<!-- Add Event Modal -->
 <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

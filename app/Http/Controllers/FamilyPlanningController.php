@@ -30,7 +30,6 @@ class FamilyPlanningController extends Controller
             'dropout_reason' => 'nullable|string',
         ]);
     
-        // Store data in the database
         FamilyPlanning::create($request->all());
     
         return redirect()->back()->with('success', 'Family Planning record added successfully.');

@@ -10,7 +10,7 @@ class Bhwregister extends Authenticatable
 {
     use HasFactory, Notifiable; // Add Notifiable here
 
-    // Define fillable fields for mass assignment
+    protected $table = "bhwregisters";
     protected $fillable = [
         'username',
         'email',
@@ -28,8 +28,6 @@ class Bhwregister extends Authenticatable
         'accreditation_date',
     ];
     
-
-    // Define hidden fields to exclude from JSON responses
     protected $hidden = [
         'password',
         'remember_token',

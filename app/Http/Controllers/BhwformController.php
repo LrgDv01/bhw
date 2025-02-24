@@ -11,18 +11,14 @@ class BhwFormController extends Controller
 
     public function showReport()
     {
-        // Fetch the data from the database (make sure to adjust as per your table structure)
-        $bhwData = BhwForm::all(); // Or use more specific queries to get the data
-
-        return view('bhw.pages.print', compact('bhwData'));  // Pass the data to the view
+        $bhwData = BhwForm::all();
+        return view('bhw.pages.print', compact('bhwData')); 
     }
-
 
     public function bhwform()
     {
         return view('bhw.pages.bhwform');
     }
-
     public function store(Request $request)
     {
         $request->validate([

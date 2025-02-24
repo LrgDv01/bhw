@@ -8,13 +8,10 @@
       <span class="d-none d-lg-block">{{ auth()->user()->isSuperAdmin() ? "BHW President" : (auth()->user()->isAdmin() ?  "BHW Midwife" : "BHW")}}</span>
     </a>
     <i class="text-dark bi bi-list toggle-sidebar-btn"></i>
-  </div><!-- End Logo -->
-
-
+  </div>
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
       <li class="nav-item dropdown pe-3">
-         
         <div class="d-flex align-items-center">
           <a href="#notification"
             data-bs-toggle="modal"
@@ -29,7 +26,6 @@
             <li class="dropdown-header">
               <h6>{{ auth()->user()->isSuperAdmin() ? "BHW President" : "Midwife" }}</h6>
               <span>{{ auth()->user()->isSuperAdmin() ? "Super Admin" : "Admin" }}</span>
-              
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -74,91 +70,13 @@
               </button>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </div><!-- End Profile Iamge Icon -->
-      </li><!-- End Profile Nav -->
+          </ul>
+        </div>
+      </li>
 
     </ul>
-  </nav><!-- End Icons Navigation -->
-
+  </nav>
 </header>
-
-{{-- <style>
-  .nav-link.active  {
-    background-color: #f8f3f2; 
-    color: #a6a6a6; 
-    font-weight: bold; 
-    .bi {
-      color: #a6a6a6; 
-    }
-  }
-  .nav-link.active:hover {
-    background-color:  #f8f3f2;
-    color: #a6a6a6; 
-    .bi {
-      color: #a6a6a6; 
-    }
-  }
-  .nav-link.inactive {
-    background-color:transparent;
-    color:#f8f3f2;
-    .bi {
-      color: #f8f3f2; 
-    }
-  }
-  .nav-link.inactive:hover {
-    background-color: gray; /* Hover background color */
-    color: #f8f3f2; /* Hover text color */
-    .bi {
-      color: #f8f3f2; 
-    }
-  }
-
-  .nav-item .nav-link[aria-expanded="true"] i.bi-chevron-down {
-    color: #f8f3f2; 
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
-  
-  } 
-  .nav-item .nav-link[aria-expanded=""] i.bi-chevron-down {
-    color: #f8f3f2; 
-    transform: rotate(0deg);
-    transition: transform 0.3s ease;
-  }
-
-
-  .nav-content {
-    background-color: transparent; /* Light gray background for sub-menu */
-    padding-left: 10px;
-    border-left: 3px solid #a6a6a6; /* Adds a left border to distinguish it */
-  }
-
-  .nav-content a {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    color: white !important; /* Dark text for visibility */
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .nav-content a:hover {
-    background-color: gray; /* Slightly lighter shade for hover */
-    color: #000;
-  }
-
-  .nav-content a.active {
-    background-color: #bfbfbf; /* Active item color */
-    color: #000;
-    font-weight: bold;
-  }
-
-  .nav-content a.active i {
-    color: #000;
-  }
-
-</style> --}}
 
 <style>
   .nav-item .nav-link.active {
@@ -166,69 +84,52 @@
     color: #a6a6a6;
     font-weight: bold;
   }
-
   .nav-item .nav-link.active .bi,
   .nav-item .nav-link.active:hover,
   .nav-item .nav-link.active:hover .bi {
     color: #a6a6a6;
   }
-
   .nav-item .nav-link.inactive {
     background-color: transparent;
     color: #f8f3f2;
   }
-
   .nav-item .nav-link.inactive .bi,
   .nav-item .nav-link.inactive:hover .bi {
     color: #f8f3f2;
   }
-
   .nav-item .nav-link.inactive:hover {
     background-color: gray;
     color: #f8f3f2;
   }
-
-
-  /* Dropdown Indicator */
   .nav-item .nav-link i.bi-chevron-down {
     transition: transform 0.5s ease;
   }
-
   .nav-item .nav-link[aria-expanded="true"] i.bi-chevron-down {
     transform: rotate(180deg);
   }
-
   .nav-item .nav-link[aria-expanded="false"] i.bi-chevron-down {
     transform: rotate(0deg);
   }
-
-  /* Collapse Transition for Expanding and Closing */
   .nav-content.collapse {
-      transition: height 1s ease !important; 
-      overflow: hidden; 
-    }
-
+    transition: height 1s ease !important; 
+    overflow: hidden; 
+  }
   .nav-content.collapsing {
     transition: height 1s ease !important;
     overflow: hidden;
   }
-
   .nav-content.collapse.show {
     transition: height 3s ease !important; 
     overflow: hidden;
   }
-
-  /* Sidebar Styling */
   .sidebar {
     background-color: #a6a6a6;
   }
-
   .nav-content {
     background-color: transparent; 
     padding-left: 10px;
     border-left: 3px solid #a6a6a6;
   }
-
   .nav-content a {
     display: flex;
     align-items: center;
@@ -238,18 +139,15 @@
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
-
   .nav-content a:hover {
     background-color: gray; 
     color: #000;
   }
-
   .nav-content a.active {
     background-color: #bfbfbf; 
     color: #000;
     font-weight: bold;
   }
-
   .nav-content a.active i {
     color: #000;
   }
@@ -329,8 +227,7 @@
             <a class="nav-link border-0 {{ Request::is('bhw/dashboard') ? 'active' : 'inactive' }}" 
                 href="{{ route('bhw.dashboard') }}">
                 <i class="bi bi-grid-fill"></i>
-                <span>Dashboard</span>
-            </a>
+                <span>Dashboard</span></a>
           </li>
           <li class="nav-item">
               <a class="nav-link border-0 {{ $isServiceActive ? 'active' : 'inactive' }}"
@@ -342,60 +239,42 @@
                   <span>My Services</span>
                   <i class="bi bi-chevron-down ms-auto"></i>
               </a>
-              
               <ul id="services-nav" class="nav-content collapse {{ $isServiceActive ? 'show' : '' }}" 
                   data-bs-parent="#sidebar-nav">
                   <li>
                       <a href="{{ route('bhw.census-form') }}" class="{{ Request::is('bhw/census-form') ? 'active' : '' }}">
-                          <span>- Census</span>
-                      </a>
+                        <span>+ Census</span> </a>
                   </li>
                   <li>
                       <a href="{{ route('bhw.mother-census') }}" class="{{ Request::is('bhw/mother-census') ? 'active' : '' }}">
-                          <span>- Maternal Care</span>
-                      </a>
+                          <span>+ Maternal Care</span> </a>
                   </li>
-
                   <li>
                       <a href="{{ route('bhw.deworming.index') }}" class="{{ Request::is('deworming') ? 'active' : '' }}">
-              
-                          <span>- Deworming</span>
-                      </a>
+                          <span>+ Deworming</span> </a>
                   </li>
                   
                   <li>
                       <a href="{{ route('bhw.familyplanning') }}" class="{{ Request::is('familyplanning') ? 'active' : '' }}">
-                    
-                          <span>- Family Planning</span>
+                          <span>+ Family Planning</span>
                       </a>
                   </li>
-                  
                   <li>
                       <a href="{{ route('bhw.wreproductiveage.index') }}" class="{{ Request::is('wreproductiveage') ? 'active' : '' }}">
-                        
-                          <span>- Woman in Reproductive Age</span>
+                          <span>+ Woman in Reproductive Age</span>
                       </a>
                   </li>
-                  
                   <li>
                       <a href="{{ route('bhw.child') }}" class="{{ Request::is('bhw/child') ? 'active' : '' }}">
-            
-                          <span>- Immunization</span>
-                      </a>
+                          <span>+ Immunization</span></a>
                   </li>
-                  
-              
-                  
                   <li>
                       <a href="{{ route('bhw.deworming.index') }}" class="{{ Request::is('bhw/deworming') ? 'active' : '' }}">
                           {{-- <i class="bi bi-person-workspace fs-6"></i> --}}
-                          <span>- Overall Monthly Report</span>
-                      </a>
+                          <span>+ Overall Monthly Report</span></a>
                   </li>
               </ul>
           </li>
-
-          <!-- List -->
           <li class="nav-item">
               <a class="nav-link border-0 {{ Request::is('bhw/list') ? 'active' : 'inactive' }}" 
                   href="{{ route('bhw.pages.list') }}">
@@ -403,8 +282,6 @@
                   <span>List</span>
               </a>
           </li>
-
-          <!-- Schedule -->
           <li class="nav-item">
               <a class="nav-link border-0 {{ Request::is('bhw/schedule', 'bhw/duty') ? 'active' : 'inactive' }}" 
                   href="{{ route('bhw.schedule') }}">

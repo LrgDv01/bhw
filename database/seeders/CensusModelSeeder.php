@@ -10,7 +10,6 @@ class CensusModelSeeder extends Seeder
 {
     public function run(): void
     {
-        // Define unique households
         $householdsData = [
             [
                 'house_no' => "123",
@@ -26,13 +25,11 @@ class CensusModelSeeder extends Seeder
             ],
         ];
 
-        // Create households and store them
         $households = [];
         foreach ($householdsData as $hh) {
             $households[] = HouseHoldModel::create($hh);
         }
 
-        // Define family members
         $family_members = [
             [
                 'full_name' => "Maria Dela Cruz",
