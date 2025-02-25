@@ -45,13 +45,9 @@ class FormController extends Controller
             'sputum_result' => 'nullable|in:Negative,Positive',
             'tb_treatment_partner' => 'required|in:Yes,No',
         ]);
-
-
         MotherCensus::create($request->all());
-
         return redirect()->route('bhw.mother-census')->with('success', 'Record added successfully.');
     }
-
 
     public function showList()
     {
@@ -68,68 +64,62 @@ class FormController extends Controller
     public function destroy($id)
     {
         $familyMember = MotherCensus::find($id);
-
         if ($familyMember) {
             $familyMember->delete();
             return redirect()->route('bhw.pages.list')->with('success', 'Family member deleted successfully!');
         }
-
         return redirect()->route('bhw.pages.familyMembersList')->with('error', 'Family member not found!');
     }
     public function print()
     {
-   
         $bhwData = BhwForm::all();
         $childs = ChildCensus::all();
-  
         $counts = [
             'vaccines' => [
                 'BCG' => ChildCensus::whereJsonContains('vaccines', 'BCG')->count(),
                 'VitaminA' => ChildCensus::whereJsonContains('vaccines', 'VitaminA')->count(),
             ],  
             'family_planning' => [
-                'YES' => DB::table('family_members')->where('family_planning', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('family_planning', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('family_planning', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('family_planning', 'Yes')->count(),
             ],
             'own_toilet' => [
-                'YES' => DB::table('family_members')->where('own_toilet', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('own_toilet', 'NO')->count(),
+                'YES' => DB::table('households')->where('toilet_facility', 'Yes')->count(),
+                'NO' => DB::table('households')->where('toilet_facility', 'No')->count(),
             ],
             'birth_plan' => [
-                'YES' => DB::table('family_members')->where('birth_plan', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('birth_plan', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('birth_plan', '')->count(),
+                'NO' => DB::table('mother_census')->where('birth_plan', 'NO')->count(),
             ],
             'clean_water_source' => [
-                'YES' => DB::table('family_members')->where('clean_water_source', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('clean_water_source', 'NO')->count(),
+                'YES' => DB::table('households')->where('water_source', 'Yes')->count(),
+                'NO' => DB::table('households')->where('water_source', 'No')->count(),
             ],
             'hypertension_experience' => [
-                'YES' => DB::table('family_members')->where('hypertension_experience', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('hypertension_experience', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('hypertension_experience', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('hypertension_experience', 'No')->count(),
             ],
             'pregnant' => [
-                'YES' => DB::table('family_members')->where('pregnant', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('pregnant', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('pregnant', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('pregnant', 'No')->count(),
             ],
             'tb_symptoms' => [
-                'YES' => DB::table('family_members')->where('tb_symptoms', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('tb_symptoms', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('tb_symptoms', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('tb_symptoms', 'No')->count(),
             ],
             'sputum_test' => [
-                'YES' => DB::table('family_members')->where('sputum_test', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('sputum_test', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('sputum_test', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('sputum_test', 'No')->count(),
             ],
             'tb_treatment_partner' => [
-                'YES' => DB::table('family_members')->where('tb_treatment_partner', 'YES')->count(),
-                'NO' => DB::table('family_members')->where('tb_treatment_partner', 'NO')->count(),
+                'YES' => DB::table('mother_census')->where('tb_treatment_partner', 'Yes')->count(),
+                'NO' => DB::table('mother_census')->where('tb_treatment_partner', 'No')->count(),
             ],
             'sputum_result' => [
-                'YES' => DB::table('family_members')->where('sputum_result', 'Positive')->count(),
-                'NO' => DB::table('family_members')->where('sputum_result', 'Negative')->count(),
+                'YES' => DB::table('mother_census')->where('sputum_result', 'Positive')->count(),
+                'NO' => DB::table('mother_census')->where('sputum_result', 'Negative')->count(),
             ],
         ];
-
-        
         return view('bhw.pages.print', compact('bhwData', 'counts', 'childs'));
     }
 

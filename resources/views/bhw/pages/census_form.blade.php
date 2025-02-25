@@ -27,13 +27,12 @@
         margin-bottom: 10px;
     }
 </style>
-
 <main id="main" class="main">
     <div class="pagetitle mb-3">
         <h1 class="fs-4"><strong>CENSUS</strong></h1>
     </div>
     <section class="section family-planning">
-            <h1 class="text-center fs-3"><strong>Household Profile</strong></h1>
+            <h1 class="text-center fs-3 mb-3"><strong>Household Profile</strong></h1>
             <form action="{{ route('bhw.census-store') }}" method="POST">
                 @csrf
                 <div class="row p-3">
@@ -53,7 +52,7 @@
                                 <div class="w-50 pe-3">
                                     <label for="toilet_facility" class="form-label fw-bold">Have Toilet Facility:</label>
                                     <select name="toilet_facility" class="form-select w-full border rounded-lg p-2 mb-3"  required>
-                                        <option value="" hidden>Yes or No</option>
+                                        <option value="" hidden>Yes / No</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>    
@@ -61,7 +60,7 @@
                                 <div class="w-50 pe-3">
                                     <label for="water_source" class="form-label fw-bold">Have Water Source:</label>
                                     <select name="water_source" class="form-select w-full border rounded-lg p-2 mb-3" required>
-                                        <option value="" hidden>Yes or No</option>
+                                        <option value="" hidden>Yes / No</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>    
@@ -70,7 +69,6 @@
                         </div>
                     </div>
                     <div class="text-center d-flex justify-content-end">
-                        {{--<a href="{{ route('bhw.services') }}" class="btn btn-outline-dark fw-bold">Back</a>--}}
                         <button type="submit" class="btn btn-outline-success border-1 px-5 py-2 fw-bold rounded rounded-3">Submit</button>
                     </div>
                 </div>
@@ -172,7 +170,7 @@
                                             <div class="w-50">
                                                 <label for="voters_0" class="form-label fw-bold">Voters:</label>
                                                 <select name="family_members[0][voters]" class="form-select w-full border rounded-lg p-2 mb-3" required>
-                                                    <option value="" hidden>Yes or No</option>
+                                                    <option value="" hidden>Yes / No</option>
                                                     <option value="Yes">Yes</option>
                                                     <option value="No">No</option>
                                                 </select>    
@@ -352,7 +350,7 @@
                             <div class="w-50">
                                 <label for="voters_${memberCount}" class="form-label fw-bold">Voters:</label>
                                 <select name="family_members[${memberCount}][voters]" class="form-select w-full border rounded-lg p-2 mb-3" required>
-                                    <option value="" hidden>Yes or No</option>
+                                    <option value="" hidden>Yes / No</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>    
@@ -364,7 +362,6 @@
                     </div>
                 </div>
             </div>
-           
         `;
         container.insertBefore(newForm, container.firstChild);
         const newBirthdayInput = document.getElementById(`birthday_${memberCount}`);
@@ -375,7 +372,6 @@
         memberCount++;
         reindexForms();
     });
-
     const initialBirthdayInput = document.getElementById('birthday_0');
     initialBirthdayInput.addEventListener('change', updateAge);
     document.getElementById('family-members-container').addEventListener('click', function(e) {

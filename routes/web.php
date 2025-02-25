@@ -106,7 +106,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/bhw/census-store', [CensusModelController::class, 'store'])->name('bhw.census-store');
         Route::post('/form/save', [FormController::class, 'saveForm'])->name('form.save');
 
-        Route::get('/bhw/print', [FormController::class, 'Print'])->name('bhw.Print');
+        Route::get('/bhw/monthly-report', [FormController::class, 'print'])->name('bhw.monthly-report');
         Route::get('/bhw/list', [FormController::class, 'showList'])->name('bhw.pages.list');
         Route::get('/family-member/{id}', [FormController::class, 'viewData'])->name('bhw.pages.viewData');
         Route::delete('/family-member/{id}', [FormController::class, 'destroy'])->name('bhw.pages.deleteData');

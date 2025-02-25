@@ -2,14 +2,10 @@
 @include('admin.partials.__nav')
 
 <main id="main" class="main">
-    <div class="pagetitle text-center mb-5">
-        <h1 class="fw-bold">Mother Census</h1>
-        
-        
+    <div class="pagetitle mb-5">
+        <h1 class="fs-4"><strong>MATERNAL CARE</strong></h1>
     </div>
-    <button onclick="window.location.href='{{ route('bhw.services') }}'" >Back</button>
-       
-    <div class="container shadow p-5 rounded bg-light">
+    <section class="section maternal-care">
         @if ($errors->any())
             <ul>
                 @foreach ($errors->all() as $error)
@@ -19,162 +15,228 @@
         @endif
         <form action="{{ route('form.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="house_no" class="form-label fw-bold">No. of House</label>
-                    <input type="number" class="form-control" id="house_no" name="house_no" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="full_name" class="form-label fw-bold">Complete Name (FN, MN, LN)</label>
-                    <table width="100%" >
-                    <tbody>
-                            <tr><td><input type="text" class="form-control" id="first_name" name="first_name" required></td>
-                            <td><input type="text" class="form-control" id="middle_name" name="middle_name" required></td>
-                            <td><input type="text" class="form-control" id="last_name" name="last_name" required></td></tr>
-                    </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <label for="role" class="form-label fw-bold">Role in the Family</label>
-                    <input type="text" class="form-control" id="role_in_family" name="role_in_family" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="dob" class="form-label fw-bold">Date of Birth</label>
-                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="age" class="form-label fw-bold">Age</label>
-                    <input type="number" class="form-control" id="age" name="age" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="four_ps_member" class="form-label fw-bold">Are you 4P’s member?</label>
-                    <select class="form-select" name="four_ps_member" id="four_ps_member" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="is_senior_citizen" class="form-label fw-bold">Are you a Senior Citizen?</label>
-                    <select class="form-select" name="senior_citizen" id="senior_citizen" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="is_pregnant" class="form-label fw-bold">Are you pregnant?</label>
-                    <select class="form-select" name="pregnant" id="pregnant" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6" id="pregnancy_months">
-                    <label for="pregnancy_months" class="form-label fw-bold">Months pregnant</label>
-                    <input type="number" class="form-control" name="months_pregnant" id="months_pregnant">
-                </div>
-                <div class="col-md-6">
-                    <label for="birth_plan" class="form-label fw-bold">Do you have any birth plan?</label>
-                    <select class="form-select" name="birth_plan" id="birth_plan" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="civil_status" class="form-label fw-bold">Civil Status</label>
-                    <select class="form-select" name="civil_status" id="civil_status" required>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                        <option value="Widowed">Widowed</option>
-                        <option value="Divorced">Divorced</option>
-                        <option value="Separated">Separated</option>   
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="next_visit" class="form-label fw-bold">Date of Next Visit to Midwife</label>
-                    <input type="date" class="form-control" name="next_midwife_visit" id="next_midwife_visit" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="family_planning_method" class="form-label fw-bold">Family Planning Method</label>
-                    <select class="form-select" name="family_planning" id="family_planning" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="registered_voter" class="form-label fw-bold">Are you a registered voter?</label>
-                    <select class="form-select" name="registered_voter" id="registered_voter" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                        <label for="own_toilet" class="form-label fw-bold">Do you have your own toilet?</label>
-                        <select class="form-select" name="own_toilet" id="own_toilet" required>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                            
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="clean_water" class="form-label fw-bold">Do you have a source of clean water?</label>
-                        <select class="form-select" name="clean_water_source" id="clean_water_source" required>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                            
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="hypertension_experience" class="form-label fw-bold">Do you have experience hypertension?</label>
-                        <select class="form-select" name="hypertension_experience" id="hypertension_experience" required>
-
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>                         
-                        </select>
-                        <div class="col-md-6" id="next_visit_clinic_field" style="display: none;">
-                            <label for="next_visit_clinic" class="form-label fw-bold">Next visit to the clinic:</label>
-                            <input type="date" class="form-control" name="next_clinic_visit" id="next_clinic_visit">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="has_tb_symptoms" class="form-label fw-bold">Do you have any symptoms of TB?</label>
-                        <select class="form-select" name="tb_symptoms" id="tb_symptoms" required onchange="toggleTBFields()">
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                        <div class="col-md-6" id="sputum_test_field" style="display: none;">
-                            <label for="sputum_test" class="form-label fw-bold">Did you get a sputum test?</label>
-                            <select class="form-select" name="sputum_test" id="sputum_test" required>
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>
+            <div class="row">
+                <div class="col-lg-5 mb-3 text-black"> 
+                    <div class="col-lg-12 mb-1">
+                        <div class="form-group mb-1 mx-3">
+                            <label for="serial_no" class="form-label fw-bold">Family Serial No.:</label>
+                            <input type="number" name="serial_no" class="test w-full form-control border rounded-lg p-2 mb-3" id="serial_no"
+                                placeholder="Family Serial No." required autocomplete="serial_no">
+                            <label for="full_name" class="form-label fw-bold">Name:</label>
+                            <input type="text" name="full_name" class="test w-full form-control border rounded-lg p-2 mb-3" id="full_name"
+                                placeholder="Name" required autocomplete="full_name">
+                            <label for="address" class="form-label fw-bold">Address:</label>
+                            <input type="text" name="address" class="test w-full form-control border rounded-lg p-2 mb-3" id="address"
+                                placeholder="Address" required autocomplete="address">
+                            <label for="se_status" class="form-label fw-bold">Social-Economic Status:</label>
+                            <select name="se_status" class="form-select w-full border rounded-lg p-2 mb-3" required>
+                                <option value="" hidden>Select Status</option>
+                                <option value="NHTS">1-NHTS</option>
+                                <option value="Non NHTS">2-Non NHTS</option>
                             </select>
-                        </div>
-                        <div class="col-md-6" id="sputum_result_field" style="display: none;">
-                            <label for="sputum_result" class="form-label fw-bold">Result of Sputum Test:</label>
-                            <select type="text" class="form-control" name="sputum_result" id="sputum_result">
-                                <option value="Negative">Negative</option>
-                                <option value="Positive">Positive</option>  
-                            </select>
+                            <label for="age" class="form-label fw-bold">Age:</label>
+                            <input type="number" name="address" class="test w-full form-control border rounded-lg p-2 mb-3" id="age"
+                                placeholder="Age" required autocomplete="age">
+                            <label for="lmp" class="form-label fw-bold">LMP:</label>
+                            <input type="date" name="lmp" class="test w-full form-control border rounded-lg p-2 mb-3" id="lmp"
+                                required autocomplete="lmp">
+                            <label for="edc" class="form-label fw-bold">EDC:</label>
+                            <input type="date" name="edc" class="test w-full form-control border rounded-lg p-2 mb-3" id="edc"
+                                required autocomplete="edc">
+                            <label class="form-label fw-bold"><u>DATES OF PRE-NATAL CHECK UPS</u></label>
+                            <label for="first_tri" class="form-label fw-bold">1st Trimester:</label>
+                            <input type="date" name="first_tri" class="test w-full form-control border rounded-lg p-2 mb-3" id="first_tri"
+                                required autocomplete="first_tri">
+                            <label for="second_tri" class="form-label fw-bold">2nd Trimester:</label>
+                            <input type="date" name="second_tri" class="test w-full form-control border rounded-lg p-2 mb-3" id="second_tri"
+                                required autocomplete="second_tri">
+                            <label for="third_tri" class="form-label fw-bold">3rd Trimester:</label>
+                            <input type="date" name="third_tri" class="test w-full form-control border rounded-lg p-2 mb-3" id="third_tri"
+                                required autocomplete="third_tri">
+                            <label class="form-label fw-bold"><u>IMMUNIZATION STATUS</u></label>
+                            <label class="form-label fw-bold"><u>Date Tetanus diptheria (Td) or Tetanus Toxoid (TT) given</u></label>
+                            <label for="td1" class="form-label fw-bold">Td1/TT1:</label>
+                            <input type="date" name="td1" class="test w-full form-control border rounded-lg p-2 mb-3" id="td1"
+                                required autocomplete="td1">
+                            <label for="td2" class="form-label fw-bold">Td2/TT1:</label>
+                            <input type="date" name="td2" class="test w-full form-control border rounded-lg p-2 mb-3" id="td2"
+                                required autocomplete="td2">
+                            <label for="td3" class="form-label fw-bold">Td3/TT1:</label>
+                            <input type="date" name="td3" class="test w-full form-control border rounded-lg p-2 mb-3" id="td3"
+                                required autocomplete="td3">
+                            <label for="td4" class="form-label fw-bold">Td4/TT1:</label>
+                            <input type="date" name="td4" class="test w-full form-control border rounded-lg p-2 mb-3" id="td4"
+                                required autocomplete="td4">
+                            <label for="td5" class="form-label fw-bold">Td5/TT1:</label>
+                            <input type="date" name="td5" class="test w-full form-control border rounded-lg p-2 mb-3" id="td5"
+                                required autocomplete="td5">
+                            <label for="td5" class="form-label fw-bold">FIM Status: </label>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <label for="treatment_partner" class="form-label fw-bold">Do you have a treatment partner for TB?</label>
-                        <select class="form-select" name="tb_treatment_partner" id="tb_treatment_partner" required onchange="toggleCheckupField()">
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                            
-                        </select>
-                        <div class="col-md-6" id="next_checkup_field" style="display: none;">
-                            <label for="next_checkup" class="form-label fw-bold">Next checkup:</label>
-                            <input type="date" class="form-control" name="next_checkup" id="next_checkup">
+                </div>  
+                <div class="col-lg-7 text-black">
+                    <div class="col-lg-12 mb-1">
+                        <div class="form-group mb-1">
+                            <label class="form-label fw-bold"><u>MICRONUTRIENT SUPPLEMENTATION</u></label>
+                            <label class="form-label fw-bold"><u>Iron sulfate with Folic Acid (Date and Number of Tablets Given)</u></label>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="iron_visit1" class="form-label fw-bold">1st visit (1st tri):</label>
+                                    <input type="date" name="iron_visit1" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_visit1"
+                                        required autocomplete="iron_visit1">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="iron_tablets_1" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="iron_tablets_1" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_tablets_1"
+                                        placeholder="Tablets Given" required autocomplete="iron_tablets_1">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="iron_visit2" class="form-label fw-bold">2nd visit (2nd tri):</label>
+                                    <input type="date" name="iron_visit2" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_visit2"
+                                        required autocomplete="iron_visit2">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="iron_tablets_2" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="iron_tablets_2" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_tablets_2"
+                                        placeholder="Tablets Given" required autocomplete="iron_tablets_2">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                        <label for="iron_visit3" class="form-label fw-bold">3rd visit (3rd tri):</label>
+                                    <input type="date" name="iron_visit3" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_visit3"
+                                        required autocomplete="iron_visit3">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="iron_tablets_3" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="iron_tablets_3" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_tablets_3"
+                                        placeholder="Tablets Given" required autocomplete="iron_tablets_3">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="iron_visit4" class="form-label fw-bold">4th visit (4th tri):</label>
+                                    <input type="date" name="iron_visit4" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_visit4"
+                                        required autocomplete="iron_visit4">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="iron_tablets_4" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="iron_tablets_4" class="test w-full form-control border rounded-lg p-2 mb-3" id="iron_tablets_4"
+                                        placeholder="Tablets Given" required autocomplete="iron_tablets_4">
+                                </div>
+                            </div>
+                            <label class="form-label fw-bold"><u>Calcium Carbonate (Date and Number of Tablets Given)</u></label>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="cal_visit2" class="form-label fw-bold">2nd visit (2nd tri):</label>
+                                    <input type="date" name="cal_visit2" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_visit2"
+                                        required autocomplete="cal_visit2">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="cal_tablets_2" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="cal_tablets_2" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_tablets_2"
+                                        placeholder="Tablets Given" required autocomplete="cal_tablets_2">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="cal_visit3" class="form-label fw-bold">3rd visit (3rd tri):</label>
+                                    <input type="date" name="cal_visit3" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_visit3"
+                                        required autocomplete="cal_visit3">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="cal_tablets_3" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="cal_tablets_3" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_tablets_3"
+                                        placeholder="Tablets Given" required autocomplete="cal_tablets_3">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="cal_visit4" class="form-label fw-bold">4th visit (4th tri):</label>
+                                    <input type="date" name="cal_visit4" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_visit4"
+                                        required autocomplete="cal_visit4">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="cal_tablets_4" class="form-label fw-bold"># of Tablets Given:</label>
+                                    <input type="number" name="cal_tablets_4" class="test w-full form-control border rounded-lg p-2 mb-3" id="cal_tablets_4"
+                                        placeholder="Tablets Given" required autocomplete="cal_tablets_4">
+                                </div>
+                            </div>
+                            <label class="form-label fw-bold"><u>Iodine Capsules (Date 2 capsules given)</u></label>
+                            <div class="row">   
+                                <div class="col-sm-7 pe-3">
+                                    <label for="iodine_visit1" class="form-label fw-bold">1st visit (1st tri):</label>
+                                    <input type="date" name="iodine_visit1" class="test w-full form-control border rounded-lg p-2 mb-3" id="iodine_visit1"
+                                        required autocomplete="iodine_visit1">
+                                </div>
+                            </div>
+                            <div class="row mb-2">  
+                                <div class="col-sm-8 pe-3">
+                                    <label for="bmi" class="form-label fw-bold pt-2 "><u>NUTRITIONAL ASSESSMENT (WRITE THE BMI FOR 1ST TRI)  : </u></label>   
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <select name="bmi" class="form-select w-full border rounded-lg p-2 mb-3" required>
+                                        <option value="" hidden>Select BMI</option>
+                                        <option value="Low: < 18.5">Low: < 18.5</option>
+                                        <option value="Normal: 18.5 - 22.9">Normal: 18.5 - 22.9</option>
+                                        <option value="High: > 23.0">High: > 23.0</option>
+                                    </select>   
+                                </div>
+                            </div>
+                            <div class="row">  
+                                <div class="col-sm-8 pe-3">
+                                    <label for="deworming_tablet" class="form-label fw-bold pt-2"><u>Deworming Tablet (Date Given) (2nd or #3rd Tri) : </u></label>
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <input type="date" name="deworming_tablet" class="test w-full form-control border rounded-lg p-2 mb-3" id="deworming_tablet"
+                                        required autocomplete="deworming_tablet">
+                                </div>
+                            </div>
+                            <label for="bmi" class="form-label fw-bold pt-2 "><u>INFECTIOUS DISEASE SURVEILLANCE</u></label>   
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="syph" class="form-label fw-bold">Syphills Screening:</label>
+                                    <input type="date" name="syph" class="test w-full form-control border rounded-lg p-2 mb-3" id="syph"
+                                        required autocomplete="syph">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="rpr_or_rdt" class="form-label fw-bold">(RpR or RDT Result):</label>
+                                    <select name="rpr_or_rdt" class="form-select w-full border rounded-lg p-2 mb-3" required>
+                                        <option value="" hidden>Negative / Positive</option>
+                                        <option value="Negative">Negative</option>
+                                        <option value="Positive">Positive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-sm-8 pe-3">
+                                    <label for="hepa" class="form-label fw-bold">Hepatitis B Screening:</label>
+                                    <input type="date" name="hepa" class="test w-full form-control border rounded-lg p-2 mb-3" id="hepa"
+                                        required autocomplete="hepa">
+                                </div>
+                                <div class="col-sm-4 pe-3">
+                                    <label for="hbsag" class="form-label fw-bold">(Result of HBsAg Test):</label>
+                                    <select name="hbsag" class="form-select w-full border rounded-lg p-2 mb-3" required>
+                                        <option value="" hidden>Negative / Positive</option>
+                                        <option value="Negative">Negative</option>
+                                        <option value="Positive">Positive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label for="hiv" class="form-label fw-bold">HIV Screening Date Screened:</label>
+                            <div class="col-sm-8 pe-3">
+                                <input type="date" name="hiv" class="test w-full form-control border rounded-lg p-2 mb-3" id="hiv"
+                                    required autocomplete="hiv">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="mt-4 d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary px-4" onclick="window.history.back()">Back</button>
-                    <button type="submit" class="btn btn-primary px-4">Submit</button>
-                </div>
+                    <div class="text-center d-flex justify-content-end pt-5 mt-5 mx-5">
+                        <button type="submit" class="btn btn-outline-success border-1 px-5 py-2 fw-bold rounded rounded-3">Submit</button>
+                    </div>
+                    <hr>
+                </div>  
             </div>
         </form>
     </div>

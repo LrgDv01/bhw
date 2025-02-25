@@ -220,7 +220,7 @@
             $isServiceActive = Request::is(
                 'bhw/services', 'bhw/census-form', 'bhw/mother-census', 
                 'deworming', 'familyplanning', 'wreproductiveage', 
-                'bhw/child'
+                'bhw/child', 'bhw/monthly-report'
             );
           @endphp
           <li class="nav-item">
@@ -269,7 +269,7 @@
                           <span>+ Immunization</span></a>
                   </li>
                   <li>
-                      <a href="{{ route('bhw.deworming.index') }}" class="{{ Request::is('bhw/deworming') ? 'active' : '' }}">
+                      <a href="{{ route('bhw.monthly-report') }}" class="{{ Request::is('bhw/monthly-report') ? 'active' : '' }}">
                           {{-- <i class="bi bi-person-workspace fs-6"></i> --}}
                           <span>+ Overall Monthly Report</span></a>
                   </li>

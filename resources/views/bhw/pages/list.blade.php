@@ -7,10 +7,8 @@
         <h1 class="fw-bold">Census List</h1>
     </div>
     <div class="pagetitle mb-5">
-        <a href="{{ route('bhw.Print') }}" class="btn btn-primary">Print data</a>
-        
+        <a href="{{ route('bhw.monthly-report') }}" class="btn btn-primary">Print data</a>
     </div>
-
     <div class="container shadow p-5 rounded bg-light">
         <div class="row">
             <div class="col-md-6">
