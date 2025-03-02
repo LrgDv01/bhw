@@ -1,9 +1,9 @@
-import { yearFilter } from "./utils/filter.js";
+import { yearFilter } from "../utils/filter.js";
 
 function displayChildChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year;
-    const chartContainer = document.getElementById("deworming_chart");
+    const chartContainer = document.getElementById("dewormingBeneficiaries");
     const insightContainer = document.getElementById("insight_container"); 
     const forecastContainer = document.getElementById("forecast_chart");
     const forecastInsightContainer = document.getElementById("forecast_insight_container"); 
@@ -359,9 +359,9 @@ function displayChildChart(year = null) {
 
         createInsight(dataPoints);
 
-        const chart = new CanvasJS.Chart("deworming_chart", {
+        const chart = new CanvasJS.Chart("dewormingBeneficiaries", {
             animationEnabled: true,
-            title: { text: `Deworming Beneficiaries by Age (${year})` },
+            title: { text: `Deworming Beneficiaries by Age` },
             toolTip: { enabled: true, shared: true, content: "{label}: {y}%" },
             data: [{
                 type: "pie",
@@ -387,18 +387,8 @@ function displayChildChart(year = null) {
             data: { year: selectedYear },
             success: function (res) {
                 createChart(selectedYear, res.dewormingAgeRanges);
-                const btn = document.getElementById('showForecastChartBtn');
-                const card_forecast = document.getElementById('card-forecast');
-                const hideBtn = document.getElementById('hideForecastChartBtn');
-                btn.addEventListener('click', function() {
-                    card_forecast.style.visibility = 'visible';  
-                    createForecastChart(res.historicalDewormingData, res.forecastedDewormingData);
-                    generateForecastInsights(res);
-                    console.log('historicalDewormingData and forecastedDewormingData', res.historicalDewormingData, res.forecastedDewormingData);
-                });
-                hideBtn.addEventListener('click', function() {
-                    card_forecast.style.visibility = 'hidden';  
-                });
+                createForecastChart(res.historicalDewormingData, res.forecastedDewormingData);
+                generateForecastInsights(res);
             },
             error: function () {
                 console.error("Failed to fetch data.");

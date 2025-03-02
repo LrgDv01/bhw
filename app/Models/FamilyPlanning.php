@@ -12,7 +12,7 @@ class FamilyPlanning extends Model
     protected $table = 'family_planning';
 
     protected $fillable = [
-        'family_serial_no',
+        'serial_no',
         'name',
         'address',
         'age_dob',

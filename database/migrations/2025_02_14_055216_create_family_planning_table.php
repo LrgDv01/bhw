@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('family_planning', function (Blueprint $table) {
             $table->id();
-            $table->string('family_serial_no');
+            $table->string('serial_no');
             $table->string('name');
             $table->string('address');
             $table->date('age_dob');

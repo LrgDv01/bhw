@@ -159,6 +159,14 @@
     
     @if (auth()->user())
         @if (auth()->user()->isSuperAdmin())
+            @php
+              $isSummaryListActive = Request::is(
+                  'admin/summary-list', 'admin/summary-list/census', 'admin/summary-list/maternal-care', 
+                  'admin/summary-list/deworming', 'admin/summary-list/familyplanning', 'admin/summary-list/wreproductive-age', 
+                  'admin/summary-list/immunization', 'admin/summary-list/monthly-report'
+              );
+            @endphp
+
             <li class="nav-item">
                 <a class="nav-link border border-0 {{ Request::is('admin/dashboard') ? 'active' : 'inactive' }}" href="{{ url('/admin/dashboard') }}">
                     <i class="bi bi-grid-fill"></i>
@@ -172,10 +180,61 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link border border-0  {{ Request::is('admin/summary-list') ? 'active' : 'inactive' }}" href="{{ url('/admin/summary-list') }}">
+               {{-- <a class="nav-link border border-0  {{ Request::is('admin/summary-list') ? 'active' : 'inactive' }}" 
+                  href="{{ url('/admin/summary-list') }}">
                     <i class="bi bi-list-ul"></i> 
                     <span>Summary / List</span>
-                </a> 
+                </a> --}}
+                <a class="nav-link border-0 {{ $isSummaryListActive ? 'active' : 'inactive' }}"
+                  data-bs-toggle="collapse" 
+                  href="#services-nav" 
+                  aria-expanded="{{ $isSummaryListActive ? 'true' : 'false' }}" 
+                  aria-controls="services-nav">
+                  <i class="bi bi-briefcase"></i>
+                  <span>Summary / List</span>
+                  <i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+                <ul id="services-nav" class="nav-content collapse {{ $isSummaryListActive ? 'show' : '' }}" 
+                  data-bs-parent="#sidebar-nav">
+                  <li>
+                      <a href="{{ route('admin.summary-list.census') }}" class="{{ Request::is('admin/summary-list/census') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Census</span> </a>
+                  </li>
+                  <li>
+                      <a href="{{ route('admin.summary-list.maternal-care') }}" class="{{ Request::is('admin/summary-list/maternal-care') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Maternal Care</span> </a>
+                  </li>
+                  <li>
+                      <a href="{{ route('admin.summary-list.deworming') }}" class="{{ Request::is('admin/summary-list/deworming') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Deworming</span> </a>
+                  </li>
+                  
+                  <li>
+                      <a href="{{ route('admin.summary-list.family-planning') }}" class="{{ Request::is('admin/summary-list/familyplanning') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Family Planning</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{{ route('admin.summary-list.wreproductive-age') }}" class="{{ Request::is('admin/summary-list/wreproductive-age') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                        <span>Woman in Reproductive Age</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{{ route('admin.summary-list.immunization') }}" class="{{ Request::is('admin/summary-list/immunization') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Immunization</span></a>
+                  </li>
+                  <li>
+                      <a href="{{ route('admin.summary-list.monthly-report') }}" class="{{ Request::is('admin/summary-list/monthly-report') ? 'active' : '' }}">
+                      <i class="fa fa-table fs-6 me-2"></i> 
+                      <span>Overall Monthly Report</span></a>
+                  </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link border border-0  {{ Request::is('admin/list_bhw') || Request::is('admin/bhwregistration') ? 'active' : 'inactive' }}" href="{{ url('/admin/list_bhw') }}">
@@ -218,7 +277,7 @@
         @if (auth()->user()->isBHW())
           @php
             $isServiceActive = Request::is(
-                'bhw/services', 'bhw/census-form', 'bhw/mother-census', 
+                'bhw/services', 'bhw/census-form', 'bhw/maternal-care', 
                 'deworming', 'familyplanning', 'wreproductiveage', 
                 'bhw/child', 'bhw/monthly-report'
             );
@@ -246,7 +305,7 @@
                         <span>+ Census</span> </a>
                   </li>
                   <li>
-                      <a href="{{ route('bhw.mother-census') }}" class="{{ Request::is('bhw/mother-census') ? 'active' : '' }}">
+                      <a href="{{ route('bhw.maternal-care') }}" class="{{ Request::is('bhw/maternal-care') ? 'active' : '' }}">
                           <span>+ Maternal Care</span> </a>
                   </li>
                   <li>

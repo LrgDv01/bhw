@@ -13,7 +13,7 @@
                 @endforeach
             </ul>
         @endif
-        <form action="{{ route('form.save') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('bhw.maternal-care.submit') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-lg-5 mb-3 text-black"> 
@@ -35,7 +35,7 @@
                                 <option value="Non NHTS">2-Non NHTS</option>
                             </select>
                             <label for="age" class="form-label fw-bold">Age:</label>
-                            <input type="number" name="address" class="test w-full form-control border rounded-lg p-2 mb-3" id="age"
+                            <input type="number" name="age" class="test w-full form-control border rounded-lg p-2 mb-3" id="age"
                                 placeholder="Age" required autocomplete="age">
                             <label for="lmp" class="form-label fw-bold">LMP:</label>
                             <input type="date" name="lmp" class="test w-full form-control border rounded-lg p-2 mb-3" id="lmp"
@@ -70,7 +70,7 @@
                             <label for="td5" class="form-label fw-bold">Td5/TT1:</label>
                             <input type="date" name="td5" class="test w-full form-control border rounded-lg p-2 mb-3" id="td5"
                                 required autocomplete="td5">
-                            <label for="td5" class="form-label fw-bold">FIM Status: </label>
+                            <label class="form-label fw-bold">FIM Status: </label>
                         </div>
                     </div>
                 </div>  
@@ -194,7 +194,7 @@
                                         required autocomplete="deworming_tablet">
                                 </div>
                             </div>
-                            <label for="bmi" class="form-label fw-bold pt-2 "><u>INFECTIOUS DISEASE SURVEILLANCE</u></label>   
+                            <label for="syph" class="form-label fw-bold pt-2 "><u>INFECTIOUS DISEASE SURVEILLANCE</u></label>   
                             <div class="row">   
                                 <div class="col-sm-8 pe-3">
                                     <label for="syph" class="form-label fw-bold">Syphills Screening:</label>

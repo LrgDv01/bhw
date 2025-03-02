@@ -40,8 +40,8 @@
                                         <label for="se_status" class="form-label fw-bold">SE Status:</label>
                                         <select name="se_status" class="form-select w-full border rounded-lg p-2 mb-3">
                                             <option value="" hidden>Select Status</option>
-                                            <option value="1">NHTS</option>
-                                            <option value="2">Non NHTS</option>
+                                            <option value="NHTS">NHTS</option>
+                                            <option value="Non NHTS">Non NHTS</option>
                                         </select>
                                     </div>
                                     <div class="w-50">
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="w-50 pe-3">
                                         <label for="schedule_date" class="form-label fw-bold">Schedule Date:</label>
-                                        <input type="date" name="schedule_date" class="form-control w-full border rounded-lg p-2 mb-3" id="actual_date"
+                                        <input type="date" name="schedule_date" class="form-control w-full border rounded-lg p-2 mb-3" id="schedule_date"
                                             placeholder="Enter schedule date" required autocomplete="schedule_date">
                                     </div>
                                     <div class="w-50 pe-3">
@@ -125,20 +125,16 @@
                                             placeholder="Enter actual date" required autocomplete="actual_date">
                                     </div>
                                 </div>
-                    
-                                <label class="form-label fw-bold" for="age_dob">Age/Date of Birth:</label>
-                                <input type="date" name="age_dob" class="form-control w-full border rounded-lg p-2 mb-3" id="age_dob" required autocomplete="age_dob">
-                              
-
+                                <label class="form-label fw-bold fs-5">Drop Out:</label>
                                 <div class="d-flex justify-content-between">   
                                     <div class="w-50 pe-3"> 
-                                        <label for="dropout_date" class="form-label fw-bold">Drop Out Date:</label>
+                                        <label for="dropout_date" class="form-label fw-bold">Date:</label>
                                         <input type="date" name="dropout_date" class="form-control w-full border rounded-lg p-2 mb-3" id="dropout_date" 
                                             required autocomplete="dropout_date">
                                     </div> 
                                     <div class="w-50 pe-3"> 
-                                        <label for="dropout_reason" class="form-label fw-bold">Drop Out Reason:</label>
-                                        <select name="dropout_reason" class="form-select w-full border rounded-lg p-2 mb-3">
+                                        <label for="dropout_reason" class="form-label fw-bold">Reason:</label>
+                                        <select name="dropout_reason" class="form-select text-truncate w-full border rounded-lg p-2 pe-5 mb-3">
                                             <option value="" hidden>Select Reason</option>
                                             <option value="A">Pregnant</option>
                                             <option value="B">Desire to become pregnant</option>
@@ -174,5 +170,5 @@
     </section>
 </main>
 
-   
+
 

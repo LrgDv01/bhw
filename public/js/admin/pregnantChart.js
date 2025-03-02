@@ -4,13 +4,13 @@ function displayWomenChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year;
     const backgroundColors = {
-        "10-14": "#0097b2",
-        "15-19": "#0cc0df",
-        "20-49": "#5ce1e6"
+        "10-14": "#6ce5e8",
+        "15-19": "#41b8d5",
+        "20-49": "#2d8bba"
     };
-    let womens_chart;
+    let pregnant_chart;
     Chart.register(ChartZoom);
-    const ctx = document.getElementById("womens_chart").getContext("2d");
+    const ctx = document.getElementById("pregnant_chart").getContext("2d");
 
     const createChart = (year, yearData, ageRanges) => {
         if (!year && (!yearData || yearData.length === 0)) {
@@ -26,17 +26,18 @@ function displayWomenChart(year = null) {
                     return ageRanges[ageGroup].filter(item => item.month === month).length;
                 });
                 return {
-                    label: ageGroup + ' Y/O',
+                    // label: ageGroup + ' Y/O',
+                    label: 'Trimester',
                     data: monthlyCounts,
                     backgroundColor: backgroundColors[ageGroup],
                 };
             });
 
             const chartHeight = Math.max(400, yearData.length * 40);
-            document.getElementById("womens_chart").height = chartHeight;
-            if (womens_chart) womens_chart.destroy();
-            womens_chart = new Chart(ctx, {
-                type: 'bar',
+            document.getElementById("pregnant_chart").height = chartHeight;
+            if (pregnant_chart) pregnant_chart.destroy();
+            pregnant_chart = new Chart(ctx, {
+                type: 'line',
                 data: { labels: monthOrder, datasets: datasets },
                 options: {
                     indexAxis: 'x', responsive: true, maintainAspectRatio: false,
@@ -44,7 +45,7 @@ function displayWomenChart(year = null) {
                         legend: { position: 'top' },
                         title: {
                             display: true,
-                            text: `Women in Reproductive Ages by Month (${year})`,
+                            text: `Total Pregnant Women Ages by Group (${year})`,
                             font: { size: 24 },
                             color: 'black'
                         },
@@ -61,8 +62,6 @@ function displayWomenChart(year = null) {
             });
         }
     };
-
-
 
     let url = window.userType === '0' ? '/admin/get_dashboard_info' 
             : window.userType === '1' ? '/admin-midwife/get_dashboard_info' 
@@ -84,8 +83,8 @@ function displayWomenChart(year = null) {
         reqData(selectedYear);
     });
 
-    document.getElementById("womenResetZoomBtn").addEventListener("click", function () {
-        if (womens_chart) womens_chart.resetZoom();
+    document.getElementById("pregnantResetZoomBtn").addEventListener("click", function () {
+        if (pregnant_chart) pregnant_chart.resetZoom();
     });
 }
 

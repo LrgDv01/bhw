@@ -4,13 +4,16 @@ function displayWomenChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year;
     const backgroundColors = {
-        "10-14": "#0097b2",
-        "15-19": "#0cc0df",
-        "20-49": "#5ce1e6"
+        "10-14": "#00cadc",
+        "15-19": "#49c3fb",
+        "20-49": "#65a6fa",
+        "10-14": "#7e80e7",
+        "15-19": "#9b57cc"
+ 
     };
-    let womens_chart;
+    let contraceptive_chart;
     Chart.register(ChartZoom);
-    const ctx = document.getElementById("womens_chart").getContext("2d");
+    const ctx = document.getElementById("contraceptive_chart").getContext("2d");
 
     const createChart = (year, yearData, ageRanges) => {
         if (!year && (!yearData || yearData.length === 0)) {
@@ -18,24 +21,28 @@ function displayWomenChart(year = null) {
             return;
         } else{
             const monthOrder = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
+                "Adia", "Bagong Pook", "Bagumbayan", "Bubucal", "Cabuoan", "Cambuja",
+                "Coralan", "Cueva", "Inayapan", "Jose P. Laurel, Sr.", "Jose Rizal", 
+                "Juan Santiago", "Kayhacat", "Macasipac", "Masinao", "Matalinting",
+                "Pao-o", "Parang ng Buho", "Poblacion Dos", "Poblacion Quatro", "Poblacion Tres",
+                "Poblacion Uno", "Talangka", "Tungkod"
             ];
             const datasets = Object.keys(ageRanges).map((ageGroup) => {
                 const monthlyCounts = monthOrder.map((month) => {
                     return ageRanges[ageGroup].filter(item => item.month === month).length;
                 });
                 return {
-                    label: ageGroup + ' Y/O',
+                    // label: ageGroup + ' Y/O',
+                    label: 'IUD',
                     data: monthlyCounts,
                     backgroundColor: backgroundColors[ageGroup],
                 };
             });
 
             const chartHeight = Math.max(400, yearData.length * 40);
-            document.getElementById("womens_chart").height = chartHeight;
-            if (womens_chart) womens_chart.destroy();
-            womens_chart = new Chart(ctx, {
+            document.getElementById("contraceptive_chart").height = chartHeight;
+            if (contraceptive_chart) contraceptive_chart.destroy();
+            contraceptive_chart = new Chart(ctx, {
                 type: 'bar',
                 data: { labels: monthOrder, datasets: datasets },
                 options: {
@@ -44,7 +51,7 @@ function displayWomenChart(year = null) {
                         legend: { position: 'top' },
                         title: {
                             display: true,
-                            text: `Women in Reproductive Ages by Month (${year})`,
+                            text: `Client per Contraceptive Method per Barangay (${year})`,
                             font: { size: 24 },
                             color: 'black'
                         },
@@ -54,15 +61,13 @@ function displayWomenChart(year = null) {
                         },
                     },
                     scales: {
-                        x: { title: { display: true, text: 'Month', font: { size: 16 } }, stacked: false },
-                        y: { title: { display: true, text: 'Count of Women', font: { size: 16 } }, beginAtZero: true, stacked: false }
+                        x: { title: { display: true, text: 'Barangay', font: { size: 16 } }, stacked: true },
+                        y: { title: { display: true, text: 'Count per Contraceptive Method', font: { size: 16 } }, beginAtZero: true, stacked: true }
                     },
                 },
             });
         }
     };
-
-
 
     let url = window.userType === '0' ? '/admin/get_dashboard_info' 
             : window.userType === '1' ? '/admin-midwife/get_dashboard_info' 
@@ -78,14 +83,12 @@ function displayWomenChart(year = null) {
         });
     }
     reqData(currentYear);
-
     sendYear.addEventListener("change", (e) => {
         const selectedYear = e.target.value;
         reqData(selectedYear);
     });
-
-    document.getElementById("womenResetZoomBtn").addEventListener("click", function () {
-        if (womens_chart) womens_chart.resetZoom();
+    document.getElementById("contraceptiveResetZoomBtn").addEventListener("click", function () {
+        if (contraceptive_chart) contraceptive_chart.resetZoom();
     });
 }
 
