@@ -7,7 +7,6 @@ use App\Models\BhwForm;
 
 class BhwFormController extends Controller
 {
-    
 
     public function showReport()
     {

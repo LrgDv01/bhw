@@ -22,6 +22,8 @@
   <!-- Bootstrap JS (Ensure Bootstrap is included in your layout) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
   @if(Request::routeIs('admin.dashboard') || Request::routeIs('admin.midwife.dashboard') || Request::routeIs('bhw.dashboard'))
     <script src="{{ asset('js/admin/dashboard.js') }}"></script>
     <!-- Map Scripts -->
@@ -30,16 +32,27 @@
       crossorigin="anonymous"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js"></script>
     <script src="{{ URL::asset('js/admin/geomap.js')}}"></script> 
+
     <!-- Chart Script -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
     <script type="module" src="{{ URL::asset('js/admin/womensChart.js')}}"></script>
     <script type="module" src="{{ URL::asset('js/admin/dewormingChart.js')}}"></script>
-  @else
-    <script src="{{ URL::asset('js/admin/settings.js')}}"></script>
-    <script src="{{ URL::asset('js/admin/users.js')}}"></script> 
-    <script src="{{ URL::asset('js/admin/app.js')}}"></script>
+    <script type="module" src="{{ URL::asset('js/admin/pregnantChart.js')}}"></script> 
+    <script type="module" src="{{ URL::asset('js/admin/contraceptiveMethodChart.js')}}"></script> 
+    <script type="module" src="{{ URL::asset('js/admin/immunizationChart.js')}}"></script>
   @endif
+
+    <script type="module" src="{{ URL::asset('js/admin/analytics/censusCharts.js')}}"></script>
+    <script type="module" src="{{ URL::asset('js/admin/analytics/maternalCareCharts.js')}}"></script> 
+    <script type="module" src="{{ URL::asset('js/admin/analytics/dewormingCharts.js')}}"></script>  
+    <script type="module" src="{{ URL::asset('js/admin/analytics/familyFlanningCharts.js')}}"></script> 
+    <script type="module" src="{{ URL::asset('js/admin/analytics/wReproductiveAgeCharts.js')}}"></script> 
+    <script type="module" src="{{ URL::asset('js/admin/analytics/immunizationCharts.js')}}"></script> 
+
+
+ 
+  <script src="{{ URL::asset('js/user/settings.js')}}"></script> 
+  <script src="{{ URL::asset('js/user/user.js')}}"></script> 
+  <script src="{{ URL::asset('js/app.js')}}"></script>
 
   <!-- Template Main JS File -->
   <script src="{{ URL::asset('theme/assets/js/main.js')}}"></script>

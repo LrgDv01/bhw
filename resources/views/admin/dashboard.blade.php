@@ -127,7 +127,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3 mb-3">
                         <div class="card info-card cardiconbg">
                             <div class="card-body">
@@ -174,6 +173,18 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-lg-5 mb-3">
+                        <div class="card map">
+                            <div class="card-body p-3">
+                                <div id="map_locations" style="width: 100%; height: 500px; margin: auto;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-0 my-0">
+                    <div class="col-lg-6">
                         <div class="card women">
                             <div class="card-body p-3">
                                 <div id="chart" style="width: 100%; height:auto; margin: auto; ">
@@ -181,15 +192,45 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-center">
-                                <button id="resetZoomBtn1" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
+                                <button id="womenResetZoomBtn" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 mb-3">
-                        <div class="card map">
+                    <div class="col-lg-6">
+                        <div class="card women">
                             <div class="card-body p-3">
-                                <div id="map_locations" style="width: 100%; height: 500px; margin: auto;">
+                                <div id="chart" style="width: 100%; height:auto; margin: auto; ">
+                                    <canvas id="pregnant_chart"></canvas>
                                 </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <button id="pregnantResetZoomBtn" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-0 my-0">
+                    <div class="col-lg-6">
+                        <div class="card women">
+                            <div class="card-body p-3">
+                                <div id="chart" style="width: 100%; height:auto; margin: auto; ">
+                                    <canvas id="contraceptive_chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <button id="contraceptiveResetZoomBtn" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card women">
+                            <div class="card-body p-3">
+                                <div id="chart" style="width: 100%; height:auto; margin: auto; ">
+                                    <canvas id="immunization_chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <button id="immunizationResetZoomBtn" class="btn btn-outline-secondary mb-2 btn-sm rounded rounded-3">Default View</button>
                             </div>
                         </div>
                     </div>

@@ -7,11 +7,11 @@
         <h1 class="fw-bold">Child Census</h1>
     </div>
     
-    <div class="text-center mb-3">
+{{--    <div class="text-center mb-3">
         <a href="{{ route('bhw.mother-census') }}" class="btn btn-outline-primary">
             &larr; Go to Pregnancy Census
         </a>
-    </div>
+    </div>--}}
 
     <section class="section">
         <div class="container">

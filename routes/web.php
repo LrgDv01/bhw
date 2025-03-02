@@ -12,7 +12,7 @@ use App\Http\Controllers\Super_adminController;
 use App\Http\Controllers\BhwregistrationController;
 use App\Http\Controllers\admin\admin_mdwf\ScheduleController;
 use App\Http\Controllers\DutyScheduleController;
-use App\Http\Controllers\FormController;
+use App\Http\Controllers\MaternalCareController; 
 use App\Http\Controllers\ChildCensusController;
 use App\Http\Controllers\MyscheduleController;
 use App\Http\Controllers\admin\admin_mdwf\UseractivityController;
@@ -21,6 +21,8 @@ use App\Http\Controllers\FamilyPlanningController;
 use App\Http\Controllers\WreproductiveAgeController;
 use App\Http\Controllers\DewormingController;
 use App\Http\Controllers\CensusModelController;
+use App\Http\Controllers\SummaryListController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,15 +57,35 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/get_dashboard_info', [dashboardController::class, 'get_dashboard_info'])->name('admin.get_dashboard_info');
         Route::get('/admin/get_map_locations', [MapController::class, 'get_map_locations'])->name('admin.map_locations');
         Route::get('/admin/announcement', [Super_adminController::class, 'announcement'])->name('admin.announcement');
-        Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
+     
         Route::delete('/admin/announcement/{id}', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
         Route::get('/admin/summary-list', [Super_adminController::class, 'summaryList']);
+
+        // Summary List 
+        Route::get('/admin/summary-list/census', [SummaryListController::class, 'getCensus'])->name('admin.summary-list.census');
+        Route::get('/admin/summary-list/maternal-care', [SummaryListController::class, 'getMaternalCare'])->name('admin.summary-list.maternal-care');
+        Route::get('/admin/summary-list/deworming', [SummaryListController::class, 'getDeworming'])->name('admin.summary-list.deworming');
+        Route::get('/admin/summary-list/familyplanning', [SummaryListController::class, 'getFamilyPlanning'])->name('admin.summary-list.family-planning');
+        Route::get('/admin/summary-list/wreproductive-age', [SummaryListController::class, 'getWreproductiveAge'])->name('admin.summary-list.wreproductive-age');
+        Route::get('/admin/summary-list/immunization', [SummaryListController::class, 'getImmunization'])->name('admin.summary-list.immunization');
+        Route::get('/admin/summary-list/monthly-report', [SummaryListController::class, 'getReport'])->name('admin.summary-list.monthly-report');
+
+        // Analytics
+        Route::get('/admin/analytics/census', [SummaryListController::class, 'getCensusAnalytics'])->name('admin.analytics.census');
+        Route::get('/admin/analytics/maternal-care', [SummaryListController::class, 'getMaternalCareAnalytics'])->name('admin.analytics.maternal-care');
+        Route::get('/admin/analytics/deworming', [SummaryListController::class, 'getDewormingAnalytics'])->name('admin.analytics.deworming');
+        Route::get('/admin/analytics/familyplanning', [SummaryListController::class, 'getFamilyPlanningAnalytics'])->name('admin.analytics.family-planning');
+        Route::get('/admin/analytics/wreproductive-age', [SummaryListController::class, 'getWreproductiveAgeAnalytics'])->name('admin.analytics.wreproductive-age');
+        Route::get('/admin/analytics/immunization', [SummaryListController::class, 'getImmunizationAnalytics'])->name('admin.analytics.immunization');
+        // Route::get('/admin/analytics/monthly-report', [SummaryListController::class, 'getReportAnalytics'])->name('admin.analytics.monthly-report');
+
         Route::get('/admin/list_bhw', [Super_adminController::class, 'listBHW'])->name('admin.list_bhw');
         Route::get('/admin/bhwregistration', [BhwregistrationController::class, 'index'])->name('admin.bhwregistration.index');
-        Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
         Route::get('/bhw/dashboard', [BhwregistrationController::class, 'index'])->name('bhw.dashboardss');
         Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard'); 
         Route::middleware(['web'])->group(function () {
+            Route::post('/admin/bhwregistration/submit', [BhwregistrationController::class, 'bhwregistration'])->name('admin.bhwregistration.submit');
+            Route::post('/admin/announcement', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
         });
     })->middleware('redirect.nonadmin');
     
@@ -100,16 +122,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/settings', [ProfileController::class, 'index'])->name('user.settings');
         Route::get('/child-census', [ChildCensusController::class, 'create'])->name('child.census.create');
         Route::post('/child-census', [ChildCensusController::class, 'store'])->name('child.census.store');
-        Route::get('/bhw/mother-census', [FormController::class, 'showForm'])->name('bhw.mother-census');
+        Route::get('/bhw/maternal-care', [MaternalCareController::class, 'index'])->name('bhw.maternal-care');
         Route::get('/bhw/services', [ServicesController::class, 'Serv'])->name('bhw.services');
         Route::get('/bhw/census-form', [CensusModelController::class, 'create'])->name('bhw.census-form');
         Route::post('/bhw/census-store', [CensusModelController::class, 'store'])->name('bhw.census-store');
-        Route::post('/form/save', [FormController::class, 'saveForm'])->name('form.save');
+        Route::post('/bhw/maternal-care/submit', [MaternalCareController::class, 'submitReport'])->name('bhw.maternal-care.submit');
 
-        Route::get('/bhw/monthly-report', [FormController::class, 'print'])->name('bhw.monthly-report');
-        Route::get('/bhw/list', [FormController::class, 'showList'])->name('bhw.pages.list');
-        Route::get('/family-member/{id}', [FormController::class, 'viewData'])->name('bhw.pages.viewData');
-        Route::delete('/family-member/{id}', [FormController::class, 'destroy'])->name('bhw.pages.deleteData');
+        Route::get('/bhw/monthly-report', [MaternalCareController::class, 'print'])->name('bhw.monthly-report');
+        Route::get('/bhw/list', [MaternalCareController::class, 'showList'])->name('bhw.pages.list');
+        Route::get('/family-member/{id}', [MaternalCareController::class, 'viewData'])->name('bhw.pages.viewData');
+        Route::delete('/family-member/{id}', [MaternalCareController::class, 'destroy'])->name('bhw.pages.deleteData');
         Route::get('/child/{id}/view', [ChildCensusController::class, 'viewChildData'])->name('bhw.pages.viewChildData');
         Route::delete('/child/{id}/delete', [ChildCensusController::class, 'deleteChildData'])->name('bhw.pages.deleteChildData');
         Route::get('/bhw/Announcement', [ServicesController::class, 'announcement'])->name('bhw.Announcement');

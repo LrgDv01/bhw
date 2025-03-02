@@ -1,5 +1,5 @@
 
-@include('bhw.partials.__header')
+@include('admin.partials.__header')
 @include('admin.partials.__nav')
 
 <style>
@@ -123,14 +123,14 @@
             <tr>
                 <th colspan="2" class="header-top">
                     <div class="header-container">
-                        <img src="{{ URL::asset('img/bhw-logo.png') }}" alt="BHW Logo" class="header-logo left-logo">
+                        <img src="{{ URL::asset('img/laguna-logo.png') }}" alt="Laguna Logo" class="header-logo right-logo">
                         <div class="header-text">
                             Provincial Government of Laguna <br>
                             PROVINCIAL HEALTH OFFICE <br>
                             Sta. Cruz, Laguna <br>
                             Tel. No. (049) 501-1523 / (049) 576-6141
                         </div>
-                        <img src="{{ URL::asset('img/laguna-logo.png') }}" alt="Laguna Logo" class="header-logo right-logo">
+                        <img src="{{ URL::asset('img/province-health.jpg') }}" alt="BHW Logo" class="header-logo left-logo">
                     </div>
                 </th>
             </tr>
@@ -363,4 +363,4 @@
     </section>
 </main> 
 
-@include('bhw.partials.__footer')
+@include('admin.partials.__footer')

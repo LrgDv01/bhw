@@ -4,13 +4,11 @@ function displayWomenChart(year = null) {
     const currentYear = new Date().getFullYear();
     let sendYear = year == null ? currentYear : year;
     const backgroundColors = {
-        "10-14": "#0097b2",
-        "15-19": "#0cc0df",
-        "20-49": "#5ce1e6"
+        "10-14": "#2d8bba",
     };
-    let womens_chart;
+    let immunization_chart;
     Chart.register(ChartZoom);
-    const ctx = document.getElementById("womens_chart").getContext("2d");
+    const ctx = document.getElementById("immunization_chart").getContext("2d");
 
     const createChart = (year, yearData, ageRanges) => {
         if (!year && (!yearData || yearData.length === 0)) {
@@ -18,33 +16,33 @@ function displayWomenChart(year = null) {
             return;
         } else{
             const monthOrder = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
+                "PCV1", "PCV2", "PCV3", "BCG", "Penta 1", "Penta 2", "Penta 3", "OPV1",
+                "OPV2", "OPV3", "IPV", "Vitamin A", "Measles", "MMR"
             ];
             const datasets = Object.keys(ageRanges).map((ageGroup) => {
                 const monthlyCounts = monthOrder.map((month) => {
                     return ageRanges[ageGroup].filter(item => item.month === month).length;
                 });
                 return {
-                    label: ageGroup + ' Y/O',
+                    // label: ageGroup + ' Y/O',
                     data: monthlyCounts,
                     backgroundColor: backgroundColors[ageGroup],
                 };
             });
 
             const chartHeight = Math.max(400, yearData.length * 40);
-            document.getElementById("womens_chart").height = chartHeight;
-            if (womens_chart) womens_chart.destroy();
-            womens_chart = new Chart(ctx, {
+            document.getElementById("immunization_chart").height = chartHeight;
+            if (immunization_chart) immunization_chart.destroy();
+            immunization_chart = new Chart(ctx, {
                 type: 'bar',
                 data: { labels: monthOrder, datasets: datasets },
                 options: {
-                    indexAxis: 'x', responsive: true, maintainAspectRatio: false,
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
                     plugins: {
                         legend: { position: 'top' },
                         title: {
                             display: true,
-                            text: `Women in Reproductive Ages by Month (${year})`,
+                            text: `Distribution of Immunization by Vaccine Type (${year})`,
                             font: { size: 24 },
                             color: 'black'
                         },
@@ -54,15 +52,13 @@ function displayWomenChart(year = null) {
                         },
                     },
                     scales: {
-                        x: { title: { display: true, text: 'Month', font: { size: 16 } }, stacked: false },
-                        y: { title: { display: true, text: 'Count of Women', font: { size: 16 } }, beginAtZero: true, stacked: false }
+                        x: { title: { display: true, text: 'Count per Vaccine Type', font: { size: 16 } }, stacked: false },
+                        y: { title: { display: true, text: 'Vaccine Type', font: { size: 16 } }, beginAtZero: true, stacked: false }
                     },
                 },
             });
         }
     };
-
-
 
     let url = window.userType === '0' ? '/admin/get_dashboard_info' 
             : window.userType === '1' ? '/admin-midwife/get_dashboard_info' 
@@ -84,8 +80,8 @@ function displayWomenChart(year = null) {
         reqData(selectedYear);
     });
 
-    document.getElementById("womenResetZoomBtn").addEventListener("click", function () {
-        if (womens_chart) womens_chart.resetZoom();
+    document.getElementById("immunizationResetZoomBtn").addEventListener("click", function () {
+        if (immunization_chart) immunization_chart.resetZoom();
     });
 }
 
