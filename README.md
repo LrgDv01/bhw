@@ -1,66 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BHW Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Barangay Health Worker (BHW) web application built with Laravel. This system supports health record management, schedule coordination, announcements, and reporting workflows for BHW users and administrative roles.
 
-## About Laravel
+## Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The project is designed around the day-to-day work of barangay health staff in the Philippines. It provides a central web portal for:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- registering and managing BHW accounts
+- logging in and resetting passwords
+- managing health service records
+- tracking household, child, maternal, and reproductive health data
+- organizing schedules and duty assignments
+- publishing announcements and notices
+- viewing summary lists and analytics for program reporting
+- displaying map-based location data
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The landing page presents the Department of Health and Barangay Health Workers branding, with separate sign-up and login entry points.
 
-## Learning Laravel
+## Main User Roles
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The application routes indicate three main access levels:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- `Super Admin / President` - highest-level administrative access for dashboard, registration, announcements, and summary views
+- `Admin Midwife` - operational access for schedules, duty monitoring, user activity, and service management
+- `BHW` - field-level access for records, forms, schedules, monthly reports, and profile settings
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Core Modules
 
-## Laravel Sponsors
+From the routes and views in this project, the main modules include:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Dashboard and location map
+- Announcements
+- BHW registration management
+- Schedule management
+- Duty schedule tracking
+- User activity logs
+- Services catalog
+- Child census
+- Maternal care records
+- Family planning records
+- Women reproductive age records
+- Deworming records
+- Census forms and data lists
+- Monthly report printing
+- Summary lists and analytics for program data
+- Profile and account settings
 
-### Premium Partners
+## Technology Stack
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- Laravel 10
+- PHP 8.1+
+- Vite for frontend asset building
+- Bootstrap-based UI assets
+- MySQL or another Laravel-supported database
+- Laravel Sanctum
+- Pusher support for real-time features
+- QR code generation via `simplesoftwareio/simple-qrcode`
 
-## Contributing
+## Project Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Some of the important folders in this repository are:
 
-## Code of Conduct
+- `app/Http/Controllers` - request handling and feature logic
+- `app/Models` - Eloquent models for the system data
+- `database/migrations` - database schema definitions
+- `database/seeders` - initial data seeders
+- `resources/views` - Blade templates for public, admin, and BHW pages
+- `public/js` and `resources/js` - frontend scripts
+- `public/css` - compiled and static styles
+- `routes/web.php` - main web routes and role-based access rules
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Requirements
 
-## Security Vulnerabilities
+- PHP 8.1 or newer
+- Composer
+- Node.js and npm
+- Database server such as MySQL or MariaDB
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Installation
+
+1. Clone the repository.
+2. Install PHP dependencies:
+
+   ```bash
+   composer install
+   ```
+
+3. Install frontend dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Create your environment file:
+
+   ```bash
+   copy .env.example .env
+   ```
+
+5. Generate the application key:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+6. Configure your database and other environment values in `.env`.
+7. Run migrations and seeders if needed:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+## Running the Application
+
+Start the Laravel backend:
+
+```bash
+php artisan serve
+```
+
+In a second terminal, start the Vite development server:
+
+```bash
+npm run dev
+```
+
+Then open the local app URL shown by Laravel, usually:
+
+```bash
+http://127.0.0.1:8000
+```
+
+## Common Artisan Commands
+
+- `php artisan migrate` - run database migrations
+- `php artisan db:seed` - seed the database
+- `php artisan test` - run automated tests
+- `php artisan route:list` - inspect available routes
+
+## Testing
+
+This repository includes PHPUnit and Laravel Dusk test scaffolding. You can run the available test suite with:
+
+```bash
+php artisan test
+```
+
+## Notes
+
+- The repository includes several prebuilt UI asset folders under `public/`, including `Vesperr` and `theme`.
+- The current README is tailored to the BHW portal rather than the default Laravel starter content.
+- If you plan to deploy this system, make sure to review environment values, database credentials, queue settings, mail settings, and any broadcast configuration.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project inherits the license of the repository and its dependencies. If you want, add a dedicated license section here for your deployment or organization policy.
